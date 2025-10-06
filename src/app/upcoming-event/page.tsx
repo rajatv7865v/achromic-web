@@ -139,7 +139,7 @@ export default function UpcomingEventPage() {
     (async () => {
       const [category, events]: any = await Promise.all([
         run(getCategories),
-        run(getEvent),
+        run(getEvent,'UPCOMING'),
       ]);
       setCategories([
         "All",
