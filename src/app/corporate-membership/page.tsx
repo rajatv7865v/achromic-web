@@ -1,8 +1,12 @@
+import Image from "next/image";
+import Banner from '@/components/assets/banner/Corporate-Membership_2025-Banner-002.jpeg'
+
 export default function CorporateMembershipPage() {
   return (
     <div>
       <section className='relative overflow-hidden'>
-        <div className='absolute inset-0 bg-gradient-to-br from-[#be3437] via-[#be3437]/80 to-[#6c7cae] opacity-90'></div>
+        <div className='absolute inset-0 bg-gradient-to-br from-[#be3437] via-[#be3437]/80 to-[#6c7cae] opacity-90'>
+        </div>
         <svg
           className='absolute -top-20 -right-20 w-[520px] h-[520px] text-white/10'
           viewBox='0 0 200 200'
@@ -16,6 +20,7 @@ export default function CorporateMembershipPage() {
         </svg>
         <div className='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20'>
           <div className='grid lg:grid-cols-2 gap-10 items-center'>
+            
             <div>
               <p className='uppercase tracking-widest text-white/80 text-sm font-semibold'>
                 Corporate Membership 2025
