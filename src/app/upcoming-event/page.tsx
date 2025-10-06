@@ -3,11 +3,6 @@
 import { useApi } from "@/hooks/useApi";
 import { getCategories } from "@/services/category";
 import { getEvent } from "@/services/event";
-import {
-  daysDifference,
-  formatCustomDate,
-  formatTimeRange,
-} from "@/utils/helper";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -159,7 +154,9 @@ export default function UpcomingEventPage() {
     })();
   }, [run, selectedEvent]);
 
-  const getRegistrationProgress = (registered: number, max: number) => {
+  const getRegistrationProgress = (event: any) => {
+    const registered = event.registeredAttendees || 0;
+    const max = event.maxAttendees || 100;
     return (registered / max) * 100;
   };
 
@@ -178,14 +175,9 @@ export default function UpcomingEventPage() {
       // Use name as title if title doesn't exist
       title: event.title || event.name,
       // Handle date formatting
-      date: event.dateFrom
-        ? new Date(event.dateFrom).toLocaleDateString()
-        : event.date,
+      date: event.dateFrom ? new Date(event.dateFrom).toLocaleDateString() : event.date,
       // Handle time formatting
-      time:
-        event.timeFrom && event.timeTo
-          ? `${event.timeFrom} - ${event.timeTo}`
-          : event.timeFrom || event.time,
+      time: event.timeFrom && event.timeTo ? `${event.timeFrom} - ${event.timeTo}` : event.timeFrom || event.time,
       // Default values for missing fields
       price: event.price || 10000,
       earlyBirdPrice: event.earlyBirdPrice || 8000,
@@ -194,7 +186,7 @@ export default function UpcomingEventPage() {
       featured: event.featured || false,
       highlights: event.highlights || [
         "Expert-led sessions",
-        "Networking opportunities",
+        "Networking opportunities", 
         "Certificate of participation",
         "Refreshments included",
       ],
@@ -203,7 +195,7 @@ export default function UpcomingEventPage() {
       benefits: event.benefits || [
         "Certificate of Participation",
         "Networking Opportunities",
-        "Event Materials",
+        "Event Materials", 
         "Refreshments",
       ],
     };
@@ -292,33 +284,21 @@ export default function UpcomingEventPage() {
                 >
                   <div className="relative">
                     <div className="h-48 bg-gradient-to-br from-[#be3437]/10 to-[#6c7cae]/10 flex items-center justify-center">
-                      <Image
-                        alt={event.title || event.name || "Event"}
-                        src={
-                          "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80"
-                        }
+                       <Image
+                         alt={event.title || event.name || "Event"}
+                         src={ 
+                           "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80"
+                         }
                         width={600}
                         height={400}
                         className="w-full h-48 object-cover rounded-lg"
                       />
-                      <div className="text-center absolute h-full w-full bg-black/40 flex flex-col justify-center text-white items-center">
-                        <CalendarIcon className="w-16 h-16 text-[#be3437] mx-auto mb-4" />
-                        <div className="text-2xl font-bold text-white mb-2">
-                          {formatCustomDate(event.dateFrom)}
-                        </div>
-                        <div className="text-xl font-semibold text-white">
-                          {event.venue}, {event.location}
-                        </div>
+                    </div>
+                    {transformedEvent.featured && (
+                      <div className="absolute top-4 right-4 bg-[#be3437] text-white px-3 py-1 rounded-full text-sm font-semibold">
+                        Featured
                       </div>
-                    </div>
-
-                    <div className="absolute top-4 right-4 bg-[#be3437] text-white px-3 py-1 rounded-full text-sm font-semibold">
-                      {`${daysDifference(
-                        event.dateFrom,
-                        event.dateTo
-                      )} Days Conference`}
-                    </div>
-
+                    )}
                     <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">
                       <div className="text-sm font-semibold text-gray-900">
                         {getDaysUntilEvent(event.dateFrom)} days to go
@@ -327,23 +307,23 @@ export default function UpcomingEventPage() {
                   </div>
 
                   <div className="p-6">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex flex-wrap gap-2">
-                        {(event.categories || []).map((tag: string) => (
-                          <span
-                            key={tag}
-                            className="bg-[#be3437]/10 text-[#be3437] px-3 py-1 rounded-full text-sm font-medium"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
+                     <div className="flex items-center justify-between mb-3">
+                       <div className="flex flex-wrap gap-2">
+                         {(event.categories || []).map((tag: string) => (
+                           <span
+                             key={tag}
+                             className="bg-[#be3437]/10 text-[#be3437] px-3 py-1 rounded-full text-sm font-medium"
+                           >
+                             {tag}
+                           </span>
+                         ))}
+                       </div>
                       <div className="text-right">
                         <div className="text-lg font-bold text-gray-900">
-                          {event.location}
+                          ₹{transformedEvent.earlyBirdPrice.toLocaleString()}
                         </div>
-                        <div className="text-sm text-gray-500 ">
-                          {event.venue}
+                        <div className="text-sm text-gray-500 line-through">
+                          ₹{transformedEvent.price.toLocaleString()}
                         </div>
                       </div>
                     </div>
@@ -352,21 +332,16 @@ export default function UpcomingEventPage() {
                     </h3>
                     <p className="text-gray-600 mb-4">{event.description}</p>
 
-                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                      <div className="flex items-center space-x-1">
-                        <ClockIcon className="w-4 h-4" />
-                        <span>
-                          {event.timeFrom && event.timeTo
-                            ? formatTimeRange(
-                                `${event.timeFrom} - ${event.timeTo}`
-                              )
-                            : "TBA"}
-                        </span>
-                      </div>
+                     <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                       <div className="flex items-center space-x-1">
+                         <ClockIcon className="w-4 h-4" />
+                         <span>{event.timeFrom && event.timeTo ? `${event.timeFrom} - ${event.timeTo}` : "TBA"}</span>
+                       </div>
                       <div className="flex items-center space-x-1">
                         <UsersIcon className="w-4 h-4" />
                         <span>
-                          {143}/{200} registered
+                          {transformedEvent.registeredAttendees}/
+                          {transformedEvent.maxAttendees} registered
                         </span>
                       </div>
                     </div>
@@ -376,14 +351,19 @@ export default function UpcomingEventPage() {
                       <div className="flex justify-between text-sm text-gray-600 mb-1">
                         <span>Registration Progress</span>
                         <span>
-                          {Math.round(getRegistrationProgress(143, 200))}%
+                          {Math.round(
+                            getRegistrationProgress(transformedEvent)
+                          )}
+                          %
                         </span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <div
                           className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] h-2 rounded-full transition-all duration-300"
                           style={{
-                            width: `${getRegistrationProgress(143, 200)}%`,
+                            width: `${getRegistrationProgress(
+                              transformedEvent
+                            )}%`,
                           }}
                         ></div>
                       </div>
@@ -431,140 +411,425 @@ export default function UpcomingEventPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-          {events
-            .filter((item: any) =>
-              selectedCategory == "All"
-                ? item
-                : item.categories.includes(selectedCategory)
-            )
-            .map((event: any) => {
-              const transformedEvent = transformEvent(event);
-              return (
-                <div
-                  key={event._id || event.id || Date.now()}
-                  className={`bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer ${
-                    selectedEvent?._id === event._id ||
-                    selectedEvent?.id === event.id
-                      ? "ring-2 ring-[#be3437]"
-                      : ""
-                  }`}
-                  onClick={() => setSelectedEvent(transformedEvent)}
-                >
-                  <div className="relative">
-                    <div className="h-48 bg-gradient-to-br from-[#be3437]/10 to-[#6c7cae]/10 flex items-center justify-center">
-                      <Image
-                        alt={event.title || event.name || "Event"}
-                        src={
-                          "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80"
-                        }
-                        width={600}
-                        height={400}
-                        className="w-full h-48 object-cover rounded-lg"
-                      />
-                      <div className="text-center absolute h-full w-full bg-black/40 flex flex-col justify-center text-white items-center">
-                        <CalendarIcon className="w-16 h-16 text-[#be3437] mx-auto mb-4" />
-                        <div className="text-2xl font-bold text-white mb-2">
-                          {formatCustomDate(event.dateFrom)}
-                        </div>
-                        <div className="text-xl font-semibold text-white">
-                          {event.location}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="absolute top-4 right-4 bg-[#be3437] text-white px-3 py-1 rounded-full text-sm font-semibold">
-                      {`${daysDifference(
-                        event.dateFrom,
-                        event.dateTo
-                      )} Days Conference`}
-                    </div>
-
-                    <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">
-                      <div className="text-sm font-semibold text-gray-900">
-                        {getDaysUntilEvent(event.dateFrom)} days to go
-                      </div>
-                    </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+          {events.slice(2).map((event: any) => {
+            const transformedEvent = transformEvent(event);
+            return (
+              <div
+                key={event._id || event.id || Date.now()}
+                className={`bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer ${
+                  selectedEvent?._id === event._id ||
+                  selectedEvent?.id === event.id
+                    ? "ring-2 ring-[#be3437]"
+                    : ""
+                }`}
+                onClick={() => setSelectedEvent(transformedEvent)}
+              >
+                 <div className="relative">
+                   <div className="h-48 bg-gradient-to-br from-[#be3437]/10 to-[#6c7cae]/10 flex items-center justify-center">
+                     <Image
+                       alt={event.title || event.name || "Event"}
+                       src={
+                         "https://source.unsplash.com/random/1200x400/?conference,meeting"
+                       }
+                      width={600}
+                      height={400}
+                      className="w-full h-48 object-cover rounded-lg"
+                    />
                   </div>
-
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex flex-wrap gap-2">
-                        {(event.categories || []).map((tag: string) => (
-                          <span
-                            key={tag}
-                            className="bg-[#be3437]/10 text-[#be3437] px-3 py-1 rounded-full text-sm font-medium"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="text-right">
-                        <div className="text-lg font-bold text-gray-900">
-                          {event.location}
-                        </div>
-                        <div className="text-sm text-gray-500 ">
-                          {event.venue}
-                        </div>
-                      </div>
+                  {transformedEvent.featured && (
+                    <div className="absolute top-4 right-4 bg-[#be3437] text-white px-3 py-1 rounded-full text-sm font-semibold">
+                      Featured
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">
-                      {event.title || event.name}
-                    </h3>
-                    <p className="text-gray-600 mb-4">{event.description}</p>
-
-                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                      <div className="flex items-center space-x-1">
-                        <ClockIcon className="w-4 h-4" />
-                        <span>
-                          {event.timeFrom && event.timeTo
-                            ? formatTimeRange(
-                                `${event.timeFrom} - ${event.timeTo}`
-                              )
-                            : "TBA"}
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <UsersIcon className="w-4 h-4" />
-                        <span>
-                          {143}/{200} registered
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Registration Progress */}
-                    <div className="mb-4">
-                      <div className="flex justify-between text-sm text-gray-600 mb-1">
-                        <span>Registration Progress</span>
-                        <span>
-                          {Math.round(getRegistrationProgress(143, 200))}%
-                        </span>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div
-                          className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] h-2 rounded-full transition-all duration-300"
-                          style={{
-                            width: `${getRegistrationProgress(143, 200)}%`,
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-
-                    <div className="w-full">
-                      <Link
-                        href={`/event/${event.slug}`}
-                        className="w-full items-center justify-center flex bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200"
-                      >
-                        View Details & Register
-                      </Link>
+                  )}
+                  <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">
+                    <div className="text-sm font-semibold text-gray-900">
+                      {getDaysUntilEvent(event.dateFrom || event.date)} days to
+                      go
                     </div>
                   </div>
                 </div>
-              );
-            })}
+
+                 <div className="p-6">
+                   <div className="flex items-center justify-between mb-3">
+                     <div className="flex flex-wrap gap-2">
+                       {(event.categories || []).map((tag: string) => (
+                         <span
+                           key={tag}
+                           className="bg-[#be3437]/10 text-[#be3437] px-3 py-1 rounded-full text-sm font-medium"
+                         >
+                           {tag}
+                         </span>
+                       ))}
+                     </div>
+                    <div className="text-right">
+                      <div className="text-lg font-bold text-gray-900">
+                        ₹{transformedEvent.earlyBirdPrice.toLocaleString()}
+                      </div>
+                      <div className="text-sm text-gray-500 line-through">
+                        ₹{transformedEvent.price.toLocaleString()}
+                      </div>
+                    </div>
+                  </div>
+
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    {event.title || event.name}
+                  </h3>
+                  <p className="text-gray-600 mb-4">{event.description}</p>
+
+                   <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                     <div className="flex items-center space-x-1">
+                       <ClockIcon className="w-4 h-4" />
+                       <span>{event.timeFrom && event.timeTo ? `${event.timeFrom} - ${event.timeTo}` : "TBA"}</span>
+                     </div>
+                    <div className="flex items-center space-x-1">
+                      <UsersIcon className="w-4 h-4" />
+                      <span>
+                        {transformedEvent.registeredAttendees}/
+                        {transformedEvent.maxAttendees} registered
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Registration Progress */}
+                  <div className="mb-4">
+                    <div className="flex justify-between text-sm text-gray-600 mb-1">
+                      <span>Registration Progress</span>
+                      <span>
+                        {Math.round(getRegistrationProgress(transformedEvent))}%
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div
+                        className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] h-2 rounded-full transition-all duration-300"
+                        style={{
+                          width: `${getRegistrationProgress(
+                            transformedEvent
+                          )}%`,
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+
+                  <button className="w-full bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200">
+                    View Details & Register
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
+
+      {/* Event Details Section */}
+      {selectedEvent && (
+        <div className="bg-white py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Event Header */}
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                {selectedEvent.title || selectedEvent.name}
+              </h2>
+              <div className="flex flex-wrap justify-center items-center gap-4 text-gray-600">
+                <div className="flex items-center space-x-2">
+                  <CalendarIcon className="w-5 h-5 text-[#be3437]" />
+                  <span>
+                    {selectedEvent.dateFrom && selectedEvent.dateTo 
+                      ? `${new Date(selectedEvent.dateFrom).toLocaleDateString()} - ${new Date(selectedEvent.dateTo).toLocaleDateString()}`
+                      : selectedEvent.dateFrom 
+                      ? new Date(selectedEvent.dateFrom).toLocaleDateString()
+                      : "TBA"
+                    }
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <ClockIcon className="w-5 h-5 text-[#be3437]" />
+                  <span>
+                    {selectedEvent.timeFrom && selectedEvent.timeTo 
+                      ? `${selectedEvent.timeFrom} - ${selectedEvent.timeTo}`
+                      : selectedEvent.timeFrom 
+                      ? selectedEvent.timeFrom
+                      : "TBA"
+                    }
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <MapPinIcon className="w-5 h-5 text-[#be3437]" />
+                  <span>
+                    {selectedEvent.venue && selectedEvent.location 
+                      ? `${selectedEvent.venue}, ${selectedEvent.location}`
+                      : selectedEvent.venue || selectedEvent.location || "TBA"
+                    }
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Tabs */}
+            <div className="flex flex-wrap justify-center gap-4 mb-8">
+              {["overview", "speakers", "agenda", "benefits"].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`px-6 py-2 rounded-full font-medium transition-all duration-200 capitalize ${
+                    activeTab === tab
+                      ? "bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white shadow-lg"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+
+            {/* Tab Content */}
+            <div className="bg-gray-50 rounded-xl p-8">
+              {activeTab === "overview" && (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                        Event Overview
+                      </h3>
+                      <p className="text-gray-600 mb-6">
+                        {selectedEvent.longDescription ||
+                          selectedEvent.description}
+                      </p>
+
+                      <div className="space-y-4">
+                        <h4 className="text-lg font-semibold text-gray-900">
+                          Key Highlights:
+                        </h4>
+                        <ul className="space-y-2">
+                          {selectedEvent.highlights.map(
+                            (highlight: string, index: number) => (
+                              <li
+                                key={index}
+                                className="flex items-center space-x-3"
+                              >
+                                <CheckCircleIcon className="w-5 h-5 text-[#be3437] flex-shrink-0" />
+                                <span className="text-gray-700">
+                                  {highlight}
+                                </span>
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-lg p-6 shadow-sm">
+                      <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                        Event Details
+                      </h4>
+                      <div className="space-y-4">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Start Date:</span>
+                          <span className="font-medium">
+                            {selectedEvent.dateFrom ? new Date(selectedEvent.dateFrom).toLocaleDateString() : "TBA"}
+                          </span>
+                        </div>
+                        {selectedEvent.dateTo && (
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">End Date:</span>
+                            <span className="font-medium">
+                              {new Date(selectedEvent.dateTo).toLocaleDateString()}
+                            </span>
+                          </div>
+                        )}
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Time:</span>
+                          <span className="font-medium">
+                            {selectedEvent.timeFrom && selectedEvent.timeTo 
+                              ? `${selectedEvent.timeFrom} - ${selectedEvent.timeTo}`
+                              : selectedEvent.timeFrom 
+                              ? selectedEvent.timeFrom
+                              : "TBA"
+                            }
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Venue:</span>
+                          <span className="font-medium text-right">
+                            {selectedEvent.venue || "TBA"}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Location:</span>
+                          <span className="font-medium">
+                            {selectedEvent.location || "TBA"}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Categories:</span>
+                          <span className="font-medium">
+                            {selectedEvent.categories && selectedEvent.categories.length > 0 
+                              ? selectedEvent.categories.join(", ")
+                              : "General"
+                            }
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Status:</span>
+                          <span className="font-medium">
+                            {selectedEvent.isActive ? "Active" : "Inactive"}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Created:</span>
+                          <span className="font-medium">
+                            {selectedEvent.createdAt ? new Date(selectedEvent.createdAt).toLocaleDateString() : "N/A"}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="mt-6 pt-6 border-t border-gray-200">
+                        <div className="text-center">
+                          <div className="text-3xl font-bold text-[#be3437] mb-2">
+                            ₹{selectedEvent.earlyBirdPrice.toLocaleString()}
+                          </div>
+                          <div className="text-sm text-gray-500 line-through mb-4">
+                            Regular Price: ₹
+                            {selectedEvent.price.toLocaleString()}
+                          </div>
+                          <button className="w-full bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-6 py-3 rounded-lg font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg">
+                            Register Now
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === "speakers" && (
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                    Our Speakers
+                  </h3>
+                  {selectedEvent.speakers &&
+                  selectedEvent.speakers.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {selectedEvent.speakers.map((speaker: any) => (
+                        <div
+                          key={speaker.id}
+                          className="bg-white rounded-lg p-6 shadow-sm border border-gray-100"
+                        >
+                          <div className="text-center">
+                            <div className="w-20 h-20 bg-gradient-to-br from-[#be3437] to-[#6c7cae] rounded-full mx-auto mb-4 flex items-center justify-center">
+                              <span className="text-white font-bold text-xl">
+                                {speaker.name
+                                  .split(" ")
+                                  .map((n: string) => n[0])
+                                  .join("")}
+                              </span>
+                            </div>
+                            <h4 className="text-lg font-semibold text-gray-900 mb-1">
+                              {speaker.name}
+                            </h4>
+                            <p className="text-[#be3437] font-medium mb-2">
+                              {speaker.title}
+                            </p>
+                            <p className="text-gray-600 text-sm mb-3">
+                              {speaker.company}
+                            </p>
+                            <p className="text-gray-600 text-sm">
+                              {speaker.bio}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-gray-600 text-center">
+                      Speaker information coming soon.
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {activeTab === "agenda" && (
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                    Event Agenda
+                  </h3>
+                  {selectedEvent.agenda && selectedEvent.agenda.length > 0 ? (
+                    <div className="space-y-4">
+                      {selectedEvent.agenda.map((item: any, index: number) => (
+                        <div
+                          key={index}
+                          className="bg-white rounded-lg p-4 shadow-sm border border-gray-100"
+                        >
+                          <div className="flex items-start space-x-4">
+                            <div className="flex-shrink-0 w-20 text-sm font-medium text-[#be3437]">
+                              {item.time}
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="font-semibold text-gray-900 mb-1">
+                                {item.session}
+                              </h4>
+                              {item.speaker && (
+                                <p className="text-gray-600 text-sm">
+                                  Speaker: {item.speaker}
+                                </p>
+                              )}
+                            </div>
+                            <div className="flex-shrink-0">
+                              <span
+                                className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                  item.type === "keynote"
+                                    ? "bg-purple-100 text-purple-800"
+                                    : item.type === "panel"
+                                    ? "bg-blue-100 text-blue-800"
+                                    : item.type === "workshop"
+                                    ? "bg-green-100 text-green-800"
+                                    : item.type === "break"
+                                    ? "bg-orange-100 text-orange-800"
+                                    : "bg-gray-100 text-gray-800"
+                                }`}
+                              >
+                                {item.type}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-gray-600 text-center">
+                      Agenda details coming soon.
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {activeTab === "benefits" && (
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                    What You'll Get
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {selectedEvent.benefits.map(
+                      (benefit: string, index: number) => (
+                        <div
+                          key={index}
+                          className="flex items-center space-x-3 p-4 bg-white rounded-lg shadow-sm border border-gray-100"
+                        >
+                          <CheckCircleIcon className="w-6 h-6 text-[#be3437] flex-shrink-0" />
+                          <span className="text-gray-700 font-medium">
+                            {benefit}
+                          </span>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* CTA Section */}
       <div className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] py-16">

@@ -1,8 +1,8 @@
 import axiosObject from "../axios.config";
 
-export const getEvent = async () => {
+export const getEvent = async (eventType:string) => {
   try {
-    const uri: string = `event?page=1&limit=50`;
+    const uri: string = `event?page=1&limit=50&eventType=${eventType}`;
     const response = await axiosObject.get(uri);
     if (response.status === 200) {
       console.log("response", response.data);
