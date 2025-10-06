@@ -3,6 +3,7 @@ import { toError } from "../utils/error";
 
 let axiosObject = axios.default.create();
 axiosObject.defaults.baseURL = "http://localhost:8080/api/v1";
+axiosObject.defaults.baseURL = "https://api.test.sharkwaveinfo.com/api/v1";
 axiosObject.defaults.timeout = 20000;
 axiosObject.defaults.withCredentials = false;
 axiosObject.defaults.headers.common = {
