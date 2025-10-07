@@ -9,6 +9,10 @@ import {
 } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import Speaker from "./_components/Speaker";
+import Agenda from "@/components/agenda";
+import Partner from "./_components/Partner";
+import RegistrationPage from "./_components/Registeration";
 
 interface Event {
   id: number;
@@ -352,12 +356,14 @@ export default function pgae() {
 
   useEffect(() => {
     (async () => {
-      const [event]: any = await Promise.all([run(getEventBySlug, slug)]);
-      setEvent(event.data);
+      // First: get event details
+      const eventRes: any = await run(getEventBySlug, slug);
+      console.log("Event response:", eventRes);
+      console.log("Event data:", eventRes.data);
+      setEvent(eventRes.data);
     })();
-  }, [run, selectedEvent]);
+  }, [run, slug]);
 
-  console.log("slug", slug);
   return (
     <div>
       <div className="relative py-20 overflow-hidden">
@@ -381,7 +387,6 @@ export default function pgae() {
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-          
             <h1 className="text-5xl font-bold text-white mb-6 drop-shadow-lg">
               {event?.name}
             </h1>
@@ -389,22 +394,22 @@ export default function pgae() {
               {event.description}
             </p>
             <div className="flex flex-wrap justify-center items-center gap-4 text-white text-[18px] font-semibold">
-                <div className="flex items-center space-x-2">
-                  <CalendarIcon className="w-5 h-5 text-[#be3437]" />
-                  <span>{event.dateFrom}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <ClockIcon className="w-5 h-5 text-[#be3437]" />
-                  <span>{event.timeFrom}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <MapPinIcon className="w-5 h-5 text-[#be3437]" />
-                  <span>
-                    {event.venue}, {event.location}
-                  </span>
-                </div>
+              <div className="flex items-center space-x-2">
+                <CalendarIcon className="w-5 h-5 text-[#be3437]" />
+                <span>{event.dateFrom}</span>
               </div>
-            
+              <div className="flex items-center space-x-2">
+                <ClockIcon className="w-5 h-5 text-[#be3437]" />
+                <span>{event.timeFrom}</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <MapPinIcon className="w-5 h-5 text-[#be3437]" />
+                <span>
+                  {event.venue}, {event.location}
+                </span>
+              </div>
+            </div>
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-10">
               <button className="bg-white text-[#be3437] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg">
                 Register Now
@@ -424,24 +429,25 @@ export default function pgae() {
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
                 {event?.name}
               </h2>
-             
             </div>
 
             {/* Tabs */}
             <div className="flex flex-wrap justify-center gap-4 mb-8">
-              {["overview", "speakers", "agenda", "benefits"].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-6 py-2 rounded-full font-medium transition-all duration-200 capitalize ${
-                    activeTab === tab
-                      ? "bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white shadow-lg"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
+              {["overview", "speakers", "partners", "agenda", "benefits","registeration"].map(
+                (tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`px-6 py-2 rounded-full font-medium transition-all duration-200 capitalize ${
+                      activeTab === tab
+                        ? "bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white shadow-lg"
+                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                )
+              )}
             </div>
 
             {/* Tab Content */}
@@ -482,15 +488,11 @@ export default function pgae() {
                       <div className="space-y-4">
                         <div className="flex justify-between">
                           <span className="text-gray-600">Date:</span>
-                          <span className="font-medium">
-                            {event.dateFrom}
-                          </span>
+                          <span className="font-medium">{event.dateFrom}</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-gray-600">Time:</span>
-                          <span className="font-medium">
-                            {event?.timeFrom}
-                          </span>
+                          <span className="font-medium">{event?.timeFrom}</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-gray-600">Venue:</span>
@@ -536,93 +538,20 @@ export default function pgae() {
                   </div>
                 </div>
               )}
-
-              {activeTab === "speakers" && (
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                    Our Speakers
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {selectedEvent.speakers.map((speaker: any) => (
-                      <div
-                        key={speaker.id}
-                        className="bg-white rounded-lg p-6 shadow-sm border border-gray-100"
-                      >
-                        <div className="text-center">
-                          <div className="w-20 h-20 bg-gradient-to-br from-[#be3437] to-[#6c7cae] rounded-full mx-auto mb-4 flex items-center justify-center">
-                            <span className="text-white font-bold text-xl">
-                              {speaker.name
-                                .split(" ")
-                                .map((n: any) => n[0])
-                                .join("")}
-                            </span>
-                          </div>
-                          <h4 className="text-lg font-semibold text-gray-900 mb-1">
-                            {speaker.name}
-                          </h4>
-                          <p className="text-[#be3437] font-medium mb-2">
-                            {speaker.title}
-                          </p>
-                          <p className="text-gray-600 text-sm mb-3">
-                            {speaker.company}
-                          </p>
-                          <p className="text-gray-600 text-sm">{speaker.bio}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
+              {activeTab === "partners" && <Partner eventId={event._id}/>}
+              {activeTab === "speakers" && <Speaker eventId={event._id} />}
+              {activeTab === "registeration" && <RegistrationPage eventId={event._id} />}
               {activeTab === "agenda" && (
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                    Event Agenda
-                  </h3>
-                  <div className="space-y-4">
-                    {selectedEvent.agenda.map((item, index) => (
-                      <div
-                        key={index}
-                        className="bg-white rounded-lg p-4 shadow-sm border border-gray-100"
-                      >
-                        <div className="flex items-start space-x-4">
-                          <div className="flex-shrink-0 w-20 text-sm font-medium text-[#be3437]">
-                            {item.time}
-                          </div>
-                          <div className="flex-1">
-                            <h4 className="font-semibold text-gray-900 mb-1">
-                              {item.session}
-                            </h4>
-                            {item.speaker && (
-                              <p className="text-gray-600 text-sm">
-                                Speaker: {item.speaker}
-                              </p>
-                            )}
-                          </div>
-                          <div className="flex-shrink-0">
-                            <span
-                              className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                item.type === "keynote"
-                                  ? "bg-purple-100 text-purple-800"
-                                  : item.type === "panel"
-                                  ? "bg-blue-100 text-blue-800"
-                                  : item.type === "workshop"
-                                  ? "bg-green-100 text-green-800"
-                                  : item.type === "break"
-                                  ? "bg-orange-100 text-orange-800"
-                                  : "bg-gray-100 text-gray-800"
-                              }`}
-                            >
-                              {item.type}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  {event._id ? (
+                    <Agenda eventId={event._id} />
+                  ) : (
+                    <div className="text-center py-12">
+                      <p className="text-gray-500 text-lg">Loading event details...</p>
+                    </div>
+                  )}
                 </div>
               )}
-
               {activeTab === "benefits" && (
                 <div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-6">
