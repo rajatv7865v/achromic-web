@@ -3,7 +3,14 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: ["images.unsplash.com", "source.unsplash.com","images.unsplash.com"],
+    domains: [
+      "images.unsplash.com", 
+      "source.unsplash.com",
+      "localhost",
+      "127.0.0.1",
+      "api.test.sharkwaveinfo.com",
+      "*.sharkwaveinfo.com"
+    ],
     remotePatterns: [
       {
         protocol: 'https',
@@ -12,6 +19,19 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '5001',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.test.sharkwaveinfo.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.sharkwaveinfo.com',
       },
     ],
   },

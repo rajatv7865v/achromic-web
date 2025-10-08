@@ -316,7 +316,7 @@ export default function UpcomingEventPage() {
                       {`${daysDifference(
                         event.dateFrom,
                         event.dateTo
-                      )} Days Conference`}
+                      )} Day's Conference`}
                     </div>
 
                     <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">
@@ -478,7 +478,7 @@ export default function UpcomingEventPage() {
                       {`${daysDifference(
                         event.dateFrom,
                         event.dateTo
-                      )} Days Conference`}
+                      )} Day's Conference`}
                     </div>
 
                     <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">

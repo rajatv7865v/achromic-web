@@ -373,7 +373,7 @@ export default function PastEventPage() {
                     {`${daysDifference(
                       event.dateFrom,
                       event.dateTo
-                    )} Days Conference`}
+                    )} Day's Conference`}
                   </div>
                 </div>
 

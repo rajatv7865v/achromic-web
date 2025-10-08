@@ -11,6 +11,9 @@ export function formatCustomDate(dateStr: string): string {
   export function daysDifference(date1: string | Date, date2: string | Date): number {
     const d1 = new Date(date1);
     const d2 = new Date(date2);
+    if(d1.getTime() === d2.getTime()) {
+        return 1;
+    }
   
     // Get the difference in milliseconds
     const diffMs = Math.abs(d2.getTime() - d1.getTime());

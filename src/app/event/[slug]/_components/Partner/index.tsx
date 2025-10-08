@@ -7,6 +7,7 @@ import Link from "next/link";
 
 export default function Partner({ eventId }: { eventId: string }) {
   const [partners, setPartners] = useState<any>([]);
+  const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
   const { data, loading, error, run } = useApi<{ data: any[] }>();
 
   useEffect(() => {
@@ -16,21 +17,78 @@ export default function Partner({ eventId }: { eventId: string }) {
     })();
   }, [run, eventId]);
 
+  const handleImageError = (partnerId: string) => {
+    setImageErrors(prev => new Set(prev).add(partnerId));
+  };
+
+  if (loading) {
+    return (
+      <div className="text-center py-12">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#be3437] mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading partners...</p>
+      </div>
+    );
+  }
+
+  if (error || partners.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-gray-500 text-lg">No partners found for this event.</p>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <h3 className="text-2xl font-bold text-gray-900 mb-6">Our Partners</h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="text-center mb-12">
+        <h3 className="text-3xl font-bold text-gray-900 mb-4">Our Partners</h3>
+        <p className="text-gray-600 text-lg">Trusted by industry leaders</p>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
         {partners.map((partner: any) => (
           <div
             key={partner._id}
-            className="bg-white rounded-lg p-6 shadow-sm border border-gray-100"
+            className="group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-2xl border border-gray-100 hover:border-[#be3437]/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2"
           >
-            <Link href={partner?.companyUrl ||'/'} className="text-center">
-              <Image
-                src={partner.imageUrl || Logo}
-                alt={partner.name}
-                className="h-full w-full"
-              />
+            {/* Decorative background pattern */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#be3437]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            {/* Partner logo container */}
+            <Link 
+              href={partner?.companyUrl || '/'} 
+              className="relative block text-center group-hover:scale-110 transition-transform duration-300"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="relative h-20 w-full flex items-center justify-center">
+                {!imageErrors.has(partner._id) ? (
+                  <Image
+                    src={partner.imagePath || Logo}
+                    alt={partner.name || 'Partner Logo'}
+                    width={120}
+                    height={80}
+                    className="max-h-20 w-auto object-contain filter group-hover:brightness-110 transition-all duration-300"
+                    onError={() => handleImageError(partner._id)}
+                    unoptimized={true}
+                  />
+                ) : (
+                  <div className="h-16 w-16 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center">
+                    <span className="text-gray-600 font-bold text-lg">
+                      {partner.name?.charAt(0) || 'P'}
+                    </span>
+                  </div>
+                )}
+              </div>
+              
+              {/* Partner name */}
+              <h4 className="mt-4 text-sm font-semibold text-gray-700 group-hover:text-[#be3437] transition-colors duration-300 line-clamp-2">
+                {partner.name || 'Partner'}
+              </h4>
+              
+              {/* Hover indicator */}
+              <div className="absolute -top-2 -right-2 w-4 h-4 bg-[#be3437] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100">
+                <div className="w-full h-full bg-white rounded-full scale-50"></div>
+              </div>
             </Link>
           </div>
         ))}
