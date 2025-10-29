@@ -11,16 +11,6 @@ export async function GET(request: NextRequest) {
 
     let filteredPartners = [...mockPartners];
 
-    // Filter by featured status
-    if (featured === 'true') {
-      filteredPartners = filteredPartners.filter(partner => partner.featured);
-    }
-
-    // Filter by category
-    if (category) {
-      filteredPartners = filteredPartners.filter(partner => partner.category === category);
-    }
-
     // Filter active partners only
     filteredPartners = filteredPartners.filter(partner => partner.isActive);
 
