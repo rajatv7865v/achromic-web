@@ -128,7 +128,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-center md:text-left text-gray-400 mb-4 md:mb-0">
-              <p>&copy; 2024 Achromic Point. All rights reserved.</p>
+              <p>&copy; 2025 Achromic Point. All rights reserved.</p>
             </div>
             
             {/* Legal Links */}

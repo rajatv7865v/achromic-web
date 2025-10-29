@@ -2,16 +2,9 @@
 // import { axiosInstance } from '../axios.config';
 
 export interface Partner {
-  id: string;
-  name: string;
   logo: string;
   website: string;
-  description?: string;
-  category: 'conference' | 'corporate' | 'academic' | 'government' | 'ngo';
   isActive: boolean;
-  featured: boolean;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface PartnersResponse {
@@ -46,8 +39,8 @@ export const partnerService = {
     }
   },
 
-  // Get partners by category
-  getPartnersByCategory: async (category: Partner['category']): Promise<Partner[]> => {
+  // Get partners by category (removed since Partner interface doesn't have category)
+  getPartnersByCategory: async (category: string): Promise<Partner[]> => {
     try {
       const response = await fetch(`/api/partners?category=${category}`);
       if (!response.ok) throw new Error('Failed to fetch partners by category');
@@ -71,13 +64,12 @@ export const partnerService = {
     }
   },
 
-  // Get partner by ID
-  getPartnerById: async (id: string): Promise<Partner> => {
+  // Get partner by ID (Note: simplified Partner interface doesn't have id field)
+  getPartnerById: async (id: string): Promise<Partner | null> => {
     try {
-      const { mockPartners } = await import('../../data/mockPartners');
-      const partner = mockPartners.find(p => p.id === id);
-      if (!partner) throw new Error('Partner not found');
-      return partner;
+      // Since our simplified Partner interface doesn't have an id field,
+      // this function is kept for API compatibility but returns null
+      return null;
     } catch (error) {
       console.error('Error fetching partner:', error);
       throw error;
@@ -85,7 +77,7 @@ export const partnerService = {
   },
 
   // Create new partner (admin only)
-  createPartner: async (partnerData: Omit<Partner, 'id' | 'createdAt' | 'updatedAt'>): Promise<Partner> => {
+  createPartner: async (partnerData: Partner): Promise<Partner> => {
     try {
       const response = await fetch('/api/partners', {
         method: 'POST',
@@ -101,13 +93,11 @@ export const partnerService = {
   },
 
   // Update partner (admin only)
-  updatePartner: async (id: string, partnerData: Partial<Partner>): Promise<Partner> => {
+  updatePartner: async (id: string, partnerData: Partial<Partner>): Promise<Partner | null> => {
     try {
-      // For now, return mock data
-      const { mockPartners } = await import('../../data/mockPartners');
-      const partner = mockPartners.find(p => p.id === id);
-      if (!partner) throw new Error('Partner not found');
-      return { ...partner, ...partnerData };
+      // Since our simplified Partner interface doesn't have an id field,
+      // this function is kept for API compatibility but returns null
+      return null;
     } catch (error) {
       console.error('Error updating partner:', error);
       throw error;

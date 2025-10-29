@@ -9,7 +9,8 @@ const nextConfig: NextConfig = {
       "localhost",
       "127.0.0.1",
       "api.test.sharkwaveinfo.com",
-      "*.sharkwaveinfo.com"
+      "*.sharkwaveinfo.com",
+      "achromicpoint.com"
     ],
     remotePatterns: [
       {
@@ -32,6 +33,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: '*.sharkwaveinfo.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'achromicpoint.com',
       },
     ],
   },

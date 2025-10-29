@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import Footer from "@/components/footer";
 import Partners from "../components/partners";
-import { usePartners } from "../hooks/usePartners";
 import { mockPartners } from "../data/mockPartners";
 
 // Simple SVG Icons
@@ -293,48 +292,8 @@ const faqs = [
 
 // Partners Section Component
 function PartnersSection() {
-  const { featuredPartners, loading, error } = usePartners();
-  
-  // Use mock data if API fails or is loading
-  const partners = featuredPartners.length > 0 ? featuredPartners : mockPartners.filter(p => p.featured);
-
-  if (loading) {
-    return (
-      <div className='py-16 bg-white'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='text-center mb-12'>
-            <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-              Trusted by Leading Organizations
-            </h2>
-            <p className='text-lg text-gray-600'>
-              We're proud to partner with industry leaders across various sectors
-            </p>
-          </div>
-          <div className='flex justify-center items-center py-12'>
-            <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-[#be3437]'></div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className='py-16 bg-white'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='text-center'>
-            <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-              Trusted by Leading Organizations
-            </h2>
-            <p className='text-lg text-gray-600 mb-8'>
-              We're proud to partner with industry leaders across various sectors
-            </p>
-            <p className='text-red-600'>Failed to load partners. Please try again later.</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // Use static mock data directly
+  const partners = mockPartners.filter(p => p.isActive);
 
   return (
     <Partners 
@@ -610,6 +569,9 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Partners Section - Trusted by Leading Organizations */}
+        <PartnersSection />
+
         {/* Creative Features Showcase */}
         <div className='relative py-16 bg-gradient-to-br from-gray-50 via-white to-gray-50'>
           <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
@@ -758,9 +720,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Partners Section */}
-        <PartnersSection />
-
         {/* Upcoming Events Section */}
         <div className='py-20 bg-white'>
           <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
@@ -847,28 +806,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Our Partners Section */}
-        <div className='py-16 bg-gray-50'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='text-center mb-12'>
-              <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-                Our Partners
-              </h2>
-              <p className='text-lg text-gray-600'>
-                Collaborating with industry leaders to deliver exceptional events
-              </p>
-            </div>
-            
-            <Partners 
-              partners={mockPartners}
-              title=""
-              subtitle=""
-              showAll={true}
-              maxItems={8}
-              className="bg-gray-50"
-            />
-          </div>
-        </div>
+     
 
         {/* Services Section */}
         <div className='bg-gray-50 py-20'>
