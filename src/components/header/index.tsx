@@ -7,6 +7,7 @@ import Logo from "@/components/assets/logo/logo.png";
 import { Linkedin } from "lucide";
 import {
   FacebookIcon,
+  InstagramIcon,
   LinkedinIcon,
   TwitterIcon,
   YoutubeIcon,
@@ -123,33 +124,27 @@ export default function Header() {
             <div className='flex items-center space-x-4'>
               <span className='flex items-center'>📞 011-4601-1835</span>
               <span className='flex items-center'>
-                📧 nupur.verma@achromicpoint.com
+                📧 contactus@achromicpoint.com
               </span>
             </div>
             <div className='hidden md:flex items-center space-x-4'>
               {/* <span className='text-white/90'>Follow us:</span> */}
               <div className='flex space-x-4'>
                 <a
-                  href='https://www.linkedin.com/company/achromic-point-consulting'
+                  href='https://www.linkedin.com/company/30248529/admin/page-posts/published/'
                   target='_blank'
                   className='hover:text-white/80 transition-colors'
                 >
                   <LinkedinIcon />
                 </a>
                 <a
-                  href='https://twitter.com/AchromicPoint'
+                  href='https://www.instagram.com/achromicpoint/'
                   target='_blank'
                   className='hover:text-white/80 transition-colors'
                 >
-                  <TwitterIcon />
+                  <InstagramIcon />
                 </a>
-                <a
-                  href='https://www.youtube.com/AchromicPoint'
-                  target='_blank'
-                  className='hover:text-white/80 transition-colors'
-                >
-                  <YoutubeIcon />
-                </a>
+               
                 <a
                   href='https://www.facebook.com/AchromicPoint'
                   target='_blank'

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Footer from "@/components/footer";
 
 // Simple SVG Icons
 const CalendarIcon = ({ className }: { className?: string }) => (
@@ -248,10 +249,10 @@ const services = [
 ];
 
 const stats = [
-  { label: "Events Conducted", value: "500+", icon: CalendarIcon },
-  { label: "Participants Trained", value: "50,000+", icon: UsersIcon },
   { label: "Years of Experience", value: "15+", icon: AwardIcon },
-  { label: "Industry Partners", value: "200+", icon: StarIcon },
+  { label: "Participants Trained", value: "25,000+", icon: UsersIcon },
+  { label: "Corporate Partnerships", value: "4,500+", icon: StarIcon },
+  { label: "Global Events Delivered", value: "2,000+", icon: CalendarIcon },
 ];
 
 const faqs = [
@@ -564,40 +565,40 @@ export default function Home() {
               </p>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
-              {/* Feature 1 - Interactive Learning */}
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+              {/* Feature 1 - Expert-led Training Programs */}
               <div className='group relative'>
                 <div className='absolute inset-0 bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
                 <div className='relative glass-card rounded-2xl p-6 text-center hover-lift'>
                   <div className='w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#be3437] to-[#6c7cae] rounded-full flex items-center justify-center animate-float'>
-                    <BookOpenIcon className='w-8 h-8 text-white' />
+                    <AwardIcon className='w-8 h-8 text-white' />
                   </div>
                   <h3 className='text-lg font-semibold text-gray-900 mb-2'>
-                    Interactive Learning
+                    Expert-led Training Programs
                   </h3>
                   <p className='text-sm text-gray-600'>
-                    Hands-on workshops and real-world case studies
+                    Industry professionals with extensive experience leading comprehensive training sessions
                   </p>
                 </div>
               </div>
 
-              {/* Feature 2 - Expert Instructors */}
+              {/* Feature 2 - Industry-recognized Certifications */}
               <div className='group relative'>
                 <div className='absolute inset-0 bg-gradient-to-r from-[#6c7cae]/10 to-[#9c408c]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
                 <div className='relative glass-card rounded-2xl p-6 text-center hover-lift'>
                   <div className='w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#6c7cae] to-[#9c408c] rounded-full flex items-center justify-center animate-float-delayed'>
-                    <AwardIcon className='w-8 h-8 text-white' />
+                    <BookOpenIcon className='w-8 h-8 text-white' />
                   </div>
                   <h3 className='text-lg font-semibold text-gray-900 mb-2'>
-                    Expert Instructors
+                    Industry-recognized Certifications
                   </h3>
                   <p className='text-sm text-gray-600'>
-                    Industry leaders with 15+ years experience
+                    Earn valuable certifications that enhance your professional credibility
                   </p>
                 </div>
               </div>
 
-              {/* Feature 3 - Flexible Schedule */}
+              {/* Feature 3 - Flexible Learning Options */}
               <div className='group relative'>
                 <div className='absolute inset-0 bg-gradient-to-r from-[#9c408c]/10 to-[#be3437]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
                 <div className='relative glass-card rounded-2xl p-6 text-center hover-lift'>
@@ -605,15 +606,15 @@ export default function Home() {
                     <CalendarIcon className='w-8 h-8 text-white' />
                   </div>
                   <h3 className='text-lg font-semibold text-gray-900 mb-2'>
-                    Flexible Schedule
+                    Flexible Learning Options
                   </h3>
                   <p className='text-sm text-gray-600'>
-                    Weekend and evening sessions available
+                    Choose from online, offline, or hybrid learning formats to fit your schedule
                   </p>
                 </div>
               </div>
 
-              {/* Feature 4 - Career Support */}
+              {/* Feature 4 - Post-training Support */}
               <div className='group relative'>
                 <div className='absolute inset-0 bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
                 <div className='relative glass-card rounded-2xl p-6 text-center hover-lift'>
@@ -621,10 +622,58 @@ export default function Home() {
                     <StarIcon className='w-8 h-8 text-white' />
                   </div>
                   <h3 className='text-lg font-semibold text-gray-900 mb-2'>
-                    Career Support
+                    Post-training Support
                   </h3>
                   <p className='text-sm text-gray-600'>
-                    Placement assistance and networking opportunities
+                    Ongoing assistance and resources to ensure successful implementation
+                  </p>
+                </div>
+              </div>
+
+              {/* Feature 5 - Strong Event & Networking Capabilities */}
+              <div className='group relative'>
+                <div className='absolute inset-0 bg-gradient-to-r from-[#6c7cae]/10 to-[#9c408c]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
+                <div className='relative glass-card rounded-2xl p-6 text-center hover-lift'>
+                  <div className='w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#6c7cae] to-[#9c408c] rounded-full flex items-center justify-center animate-float'>
+                    <CalendarIcon className='w-8 h-8 text-white' />
+                  </div>
+                  <h3 className='text-lg font-semibold text-gray-900 mb-2'>
+                    Strong Event & Networking Capabilities
+                  </h3>
+                  <p className='text-sm text-gray-600'>
+                    Connect with industry peers and expand your professional network
+                  </p>
+                </div>
+              </div>
+
+              {/* Feature 6 - Brand Visibility & Lead Generation */}
+              <div className='group relative'>
+                <div className='absolute inset-0 bg-gradient-to-r from-[#9c408c]/10 to-[#be3437]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
+                <div className='relative glass-card rounded-2xl p-6 text-center hover-lift'>
+                  <div className='w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#9c408c] to-[#be3437] rounded-full flex items-center justify-center animate-bounce-slow'>
+                    <StarIcon className='w-8 h-8 text-white' />
+                  </div>
+                  <h3 className='text-lg font-semibold text-gray-900 mb-2'>
+                    Brand Visibility & Lead Generation
+                  </h3>
+                  <p className='text-sm text-gray-600'>
+                    Enhance your brand presence and generate valuable business opportunities
+                  </p>
+                </div>
+              </div>
+
+              {/* Feature 7 - Comprehensive Enterprise Solutions */}
+              <div className='group relative md:col-span-2 lg:col-span-1'>
+                <div className='absolute inset-0 bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
+                <div className='relative glass-card rounded-2xl p-6 text-center hover-lift'>
+                  <div className='w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#be3437] to-[#6c7cae] rounded-full flex items-center justify-center animate-float-delayed'>
+                    <AwardIcon className='w-8 h-8 text-white' />
+                  </div>
+                  <h3 className='text-lg font-semibold text-gray-900 mb-2'>
+                    Comprehensive Enterprise Solutions
+                  </h3>
+                  <p className='text-sm text-gray-600'>
+                    Tailored training and development solutions for organizations of all sizes
                   </p>
                 </div>
               </div>
@@ -1132,88 +1181,7 @@ export default function Home() {
       
 
         {/* Footer */}
-        <div className='bg-gray-900 text-white py-12'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
-              <div className='col-span-1 md:col-span-2'>
-                <h3 className='text-2xl font-bold mb-4'>Achromic Point</h3>
-                <p className='text-gray-300 mb-4'>
-                  Empowering professionals through excellence in training and
-                  development. Your partner in career advancement and
-                  organizational success.
-                </p>
-                <div className='flex space-x-4'>
-                  <a
-                    href='#'
-                    className='text-gray-400 hover:text-white transition-colors'
-                  >
-                    LinkedIn
-                  </a>
-                  <a
-                    href='#'
-                    className='text-gray-400 hover:text-white transition-colors'
-                  >
-                    Twitter
-                  </a>
-                  <a
-                    href='#'
-                    className='text-gray-400 hover:text-white transition-colors'
-                  >
-                    Facebook
-                  </a>
-                </div>
-              </div>
-              <div>
-                <h4 className='text-lg font-semibold mb-4'>Quick Links</h4>
-                <ul className='space-y-2'>
-                  <li>
-                    <Link
-                      href='/upcoming-event'
-                      className='text-gray-300 hover:text-white transition-colors'
-                    >
-                      Upcoming Events
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href='/past-event'
-                      className='text-gray-300 hover:text-white transition-colors'
-                    >
-                      Past Events
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href='/enterprise-solutions'
-                      className='text-gray-300 hover:text-white transition-colors'
-                    >
-                      Enterprise Solutions
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href='/emagzine'
-                      className='text-gray-300 hover:text-white transition-colors'
-                    >
-                      eMagazine
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 className='text-lg font-semibold mb-4'>Contact Info</h4>
-                <ul className='space-y-2 text-gray-300'>
-                  <li>📞 011-4601-1835</li>
-                  <li>📧 nupur.verma@achromicpoint.com</li>
-                  <li>📍 New Delhi, India</li>
-                </ul>
-              </div>
-            </div>
-            <div className='border-t border-gray-800 mt-8 pt-8 text-center text-gray-400'>
-              <p>&copy; 2024 Achromic Point. All rights reserved.</p>
-            </div>
-          </div>
-        </div>
+        <Footer />
 
         {/* Enhanced Testimonial Section */}
         <div className='relative py-20 overflow-hidden'>
@@ -1409,25 +1377,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Trust Indicators */}
-            <div className='mt-16 text-center'>
-              <div className='inline-flex items-center space-x-8 bg-white/80 backdrop-blur-sm rounded-full px-8 py-4 border border-gray-200 shadow-lg'>
-                <div className='text-center'>
-                  <div className='text-2xl font-bold text-[#be3437]'>4.9/5</div>
-                  <div className='text-xs text-gray-600'>Average Rating</div>
-                </div>
-                <div className='w-px h-8 bg-gray-300'></div>
-                <div className='text-center'>
-                  <div className='text-2xl font-bold text-[#6c7cae]'>500+</div>
-                  <div className='text-xs text-gray-600'>Happy Clients</div>
-                </div>
-                <div className='w-px h-8 bg-gray-300'></div>
-                <div className='text-center'>
-                  <div className='text-2xl font-bold text-[#9c408c]'>98%</div>
-                  <div className='text-xs text-gray-600'>Success Rate</div>
-                </div>
-              </div>
-            </div>
+          
           </div>
         </div>
       </div>

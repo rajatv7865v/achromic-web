@@ -199,7 +199,7 @@ export default function CorporateMembershipPage() {
                   <b>Nupur Verma</b>
                 </p>
                 <p>Call: 8447758768</p>
-                <p>Email: nupur.verma@achromicpoint.com</p>
+                <p>Email: contactus@achromicpoint.com</p>
               </div>
               <div className='mt-6'>
                 <a

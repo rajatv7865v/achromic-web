@@ -566,24 +566,7 @@ export default function PastEventPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-white mb-2">50+</div>
-              <div className="text-white/90">Events Conducted</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-white mb-2">5000+</div>
-              <div className="text-white/90">Professionals Trained</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-white mb-2">4.8</div>
-              <div className="text-white/90">Average Rating</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-white mb-2">15+</div>
-              <div className="text-white/90">Cities Covered</div>
-            </div>
-          </div>
+          
         </div>
       </div>
 

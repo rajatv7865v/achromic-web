@@ -71,14 +71,14 @@ export default function ContactSidebar() {
                   </div>
                 </a>
                 <a
-                  href='mailto:nupur.verma@achromicpoint.com'
+                  href='mailto:contactus@achromicpoint.com'
                   className='flex items-center gap-3 rounded-xl border border-gray-200 p-4 hover:bg-gray-50 transition'
                 >
                   <span>📧</span>
                   <div>
                     <p className='text-sm text-gray-500'>Email</p>
                     <p className='font-semibold text-gray-900 w-full'>
-                      nupur.verma@achromicpoint.com
+                      contactus@achromicpoint.com
                     </p>
                   </div>
                 </a>
@@ -101,7 +101,7 @@ export default function ContactSidebar() {
                   const body = encodeURIComponent(
                     `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\n\nMessage:\n${message}`
                   );
-                  window.location.href = `mailto:nupur.verma@achromicpoint.com?subject=${subject}&body=${body}`;
+                  window.location.href = `mailto:contactus@achromicpoint.com?subject=${subject}&body=${body}`;
                 }}
               >
                 <div className='grid sm:grid-cols-2 gap-4'>

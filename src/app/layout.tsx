@@ -3,6 +3,8 @@ import { Poppins, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import ContactSidebar from "@/components/contact-sidebar";
+import WhatsAppIcon from "@/components/whatsapp-icon";
+import { ChatbotProvider } from "@/components/chatbot/ChatbotProvider";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -28,9 +30,12 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${poppins.variable} ${geistMono.variable} antialiased`}>
-        <Header />
-        {children}
-        <ContactSidebar />
+        <ChatbotProvider>
+          <Header />
+          {children}
+          <ContactSidebar />
+          <WhatsAppIcon />
+        </ChatbotProvider>
       </body>
     </html>
   );

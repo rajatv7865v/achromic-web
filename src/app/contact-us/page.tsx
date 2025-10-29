@@ -93,6 +93,7 @@ interface FormData {
   name: string;
   email: string;
   phone: string;
+  company: string;
   subject: string;
   message: string;
 }
@@ -102,6 +103,7 @@ export default function ContactUsPage() {
     name: "",
     email: "",
     phone: "",
+    company: "",
     subject: "",
     message: "",
   });
@@ -135,6 +137,7 @@ export default function ContactUsPage() {
         name: "",
         email: "",
         phone: "",
+        company: "",
         subject: "",
         message: "",
       });
@@ -156,21 +159,21 @@ export default function ContactUsPage() {
     {
       icon: EmailIcon,
       title: "Email",
-      details: ["nupur.verma@achromicpoint.com"],
+      details: ["contactus@achromicpoint.com"],
       color: "from-[#6c7cae] to-[#6c7cae]/80",
     },
     {
       icon: LocationIcon,
       title: "Address",
-      details: ["F-11, First Floor, Kalkaji", "New Delhi-110019, India"],
+      details: ["F-11, First Floor, Kalkaji, New Delhi-110019, India"],
       color: "from-[#9c408c] to-[#9c408c]/80",
     },
     {
       icon: ClockIcon,
       title: "Business Hours",
       details: [
-        "Monday - Friday: 9:00 AM - 6:00 PM",
-        "Saturday: 10:00 AM - 4:00 PM",
+        "Monday - Friday: 9:30 AM - 6:00 PM",
+        "1st & 3rd Saturday: 09:30 AM - 6:00 PM",
       ],
       color: "from-[#be3437] to-[#6c7cae]",
     },
@@ -193,7 +196,7 @@ export default function ContactUsPage() {
               </div>
               <div className='bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20'>
                 <span className='text-white font-medium'>
-                  📧 nupur.verma@achromicpoint.com
+                  📧 contactus@achromicpoint.com
                 </span>
               </div>
             </div>
@@ -350,6 +353,45 @@ export default function ContactUsPage() {
                     value={formData.phone}
                     onChange={handleInputChange}
                     className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-colors duration-200'
+                    placeholder='Your phone number'
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor='company'
+                    className='block text-sm font-medium text-gray-700 mb-2'
+                  >
+                    Company Name *
+                  </label>
+                  <input
+                    type='text'
+                    id='company'
+                    name='company'
+                    value={formData.company}
+                    onChange={handleInputChange}
+                    required
+                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-colors duration-200'
+                    placeholder='Your company name'
+                  />
+                </div>
+              </div>
+
+              <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
+                <div>
+                  <label
+                    htmlFor='phone'
+                    className='block text-sm font-medium text-gray-700 mb-2'
+                  >
+                    Phone Number
+                  </label>
+                  <input
+                    type='tel'
+                    id='phone'
+                    name='phone'
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-colors duration-200'
                     placeholder='+91-XXXXXXXXXX'
                   />
                 </div>
@@ -443,9 +485,7 @@ export default function ContactUsPage() {
                   Achromic Point Office
                 </h3>
                 <p className='text-gray-600 mb-4'>
-                  F-11, First Floor, Kalkaji
-                  <br />
-                  New Delhi-110019, India
+                  F-11, First Floor, Kalkaji, New Delhi-110019, India
                 </p>
                 <button className='bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-6 py-3 rounded-lg font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200'>
                   Get Directions
