@@ -3,7 +3,7 @@ import { mockPartners } from '../../../../data/mockPartners';
 
 export async function GET() {
   try {
-    const featuredPartners = mockPartners.filter(partner => partner.featured && partner.isActive);
+    const featuredPartners = mockPartners.filter(partner => partner?.isActive);
     
     return NextResponse.json(featuredPartners);
   } catch (error) {
