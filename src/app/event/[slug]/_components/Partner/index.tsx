@@ -7,7 +7,7 @@ import { mockPartners } from "@/data/mockPartners";
 
 export default function Partner({ eventId }: { eventId: string }) {
   const [partners, setPartners] = useState<Partner[]>([]);
-  const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
+  const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,8 +30,8 @@ export default function Partner({ eventId }: { eventId: string }) {
     fetchEventPartners();
   }, [eventId]);
 
-  const handleImageError = (partnerId: string) => {
-    setImageErrors(prev => new Set(prev).add(partnerId));
+  const handleImageError = (index: number) => {
+    setImageErrors(prev => new Set(prev).add(index));
   };
 
   if (loading) {
@@ -58,9 +58,9 @@ export default function Partner({ eventId }: { eventId: string }) {
         <p className="text-gray-600 text-lg">Trusted by industry leaders</p>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-        {partners.map((partner) => (
+        {partners.map((partner, index) => (
           <div
-            key={partner.id}
+            key={index}
             className="group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-2xl border border-gray-100 hover:border-[#be3437]/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2"
           >
             {/* Decorative background pattern */}
@@ -74,28 +74,28 @@ export default function Partner({ eventId }: { eventId: string }) {
               rel="noopener noreferrer"
             >
               <div className="relative h-20 w-full flex items-center justify-center">
-                {!imageErrors.has(partner.id) ? (
+                {!imageErrors.has(index) && partner.logo ? (
                   <Image
-                    src={partner.logo || Logo}
-                    alt={partner.name || 'Partner Logo'}
+                    src={partner.logo}
+                    alt="Partner Logo"
                     width={120}
                     height={80}
                     className="max-h-20 w-auto object-contain filter group-hover:brightness-110 transition-all duration-300"
-                    onError={() => handleImageError(partner.id)}
+                    onError={() => handleImageError(index)}
                     unoptimized={true}
                   />
                 ) : (
                   <div className="h-16 w-16 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center">
                     <span className="text-gray-600 font-bold text-lg">
-                      {partner.name?.charAt(0) || 'P'}
+                      P
                     </span>
                   </div>
                 )}
               </div>
               
-              {/* Partner name */}
+              {/* Partner website */}
               <h4 className="mt-4 text-sm font-semibold text-gray-700 group-hover:text-[#be3437] transition-colors duration-300 line-clamp-2">
-                {partner.name || 'Partner'}
+                {partner.website.replace(/^https?:\/\//, '').split('/')[0] || 'Partner'}
               </h4>
               
               {/* Hover indicator */}

@@ -4,8 +4,6 @@ import { mockPartners } from '../../../data/mockPartners';
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const featured = searchParams.get('featured');
-    const category = searchParams.get('category');
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
 
@@ -43,10 +41,7 @@ export async function POST(request: NextRequest) {
     
     // In a real application, you would validate the data and save to database
     const newPartner = {
-      id: Date.now().toString(),
-      ...body,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      ...body
     };
 
     return NextResponse.json(newPartner, { status: 201 });
