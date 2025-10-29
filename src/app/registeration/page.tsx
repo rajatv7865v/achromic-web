@@ -359,27 +359,7 @@ export default function RegistrationPage() {
                       {event.description}
                     </p>
 
-                    <div className='mb-6'>
-                      <div className='flex items-center justify-between mb-2'>
-                        <span className='text-sm text-gray-600'>
-                          Registration Progress
-                        </span>
-                        <span className='text-sm font-medium text-gray-900'>
-                          {event.registered}/{parseInt(event.seats)}
-                        </span>
-                      </div>
-                      <div className='w-full bg-gray-200 rounded-full h-2'>
-                        <div
-                          className='bg-gradient-to-r from-[#be3437] to-[#6c7cae] h-2 rounded-full transition-all duration-300'
-                          style={{
-                            width: `${getProgressPercentage(
-                              event.registered,
-                              event.seats
-                            )}%`,
-                          }}
-                        ></div>
-                      </div>
-                    </div>
+                 
 
                     <div className='flex items-center justify-between mb-6'>
                       <div>
@@ -393,14 +373,7 @@ export default function RegistrationPage() {
                           Early Bird Price
                         </div>
                       </div>
-                      <div className='text-right'>
-                        <div className='text-sm text-gray-600'>
-                          Seats Available
-                        </div>
-                        <div className='text-lg font-bold text-[#be3437]'>
-                          {parseInt(event.seats) - event.registered}
-                        </div>
-                      </div>
+                      
                     </div>
 
                     <div className='space-y-2 mb-6'>

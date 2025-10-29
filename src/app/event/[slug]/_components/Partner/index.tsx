@@ -1,21 +1,34 @@
-import { useApi } from "@/hooks/useApi";
-import { getPartner } from "@/services/partner";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Logo from "@/components/assets/logo/logo.png";
 import Link from "next/link";
+import type { Partner } from "@/services/partner";
+import { mockPartners } from "@/data/mockPartners";
 
 export default function Partner({ eventId }: { eventId: string }) {
-  const [partners, setPartners] = useState<any>([]);
+  const [partners, setPartners] = useState<Partner[]>([]);
   const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
-  const { data, loading, error, run } = useApi<{ data: any[] }>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    (async () => {
-      const res: any = await run(getPartner, eventId);
-      setPartners(res.data);
-    })();
-  }, [run, eventId]);
+    const fetchEventPartners = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        // For now, use mock data filtered by active partners
+        const eventPartners = mockPartners.filter(partner => partner.isActive);
+        setPartners(eventPartners);
+      } catch (err) {
+        setError('Failed to fetch partners');
+        console.error('Error fetching event partners:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEventPartners();
+  }, [eventId]);
 
   const handleImageError = (partnerId: string) => {
     setImageErrors(prev => new Set(prev).add(partnerId));
@@ -45,9 +58,9 @@ export default function Partner({ eventId }: { eventId: string }) {
         <p className="text-gray-600 text-lg">Trusted by industry leaders</p>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-        {partners.map((partner: any) => (
+        {partners.map((partner) => (
           <div
-            key={partner._id}
+            key={partner.id}
             className="group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-2xl border border-gray-100 hover:border-[#be3437]/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2"
           >
             {/* Decorative background pattern */}
@@ -55,20 +68,20 @@ export default function Partner({ eventId }: { eventId: string }) {
             
             {/* Partner logo container */}
             <Link 
-              href={partner?.companyUrl || '/'} 
+              href={partner.website || '/'} 
               className="relative block text-center group-hover:scale-110 transition-transform duration-300"
               target="_blank"
               rel="noopener noreferrer"
             >
               <div className="relative h-20 w-full flex items-center justify-center">
-                {!imageErrors.has(partner._id) ? (
+                {!imageErrors.has(partner.id) ? (
                   <Image
-                    src={partner.imagePath || Logo}
+                    src={partner.logo || Logo}
                     alt={partner.name || 'Partner Logo'}
                     width={120}
                     height={80}
                     className="max-h-20 w-auto object-contain filter group-hover:brightness-110 transition-all duration-300"
-                    onError={() => handleImageError(partner._id)}
+                    onError={() => handleImageError(partner.id)}
                     unoptimized={true}
                   />
                 ) : (

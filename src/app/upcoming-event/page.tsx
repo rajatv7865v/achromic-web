@@ -301,29 +301,26 @@ export default function UpcomingEventPage() {
                         height={400}
                         className="w-full h-48 object-cover rounded-lg"
                       />
+                      
                       <div className="text-center absolute h-full w-full bg-black/40 flex flex-col justify-center text-white items-center">
                         <CalendarIcon className="w-16 h-16 text-[#be3437] mx-auto mb-4" />
                         <div className="text-2xl font-bold text-white mb-2">
                           {formatCustomDate(event.dateFrom)}
                         </div>
+                        <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">
+                      <div className="text-sm font-semibold text-gray-900">
+                        {getDaysUntilEvent(event.dateFrom)} days to go
+                      </div>
+                    </div>
                         <div className="text-xl font-semibold text-white">
                           {event.venue}, {event.location}
                         </div>
                       </div>
                     </div>
 
-                    <div className="absolute top-4 right-4 bg-[#be3437] text-white px-3 py-1 rounded-full text-sm font-semibold">
-                      {`${daysDifference(
-                        event.dateFrom,
-                        event.dateTo
-                      )} Day's Conference`}
-                    </div>
+                    
 
-                    <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">
-                      <div className="text-sm font-semibold text-gray-900">
-                        {getDaysUntilEvent(event.dateFrom)} days to go
-                      </div>
-                    </div>
+                   
                   </div>
 
                   <div className="p-6">
@@ -363,12 +360,7 @@ export default function UpcomingEventPage() {
                             : "TBA"}
                         </span>
                       </div>
-                      <div className="flex items-center space-x-1">
-                        <UsersIcon className="w-4 h-4" />
-                        <span>
-                          {143}/{200} registered
-                        </span>
-                      </div>
+                     
                     </div>
 
                     {/* Registration Progress */}
