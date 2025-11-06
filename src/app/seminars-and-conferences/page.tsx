@@ -83,6 +83,22 @@ const ArrowRightIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+const BriefcaseIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    fill='none'
+    viewBox='0 0 24 24'
+    stroke='currentColor'
+  >
+    <path
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      d='M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
+    />
+  </svg>
+);
+
 interface CourseCategory {
   id: string;
   title: string;
@@ -136,12 +152,12 @@ const courseCategories: CourseCategory[] = [
     title: "Accounting",
     description: "Professional accounting standards and practices",
     icon: BookOpenIcon,
-    courses: ["IFRS", "Ind - AS", "Internal Audit"],
+    courses: ["IFRS", "Ind – AS", "Internal Audit"],
     color: "from-[#9c408c] to-[#9c408c]/80",
   },
   {
     id: "leadership",
-    title: "Leadership & Soft Skills",
+    title: "Leadership",
     description: "Leadership development and team building programs",
     icon: UsersIcon,
     courses: ["Breakthrough in effectiveness", "Team building", "Soft Skills"],
@@ -149,7 +165,7 @@ const courseCategories: CourseCategory[] = [
   },
 ];
 
-export default function EnterpriseSolutionsPage() {
+export default function SeminarsAndConferencesPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const toggleCategory = (categoryId: string) => {
@@ -183,18 +199,18 @@ export default function EnterpriseSolutionsPage() {
             <div className='mb-6'>
               <div className='inline-block bg-white/10 backdrop-blur-sm rounded-full px-6 py-2 border border-white/20 mb-4'>
                 <span className='text-white/90 font-medium'>
-                  🏢 Enterprise Solutions
+                  🎓 Seminars & Conferences
                 </span>
               </div>
             </div>
             <h1 className='text-5xl font-bold text-white mb-6 drop-shadow-lg'>
-              Customized Training Programs
+              Enterprise Solutions
             </h1>
             <p className='text-xl text-white/90 max-w-4xl mx-auto mb-8 drop-shadow-md'>
-              Achromic Point Consulting is your one-stop shop for in-house
-              customized training programs on diversified specialized subjects.
-              We tailor courses specifically to your organization's essentials,
-              culture, strategy, and core competencies.
+              Achromic Point Consulting is the one stop shop for in-house
+              customised training programs on diversified specialized subjects –
+              Legal, Risk, Taxation, Accounting, IFRS, Soft Skills, Leadership
+              Development and many more!
             </p>
             <div className='flex flex-col sm:flex-row gap-4 justify-center'>
               <button className='bg-white text-[#be3437] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg'>
@@ -213,12 +229,15 @@ export default function EnterpriseSolutionsPage() {
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='text-center mb-12'>
             <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-              Why Choose Our Enterprise Solutions?
+              Tailored Training Programs for Your Organization
             </h2>
             <p className='text-lg text-gray-600 max-w-3xl mx-auto'>
-              We thoroughly assess your organization's vision and individual
-              goals to identify knowledge gaps and behavioral changes necessary
-              for success and continual progress.
+              These courses are tailored specifically to your organization's
+              essentials, culture, strategy and core competencies. Having
+              identified your organization's needs, we thoroughly assess the
+              vision and individuals' goals to identify knowledge gaps and
+              behavioural changes necessary to emerge triumphant in the race to
+              success and continual progress.
             </p>
           </div>
 
@@ -270,11 +289,11 @@ export default function EnterpriseSolutionsPage() {
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='text-center mb-12'>
             <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-              Course Topics & Categories
+              Course Topics
             </h2>
             <p className='text-lg text-gray-600'>
-              Uncover, discover, and explore new options and avenues with our
-              comprehensive training programs
+              Uncover, discover and explore new options and avenues with APC's
+              services on the dynamic canvas of Enterprise solutions
             </p>
           </div>
 
@@ -412,7 +431,7 @@ export default function EnterpriseSolutionsPage() {
           </h2>
           <p className='text-xl text-white/90 mb-8'>
             Contact us today to discuss your customized training needs and get a
-            tailored proposal.
+            tailored proposal for your organization's success.
           </p>
 
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
@@ -430,13 +449,15 @@ export default function EnterpriseSolutionsPage() {
       <div className='bg-gray-900 text-white py-8'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
           <p className='text-gray-300'>
-            🏢 Transform your workforce with our enterprise training solutions
+            🎓 Transform your workforce with our specialized training and
+            enterprise solutions
           </p>
           <p className='text-sm text-gray-400 mt-2'>
-            © 2025 Achromic Point. All rights reserved.
+            © 2025 Achromic Point Consulting. All rights reserved.
           </p>
         </div>
       </div>
     </div>
   );
 }
+

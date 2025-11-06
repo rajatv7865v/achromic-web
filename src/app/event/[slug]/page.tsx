@@ -433,21 +433,26 @@ export default function pgae() {
 
             {/* Tabs */}
             <div className="flex flex-wrap justify-center gap-4 mb-8">
-              {["overview", "speakers", "partners", "agenda", "benefits","registeration"].map(
-                (tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`px-6 py-2 rounded-full font-medium transition-all duration-200 capitalize ${
-                      activeTab === tab
-                        ? "bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white shadow-lg"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                )
-              )}
+              {[
+                "overview",
+                "speakers",
+                "partners",
+                "agenda",
+                "benefits",
+                "registeration",
+              ].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`px-6 py-2 rounded-full font-medium transition-all duration-200 capitalize ${
+                    activeTab === tab
+                      ? "bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white shadow-lg"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
             </div>
 
             {/* Tab Content */}
@@ -488,11 +493,11 @@ export default function pgae() {
                       <div className="space-y-4">
                         <div className="flex justify-between">
                           <span className="text-gray-600">Date:</span>
-                          <span className="font-medium">{event.dateFrom}</span>
+                          <span className="font-medium text-gray-600" >{event.dateFrom}</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-gray-600">Time:</span>
-                          <span className="font-medium">{event?.timeFrom}</span>
+                          <span className="font-medium text-gray-600">{event?.timeFrom}</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-gray-600">Venue:</span>
@@ -508,46 +513,32 @@ export default function pgae() {
                         </div>
                         <div className="flex justify-between">
                           <span className="text-gray-600">Category:</span>
-                          <span className="font-medium">
+                          <span className="font-medium font-gray-600">
                             {selectedEvent.category}
                           </span>
                         </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Capacity:</span>
-                          <span className="font-medium">
-                            {selectedEvent.maxAttendees} attendees
-                          </span>
-                        </div>
+                       
                       </div>
 
-                      <div className="mt-6 pt-6 border-t border-gray-200">
-                        <div className="text-center">
-                          <div className="text-3xl font-bold text-[#be3437] mb-2">
-                            ₹{selectedEvent.earlyBirdPrice.toLocaleString()}
-                          </div>
-                          <div className="text-sm text-gray-500 line-through mb-4">
-                            Regular Price: ₹
-                            {selectedEvent.price.toLocaleString()}
-                          </div>
-                          <button className="w-full bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-6 py-3 rounded-lg font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg">
-                            Register Now
-                          </button>
-                        </div>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>
               )}
-              {activeTab === "partners" && <Partner eventId={event._id}/>}
+              {activeTab === "partners" && <Partner eventId={event._id} />}
               {activeTab === "speakers" && <Speaker eventId={event._id} />}
-              {activeTab === "registeration" && <RegistrationPage eventId={event._id} />}
+              {activeTab === "registeration" && (
+                <RegistrationPage eventId={event._id} />
+              )}
               {activeTab === "agenda" && (
                 <div>
                   {event._id ? (
                     <Agenda eventId={event._id} />
                   ) : (
                     <div className="text-center py-12">
-                      <p className="text-gray-500 text-lg">Loading event details...</p>
+                      <p className="text-gray-500 text-lg">
+                        Loading event details...
+                      </p>
                     </div>
                   )}
                 </div>

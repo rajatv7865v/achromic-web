@@ -587,7 +587,7 @@ export default function UpcomingEventPage() {
             📅 Early bird pricing available. Limited seats remaining!
           </p>
           <p className="text-sm text-gray-400 mt-2">
-            © 2024 Achromic Point. All rights reserved.
+            © 2025 Achromic Point. All rights reserved.
           </p>
         </div>
       </div>

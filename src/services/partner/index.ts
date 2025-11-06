@@ -5,6 +5,7 @@ export interface Partner {
   logo: string;
   website: string;
   isActive: boolean;
+  category?: 'Bronze' | 'Silver' | 'Platinum' | 'Gold';
 }
 
 export interface PartnersResponse {

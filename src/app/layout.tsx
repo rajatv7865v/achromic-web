@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Poppins, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/header";
+import HeaderWithCart from "@/components/header/HeaderWithCart";
 import ContactSidebar from "@/components/contact-sidebar";
 import WhatsAppIcon from "@/components/whatsapp-icon";
 import { ChatbotProvider } from "@/components/chatbot/ChatbotProvider";
+import ReduxProvider from "@/components/providers/ReduxProvider";
+import { CartProvider } from "@/components/cart/CartProvider";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -30,12 +32,16 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${poppins.variable} ${geistMono.variable} antialiased`}>
-        <ChatbotProvider>
-          <Header />
-          {children}
-          <ContactSidebar />
-          <WhatsAppIcon />
-        </ChatbotProvider>
+        <ReduxProvider>
+          <CartProvider>
+            <ChatbotProvider>
+              <HeaderWithCart />
+              {children}
+              <ContactSidebar />
+              <WhatsAppIcon />
+            </ChatbotProvider>
+          </CartProvider>
+        </ReduxProvider>
       </body>
     </html>
   );

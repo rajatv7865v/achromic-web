@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Footer from "@/components/footer";
 import Partners from "../components/partners";
@@ -151,6 +151,38 @@ const ChartBarIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
+const ChevronLeftIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    fill='none'
+    viewBox='0 0 24 24'
+    stroke='currentColor'
+  >
+    <path
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      d='M15 19l-7-7 7-7'
+    />
+  </svg>
+);
+
+const ChevronRightIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    fill='none'
+    viewBox='0 0 24 24'
+    stroke='currentColor'
+  >
+    <path
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      d='M9 5l7 7-7 7'
+    />
+  </svg>
+);
+
 // Sample data
 const upcomingEvents = [
   {
@@ -256,6 +288,230 @@ const stats = [
   { label: "Corporate Partnerships", value: "4,500+", icon: StarIcon },
   { label: "Global Events Delivered", value: "2,000+", icon: CalendarIcon },
 ];
+
+// Carousel slides data
+const heroSlides = [
+  {
+    id: 1,
+    type: "image",
+    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80",
+    title: "Empowering Professionals Through Excellence in Training",
+    subtitle: "Join India's premier platform for professional development",
+  },
+  {
+    id: 2,
+    type: "image",
+    image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80",
+    title: "Expert-led Training Programs",
+    subtitle: "Learn from industry professionals with extensive experience",
+  },
+  {
+    id: 3,
+    type: "image",
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80",
+    title: "Industry-recognized Certifications",
+    subtitle: "Earn valuable certifications that enhance your professional credibility",
+  },
+  {
+    id: 4,
+    type: "image",
+    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80",
+    title: "Comprehensive Enterprise Solutions",
+    subtitle: "Tailored training and development solutions for organizations",
+  },
+  {
+    id: 5,
+    type: "image",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80",
+    title: "Strong Event & Networking Capabilities",
+    subtitle: "Connect with industry peers and expand your professional network",
+  },
+  {
+    id: 6,
+    type: "image",
+    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80",
+    title: "Transform Your Career Today",
+    subtitle: "Join thousands of professionals who have advanced their careers",
+  },
+  {
+    id: 7,
+    type: "video",
+    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    title: "Watch Our Success Story",
+    subtitle: "See how we've transformed careers and organizations",
+  },
+];
+
+// Hero Carousel Component
+function HeroCarousel() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    if (isPlaying) {
+      intervalRef.current = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+      }, 5000); // Change slide every 5 seconds
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [isPlaying]);
+
+  // Handle video playback
+  useEffect(() => {
+    const currentSlideData = heroSlides[currentSlide];
+    if (videoRef.current) {
+      if (currentSlideData.type === "video") {
+        videoRef.current.play().catch(() => {
+          // Handle autoplay restrictions
+        });
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [currentSlide]);
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+    setIsPlaying(false);
+    setTimeout(() => setIsPlaying(true), 3000); // Resume auto-play after 3 seconds
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    setIsPlaying(false);
+    setTimeout(() => setIsPlaying(true), 3000);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+    setIsPlaying(false);
+    setTimeout(() => setIsPlaying(true), 3000);
+  };
+
+  return (
+    <div className="relative w-full h-[80vh] overflow-hidden">
+      {/* Slides Container */}
+      <div className="relative w-full h-full">
+        {heroSlides.map((slide, index) => (
+          <div
+            key={slide.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+            }`}
+          >
+            {/* Background Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#be3437]/90 to-[#6c7cae]/90 z-10"></div>
+            
+            {/* Slide Content */}
+            {slide.type === "video" ? (
+              <div className="absolute inset-0 z-0">
+                <video
+                  ref={index === currentSlide ? videoRef : null}
+                  className="w-full h-full object-cover"
+                  autoPlay={index === currentSlide}
+                  loop
+                  muted
+                  playsInline
+                  src={slide.video}
+                  key={slide.id}
+                />
+              </div>
+            ) : (
+              <div
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+                style={{ backgroundImage: `url(${slide.image})` }}
+              ></div>
+            )}
+            
+            {/* Content Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#be3437]/80 to-[#6c7cae]/80 z-20"></div>
+
+            {/* Animated Decorative Elements */}
+            <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse z-30"></div>
+            <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/5 rounded-full blur-2xl animate-pulse delay-1000 z-30"></div>
+            <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-white/10 rounded-full blur-lg animate-pulse delay-500 z-30"></div>
+
+            {/* Floating Geometric Shapes */}
+            <div className="absolute top-20 right-20 w-8 h-8 border-2 border-white/20 rotate-45 animate-spin-slow z-30"></div>
+            <div className="absolute bottom-32 left-32 w-12 h-12 border-2 border-white/15 rounded-full animate-bounce-slow z-30"></div>
+
+            {/* Text Content */}
+            <div className="relative z-40 h-full flex items-center justify-center">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div className="mb-6">
+                  <div className="inline-block bg-white/10 backdrop-blur-sm rounded-full px-6 py-2 border border-white/20 mb-4">
+                    <span className="text-white/90 font-medium">
+                      🏆 Achromic Point
+                    </span>
+                  </div>
+                </div>
+                <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg animate-text-glow">
+                  {slide.title}
+                </h1>
+                <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8 drop-shadow-md">
+                  {slide.subtitle}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link
+                    href="/upcoming-event"
+                    className="bg-white text-[#be3437] px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg text-lg"
+                  >
+                    View Upcoming Events
+                  </Link>
+                  <Link
+                    href="/contact-us"
+                    className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-[#be3437] transition-all duration-200 text-lg"
+                  >
+                    Get Started
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Navigation Arrows */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 z-50 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-3 transition-all duration-200 group"
+        aria-label="Previous slide"
+      >
+        <ChevronLeftIcon className="w-6 h-6 text-white group-hover:text-white" />
+      </button>
+      <button
+        onClick={nextSlide}
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 z-50 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-3 transition-all duration-200 group"
+        aria-label="Next slide"
+      >
+        <ChevronRightIcon className="w-6 h-6 text-white group-hover:text-white" />
+      </button>
+
+      {/* Dot Indicators */}
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-50 flex gap-2">
+        {heroSlides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === currentSlide
+                ? "bg-white w-8"
+                : "bg-white/50 hover:bg-white/75"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 const faqs = [
   {
@@ -504,70 +760,8 @@ export default function Home() {
       `}</style>
 
       <div className='min-h-screen bg-white'>
-        {/* Hero Section */}
-        <div className='relative py-20 overflow-hidden'>
-          <div className='absolute inset-0 bg-gradient-to-r from-[#be3437]/90 to-[#6c7cae]/90'>
-            <div
-              className='absolute inset-0 bg-cover bg-center bg-no-repeat'
-              style={{
-                backgroundImage:
-                  'url("https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80")',
-              }}
-            ></div>
-            <div className='absolute inset-0 bg-gradient-to-r from-[#be3437]/80 to-[#6c7cae]/80'></div>
-
-            {/* Advanced Animated Elements */}
-            <div className='absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse'></div>
-            <div className='absolute bottom-10 right-10 w-32 h-32 bg-white/5 rounded-full blur-2xl animate-pulse delay-1000'></div>
-            <div className='absolute top-1/2 left-1/4 w-16 h-16 bg-white/10 rounded-full blur-lg animate-pulse delay-500'></div>
-
-            {/* Floating Geometric Shapes */}
-            <div className='absolute top-20 right-20 w-8 h-8 border-2 border-white/20 rotate-45 animate-spin-slow'></div>
-            <div className='absolute bottom-32 left-32 w-12 h-12 border-2 border-white/15 rounded-full animate-bounce-slow'></div>
-            <div className='absolute top-1/3 right-1/3 w-6 h-6 bg-white/10 transform rotate-12 animate-pulse'></div>
-
-            {/* Gradient Orbs */}
-            <div className='absolute top-1/4 left-1/3 w-24 h-24 bg-gradient-to-r from-yellow-300/20 to-orange-300/20 rounded-full blur-2xl animate-float'></div>
-            <div className='absolute bottom-1/4 right-1/4 w-20 h-20 bg-gradient-to-r from-purple-300/20 to-pink-300/20 rounded-full blur-xl animate-float-delayed'></div>
-          </div>
-
-          <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='text-center'>
-              <div className='mb-6'>
-                <div className='inline-block bg-white/10 backdrop-blur-sm rounded-full px-6 py-2 border border-white/20 mb-4'>
-                  <span className='text-white/90 font-medium'>
-                    🏆 Achromic Point
-                  </span>
-                </div>
-              </div>
-              <h1 className='text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg animate-text-glow'>
-                Empowering Professionals Through
-                <span className='block text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-orange-300 to-pink-300 animate-gradient'>
-                  Excellence in Training
-                </span>
-              </h1>
-              <p className='text-xl text-white/90 max-w-3xl mx-auto mb-8 drop-shadow-md'>
-                Join India's premier platform for professional development,
-                compliance training, and industry expertise. Connect with
-                leaders, enhance your skills, and advance your career.
-              </p>
-              <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-                <Link
-                  href='/upcoming-event'
-                  className='bg-white text-[#be3437] px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg text-lg'
-                >
-                  View Upcoming Events
-                </Link>
-                <Link
-                  href='/contact-us'
-                  className='border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-[#be3437] transition-all duration-200 text-lg'
-                >
-                  Get Started
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Hero Section with Carousel */}
+        <HeroCarousel />
 
         {/* Partners Section - Trusted by Leading Organizations */}
         <PartnersSection />
@@ -1126,26 +1320,26 @@ export default function Home() {
                     </div>
                     <div className='text-center'>
                       <div className='text-3xl font-bold text-white mb-2'>
-                        500+
+                        25,000+
                       </div>
                       <div className='text-white/80 text-sm'>
-                        Events Conducted
+                        Events ConductedParticipants Trained
                       </div>
                     </div>
                     <div className='text-center'>
                       <div className='text-3xl font-bold text-white mb-2'>
-                        50K+
+                        4,500+
                       </div>
                       <div className='text-white/80 text-sm'>
-                        Professionals Trained
+                      Corporate Partnerships
                       </div>
                     </div>
                     <div className='text-center'>
                       <div className='text-3xl font-bold text-white mb-2'>
-                        200+
+                        2,000+
                       </div>
                       <div className='text-white/80 text-sm'>
-                        Industry Partners
+                      Global Events Delivered
                       </div>
                     </div>
                   </div>
