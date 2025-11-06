@@ -7,6 +7,7 @@ import WhatsAppIcon from "@/components/whatsapp-icon";
 import { ChatbotProvider } from "@/components/chatbot/ChatbotProvider";
 import ReduxProvider from "@/components/providers/ReduxProvider";
 import { CartProvider } from "@/components/cart/CartProvider";
+import Footer from "@/components/footer";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -37,6 +38,7 @@ export default function RootLayout({
             <ChatbotProvider>
               <HeaderWithCart />
               {children}
+              <Footer/>
               <ContactSidebar />
               <WhatsAppIcon />
             </ChatbotProvider>

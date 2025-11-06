@@ -1,0 +1,342 @@
+"use client";
+
+import { useRef, useEffect, useState } from 'react';
+
+// Star Icon Component
+const StarIcon = ({ className }: { className?: string }) => (
+  <svg
+    className={className}
+    fill='none'
+    viewBox='0 0 24 24'
+    stroke='currentColor'
+  >
+    <path
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      d='M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z'
+    />
+  </svg>
+);
+
+// Testimonial Data Interface
+interface Testimonial {
+  id: number;
+  name: string;
+  initials: string;
+  role: string;
+  company: string;
+  quote: string;
+  rating: number;
+  event?: string;
+  gradientFrom: string;
+  gradientTo: string;
+  animation?: string;
+}
+
+interface TestimonialsProps {
+  className?: string;
+}
+
+// Testimonials Data from https://achromicpoint.com/
+const featuredTestimonial = {
+  name: "Sumeer Chawla",
+  initials: "SC",
+  role: "HR Professional",
+  company: "Corporate Professional",
+  quote:
+    "Thank you. It was a wonderful session and full of learning. I got to know more about new labour codes and it will be really useful in my job. I would like to appreciate your company for organizing such a great session through a qualified trainer. The quality and content of the slides are excellent and it has resolved many of my queries related to new labour reforms in India. Thank you very much for organizing this session.",
+  rating: 5,
+  event: "New Labour Codes Training",
+  gradientFrom: "#be3437",
+  gradientTo: "#6c7cae",
+};
+
+const testimonials: Testimonial[] = [
+  {
+    id: 1,
+    name: "Sendil Kumar",
+    initials: "SK",
+    role: "Fraud Risk Professional",
+    company: "Risk Management Expert",
+    quote:
+      "Appreciate the Course & Content, Spread over Two days, meticulously planned, & the Trainer is having enough knowledge across wide range of topics in fraud risk space upto POSH. Truly A Complete session, lows- need to give enough time in simulation session, Good One for Fraud Risk Professionals, Kudos to GT & Achromic Point.",
+    rating: 5,
+    event: "Fraud Risk Management Course",
+    gradientFrom: "#6c7cae",
+    gradientTo: "#9c408c",
+    animation: "animate-bounce-slow",
+  },
+  {
+    id: 2,
+    name: "Sarvpriya Sonal",
+    initials: "SS",
+    role: "Tax Professional",
+    company: "GST Expert",
+    quote:
+      "The seminar sessions were really great and in depth for GST with immense learning. Recently I had an opportunity with another such session but it was not in comparison to. On a positive note, if you have material for furthering learning on GST, I will be highly obliged if you do share the same.",
+    rating: 5,
+    event: "GST Seminar",
+    gradientFrom: "#9c408c",
+    gradientTo: "#be3437",
+    animation: "animate-spin-slow",
+  },
+];
+
+export default function Testimonials({ className = "" }: TestimonialsProps) {
+  // Combine all testimonials including featured one
+  const allTestimonials = [
+    {
+      ...featuredTestimonial,
+      id: 0,
+    },
+    ...testimonials,
+  ];
+
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const checkScrollButtons = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+      
+      // Calculate active dot index
+      const cardWidth = getCardWidth();
+      const gap = 24;
+      const newIndex = Math.round(scrollLeft / (cardWidth + gap));
+      setActiveIndex(Math.min(newIndex, allTestimonials.length - 1));
+    }
+  };
+
+  useEffect(() => {
+    checkScrollButtons();
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener('scroll', checkScrollButtons);
+      window.addEventListener('resize', checkScrollButtons);
+      return () => {
+        container.removeEventListener('scroll', checkScrollButtons);
+        window.removeEventListener('resize', checkScrollButtons);
+      };
+    }
+  }, []);
+
+  const getCardWidth = () => {
+    if (scrollContainerRef.current) {
+      const containerWidth = scrollContainerRef.current.clientWidth;
+      const gap = 24; // gap-6 = 24px
+      return (containerWidth - (gap * 2)) / 3;
+    }
+    if (typeof window !== 'undefined') {
+      const containerPadding = 64;
+      const gap = 24;
+      return (window.innerWidth - containerPadding - (gap * 2)) / 3;
+    }
+    return 400; // Default fallback
+  };
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      const cardWidth = getCardWidth();
+      scrollContainerRef.current.scrollBy({ left: -cardWidth - 24, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      const cardWidth = getCardWidth();
+      scrollContainerRef.current.scrollBy({ left: cardWidth + 24, behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <div className={`relative py-16 md:py-20 overflow-hidden bg-white ${className}`}>
+      {/* Background with animated elements */}
+      <div className='absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-50'>
+        {/* Floating decorative elements */}
+        <div className='absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-[#be3437]/5 to-[#6c7cae]/5 rounded-full blur-3xl animate-float'></div>
+        <div className='absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-r from-[#6c7cae]/5 to-[#9c408c]/5 rounded-full blur-3xl animate-float-delayed'></div>
+        <div className='absolute top-1/2 left-1/4 w-24 h-24 bg-gradient-to-r from-[#9c408c]/5 to-[#be3437]/5 rounded-full blur-2xl animate-bounce-slow'></div>
+      </div>
+
+      <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+        <div className='text-center mb-8 md:mb-12'>
+          <div className='inline-block bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 backdrop-blur-sm rounded-full px-6 py-2 border border-[#be3437]/20 mb-4'>
+            <span className='text-[#be3437] font-semibold text-sm uppercase tracking-wider'>
+              ⭐ Testimonials
+            </span>
+          </div>
+          <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3'>
+            Voices of
+            <span className='block text-transparent bg-clip-text bg-gradient-to-r from-[#be3437] via-[#6c7cae] to-[#9c408c]'>
+              Success
+            </span>
+          </h2>
+          <p className='text-base md:text-lg text-gray-600 max-w-3xl mx-auto px-4'>
+            Discover how our training programs have transformed careers and
+            empowered professionals across India's leading organizations
+          </p>
+        </div>
+
+        {/* Scrollable Testimonials Container */}
+        <div className='relative'>
+          {/* Scroll Buttons */}
+          {canScrollLeft && (
+            <button
+              onClick={scrollLeft}
+              className='absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-all border border-gray-200 hidden md:flex items-center justify-center'
+              aria-label='Scroll left'
+            >
+              <svg className='w-5 h-5 text-[#be3437]' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7' />
+              </svg>
+            </button>
+          )}
+          {canScrollRight && (
+            <button
+              onClick={scrollRight}
+              className='absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-all border border-gray-200 hidden md:flex items-center justify-center'
+              aria-label='Scroll right'
+            >
+              <svg className='w-5 h-5 text-[#be3437]' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7' />
+              </svg>
+            </button>
+          )}
+
+          <div 
+            ref={scrollContainerRef}
+            className='overflow-x-auto scrollbar-hide pb-4 -mx-4 px-4 scroll-smooth'
+            style={{ scrollbarWidth: 'thin' }}
+            onScroll={checkScrollButtons}
+          >
+            <div className='flex gap-4 md:gap-6' style={{ width: 'max-content', paddingRight: '1rem' }}>
+              {allTestimonials.map((testimonial) => (
+                <div
+                  key={testimonial.id}
+                  className='group relative flex-shrink-0'
+                  style={{
+                    width: 'calc((100vw - 4rem) / 3 - 1rem)',
+                    minWidth: '280px',
+                    maxWidth: '400px'
+                  }}
+                >
+                  <div
+                    className='absolute inset-0 bg-gradient-to-br rounded-lg blur-md opacity-40 group-hover:opacity-60 transition-all duration-300'
+                    style={{
+                      background: `linear-gradient(to bottom right, ${testimonial.gradientFrom}/10, ${testimonial.gradientTo}/10)`,
+                    }}
+                  ></div>
+                    <div className='relative bg-white rounded-lg p-5 md:p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200 h-full flex flex-col'>
+                      <div className='flex items-center mb-4'>
+                        <div
+                          className={`w-12 h-12 md:w-14 md:h-14 bg-gradient-to-r rounded-full flex items-center justify-center mr-3 flex-shrink-0 shadow-sm ${testimonial.animation || ""}`}
+                          style={{
+                            background: `linear-gradient(to right, ${testimonial.gradientFrom}, ${testimonial.gradientTo})`,
+                          }}
+                        >
+                          <span className='text-white font-bold text-sm'>
+                            {testimonial.initials}
+                          </span>
+                        </div>
+                        <div className='flex-1 min-w-0'>
+                          <h4 className='font-bold text-gray-900 text-base md:text-lg mb-0.5 truncate'>
+                            {testimonial.name}
+                          </h4>
+                        {/* <p
+                          className='font-semibold text-xs mb-0.5 truncate'
+                          style={{ color: testimonial.gradientFrom }}
+                        >
+                          {testimonial.role}
+                        </p> */}
+                        {/* <p className='text-gray-500 text-xs truncate'>{testimonial.company}</p> */}
+                      </div>
+                    </div>
+                    <div className='flex mb-3'>
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <StarIcon
+                          key={i}
+                          className='w-4 h-4 md:w-5 md:h-5 text-yellow-400 fill-current'
+                        />
+                      ))}
+                    </div>
+                    <blockquote className='text-gray-700 text-sm md:text-base leading-relaxed mb-3 flex-grow overflow-hidden' style={{
+                      display: '-webkit-box',
+                      WebkitLineClamp: 6,
+                      WebkitBoxOrient: 'vertical',
+                    }}>
+                      "{testimonial.quote}"
+                    </blockquote>
+                    {/* {testimonial.event && (
+                      <div className='mt-auto pt-2 border-t border-gray-100'>
+                        <p className='text-xs text-gray-500 truncate'>
+                          {testimonial.event}
+                        </p>
+                      </div>
+                    )} */}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Scroll Indicator Dots */}
+          <div className='flex justify-center items-center gap-2 mt-6'>
+            {allTestimonials.map((_, index) => {
+              const isActive = activeIndex === index;
+              return (
+                <button
+                  key={index}
+                  onClick={() => {
+                    if (scrollContainerRef.current) {
+                      const cardWidth = getCardWidth();
+                      const gap = 24;
+                      scrollContainerRef.current.scrollTo({
+                        left: index * (cardWidth + gap),
+                        behavior: 'smooth'
+                      });
+                    }
+                  }}
+                  className={`transition-all duration-300 rounded-full ${
+                    isActive 
+                      ? 'w-8 h-2 bg-gradient-to-r from-[#be3437] to-[#6c7cae]' 
+                      : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Custom Scrollbar Styles */}
+      <style jsx>{`
+        .scrollbar-hide {
+          scrollbar-width: thin;
+          scrollbar-color: #be3437 #f1f1f1;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          height: 6px;
+        }
+        .scrollbar-hide::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 10px;
+          margin: 0 1rem;
+        }
+        .scrollbar-hide::-webkit-scrollbar-thumb {
+          background: linear-gradient(to right, #be3437, #6c7cae);
+          border-radius: 10px;
+        }
+        .scrollbar-hide::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(to right, #9c2f32, #5a6a9e);
+        }
+      `}</style>
+    </div>
+  );
+}
+
