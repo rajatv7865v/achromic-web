@@ -1,7 +1,42 @@
+"use client";
+
 import Image from "next/image";
 import Banner from '@/components/assets/banner/Corporate-Membership_2025-Banner-002.jpeg'
+import { useAppDispatch } from "@/store/hooks";
+import { addToCart } from "@/store/cartSlice";
+import { useCart } from "@/components/cart/CartProvider";
+import type { EventItem } from "@/store/cartSlice";
 
 export default function CorporateMembershipPage() {
+  const dispatch = useAppDispatch();
+  const { openCart } = useCart();
+
+  const handleAddToCart = (tier: 'Silver' | 'Gold' | 'Platinum', price: number) => {
+    const membershipItem: EventItem = {
+      id: Date.now(), // Unique ID based on timestamp
+      title: `Corporate Membership 2025 - ${tier}`,
+      date: "2025 (January - December)",
+      location: "Year-round Access",
+      price: price,
+      category: "Annual Membership",
+      duration: "12 Months",
+      seats: "Unlimited",
+      registered: 0,
+      featured: tier === 'Gold',
+      description: `Corporate Membership ${tier} tier for Calendar Year 2025. Unlock year-round access to Achromic Point knowledge and events.`,
+      benefits: tier === 'Silver' 
+        ? ["Free access to selected programs", "Member eMagazine", "Nomination flexibility"]
+        : tier === 'Gold'
+        ? ["More program access", "Member eMagazine", "Priority communication"]
+        : ["Maximum program access", "Member eMagazine", "Highest priority"],
+      selectedPrice: price,
+      selectedType: 'Industry',
+    };
+    
+    dispatch(addToCart(membershipItem));
+    openCart();
+  };
+
   return (
     <div>
       <section className='relative overflow-hidden'>
@@ -98,12 +133,12 @@ export default function CorporateMembershipPage() {
                 <li className='flex gap-2'>✅ Member eMagazine</li>
                 <li className='flex gap-2'>✅ Nomination flexibility</li>
               </ul>
-              <a
-                href='/registeration'
+              <button
+                onClick={() => handleAddToCart('Silver', 15000)}
                 className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
               >
                 Choose Silver
-              </a>
+              </button>
             </div>
             <div className='bg-white rounded-2xl border-2 border-[#be3437] shadow-lg p-6 relative'>
               <span className='absolute -top-3 right-4 px-3 py-1 rounded-full text-xs font-bold bg-[#be3437] text-white shadow'>
@@ -119,12 +154,12 @@ export default function CorporateMembershipPage() {
                 <li className='flex gap-2'>✅ Member eMagazine</li>
                 <li className='flex gap-2'>✅ Priority communication</li>
               </ul>
-              <a
-                href='/registeration'
+              <button
+                onClick={() => handleAddToCart('Gold', 27000)}
                 className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
               >
                 Choose Gold
-              </a>
+              </button>
             </div>
             <div className='bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition p-6'>
               <p className='text-sm font-semibold text-[#6c7cae]'>Platinum</p>
@@ -137,12 +172,12 @@ export default function CorporateMembershipPage() {
                 <li className='flex gap-2'>✅ Member eMagazine</li>
                 <li className='flex gap-2'>✅ Highest priority</li>
               </ul>
-              <a
-                href='/registeration'
+              <button
+                onClick={() => handleAddToCart('Platinum', 32000)}
                 className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
               >
                 Choose Platinum
-              </a>
+              </button>
             </div>
           </div>
         </div>

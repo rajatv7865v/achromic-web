@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { removeFromCart, clearCart, updateCartItem } from "@/store/cartSlice";
 import { X, ShoppingCart, Trash2, Calendar, MapPin, Clock, Package, DollarSign } from "lucide-react";
+import CheckoutModal from "@/components/checkout/CheckoutModal";
 
 interface CartProps {
   isOpen?: boolean;
@@ -12,6 +13,7 @@ interface CartProps {
 
 export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}) {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const cartItems = useAppSelector((state) => state.cart.items);
   const totalAmount = useAppSelector((state) => state.cart.totalAmount);
   const dispatch = useAppDispatch();
@@ -35,6 +37,17 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
       document.body.style.overflow = 'unset';
     };
   }, [externalIsOpen]);
+
+  useEffect(() => {
+    if (isCheckoutOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isCheckoutOpen]);
 
   const handleRemoveItem = (id: number) => {
     dispatch(removeFromCart(id));
@@ -230,9 +243,8 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
                   </button>
                   <button
                     onClick={() => {
-                      // Handle checkout
-                      console.log("Checkout", cartItems);
-                      alert("Checkout functionality coming soon!");
+                      setIsCheckoutOpen(true);
+                      setIsOpen(false); // Close cart when opening checkout
                     }}
                     className="flex-1 bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white py-3.5 px-4 rounded-xl font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
                   >
@@ -244,6 +256,13 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
           </div>
         </div>
       )}
+
+      {/* Checkout Modal */}
+      <CheckoutModal
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        totalAmount={totalAmount}
+      />
     </>
   );
 }

@@ -12,11 +12,13 @@ import {
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { addToCart, removeFromCart } from "@/store/cartSlice";
 import type { EventItem } from "@/store/cartSlice";
+import { useCart } from "@/components/cart/CartProvider";
 
 export default function RegisterCard({ event }: { event: any }) {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
   const isInCart = cartItems.some((item) => item.id === event.id);
+  const { openCart } = useCart();
 
   const getProgressPercentage = (registered: number, seats: string) => {
     return (registered / parseInt(seats)) * 100;
@@ -45,6 +47,7 @@ export default function RegisterCard({ event }: { event: any }) {
       selectedType: 'Industry',
     };
     dispatch(addToCart(eventItem));
+    openCart();
   };
 
   const handleRemoveFromCart = () => {

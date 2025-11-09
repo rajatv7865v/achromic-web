@@ -19,7 +19,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <CartContext.Provider value={{ openCart, closeCart, isOpen }}>
-      <div className="bg-black/50"> {children}</div>
+      <div className={isOpen ? "backdrop-blur-[2px] transition-all" : ""}>
+        {children}
+      </div>
       <Cart isOpen={isOpen} onClose={closeCart} />
     </CartContext.Provider>
   );
