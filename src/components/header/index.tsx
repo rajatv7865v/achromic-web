@@ -12,6 +12,7 @@ import {
   TwitterIcon,
   YoutubeIcon,
   ShoppingCart,
+  X
 } from "lucide-react";
 import { useAppSelector } from "@/store/hooks";
 
@@ -91,7 +92,6 @@ export default function Header({ onCartClick }: { onCartClick?: () => void }) {
       children: [
         { name: "Upcoming Events", href: "/upcoming-event" },
         { name: "Past Events", href: "/past-events" },
-        { name: "Agenda", href: "/agenda" },
       ],
     },
     {
@@ -101,7 +101,6 @@ export default function Header({ onCartClick }: { onCartClick?: () => void }) {
       children: [
         { name: "Enterprise Solutions", href: "/enterprise-solutions" },
         { name: "Seminars and Conferences", href: "/seminars-and-conferences" },
-        { name: "Enterprise Solutions", href: "/enterprise-solutions" },
         { name: "Managed Events", href: "/managed-events" },
       ],
     },
@@ -158,6 +157,13 @@ export default function Header({ onCartClick }: { onCartClick?: () => void }) {
                   className="hover:text-white/80 transition-colors"
                 >
                   <FacebookIcon />
+                </a>
+                <a
+                  href="https://www.facebook.com/AchromicPoint"
+                  target="_blank"
+                  className="hover:text-white/80 transition-colors"
+                >
+                  <X  />
                 </a>
               </div>
             </div>

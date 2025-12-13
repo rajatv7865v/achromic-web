@@ -830,7 +830,7 @@ export default function Home() {
               </div>
 
               {/* Feature 4 - Post-training Support */}
-              <div className='group relative'>
+              {/* <div className='group relative'>
                 <div className='absolute inset-0 bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
                 <div className='relative glass-card rounded-2xl p-6 text-center hover-lift'>
                   <div className='w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#be3437] to-[#6c7cae] rounded-full flex items-center justify-center animate-spin-slow'>
@@ -843,7 +843,7 @@ export default function Home() {
                     Ongoing assistance and resources to ensure successful implementation
                   </p>
                 </div>
-              </div>
+              </div> */}
 
               {/* Feature 5 - Strong Event & Networking Capabilities */}
               <div className='group relative'>
@@ -971,12 +971,7 @@ export default function Home() {
                       {event.title}
                     </h3>
 
-                    <div className='flex items-center justify-between text-sm text-gray-500 mb-4'>
-                      <div className='flex items-center space-x-1'>
-                        <UsersIcon className='w-4 h-4' />
-                        <span>{event.attendees} registered</span>
-                      </div>
-                    </div>
+                   
 
                     <Link
                       href='/upcoming-event'

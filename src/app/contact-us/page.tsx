@@ -153,7 +153,7 @@ export default function ContactUsPage() {
     {
       icon: PhoneIcon,
       title: "Phone",
-      details: ["011-4601-1835", "+91-8447758768"],
+      details: ["011-4601-1835", "+91-8447758768 - National", "+91 9999219228 – International"],
       color: "from-[#be3437] to-[#be3437]/80",
     },
     {
@@ -268,10 +268,10 @@ export default function ContactUsPage() {
                   <span className="text-[#be3437]">✓</span>
                   <span>Flexible learning options</span>
                 </li>
-                <li className="flex items-center space-x-2">
+                {/* <li className="flex items-center space-x-2">
                   <span className="text-[#be3437]">✓</span>
                   <span>Post-training support</span>
-                </li>
+                </li> */}
                 <li className="flex items-center space-x-2">
                   <span className="text-[#be3437]">✓</span>
                   <span>Strong Event & Networking Capabilities</span>
@@ -312,7 +312,7 @@ export default function ContactUsPage() {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6 text-gray-700">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label
