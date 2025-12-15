@@ -55,32 +55,23 @@ const featuredTestimonial = {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Sendil Kumar",
+    name: "Ahmed Zaki",
     initials: "SK",
-    role: "Fraud Risk Professional",
-    company: "Risk Management Expert",
+    role: "Independent Arbitrator",
+    company: "SVP Legal Affairs - Al Hamra Group LLC",
     quote:
-      "Appreciate the Course & Content, Spread over Two days, meticulously planned, & the Trainer is having enough knowledge across wide range of topics in fraud risk space upto POSH. Truly A Complete session, lows- need to give enough time in simulation session, Good One for Fraud Risk Professionals, Kudos to GT & Achromic Point.",
+      `I want to extend my heartfelt appreciation to my fellow outstanding panellists —
+Andrea, Wolora, Awanish and Vijai— for sharing their valuable insights and candid
+perspectives. Your practical advice and thought-provoking contributions made this
+
+discussion truly engaging and impactful.`,
     rating: 5,
     event: "Fraud Risk Management Course",
     gradientFrom: "#6c7cae",
     gradientTo: "#9c408c",
     animation: "animate-bounce-slow",
   },
-  {
-    id: 2,
-    name: "Sarvpriya Sonal",
-    initials: "SS",
-    role: "Tax Professional",
-    company: "GST Expert",
-    quote:
-      "The seminar sessions were really great and in depth for GST with immense learning. Recently I had an opportunity with another such session but it was not in comparison to. On a positive note, if you have material for furthering learning on GST, I will be highly obliged if you do share the same.",
-    rating: 5,
-    event: "GST Seminar",
-    gradientFrom: "#9c408c",
-    gradientTo: "#be3437",
-    animation: "animate-spin-slow",
-  },
+
 ];
 
 export default function Testimonials({ className = "" }: TestimonialsProps) {

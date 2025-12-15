@@ -8,7 +8,7 @@ interface WhatsAppIconProps {
 }
 
 const WhatsAppIcon: React.FC<WhatsAppIconProps> = ({ 
-  phoneNumber = "+919876543210", // Default phone number, replace with your actual number
+  phoneNumber = "+918447758768", // Default phone number, replace with your actual number
   message = "Hello! I'm interested in your services." 
 }) => {
   const handleWhatsAppClick = () => {

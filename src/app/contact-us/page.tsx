@@ -173,7 +173,7 @@ export default function ContactUsPage() {
       title: "Business Hours",
       details: [
         "Monday - Friday: 9:30 AM - 6:00 PM",
-        "1st & 3rd Saturday: 09:30 AM - 6:00 PM",
+        "1st, 3rd & 5th Saturday: 09:30 AM - 6:00 PM",
       ],
       color: "from-[#be3437] to-[#6c7cae]",
     },
@@ -441,7 +441,7 @@ export default function ContactUsPage() {
       <div className="bg-gray-100 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Find Us</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Visit our office in New Delhi</h2>
             <p className="text-lg text-gray-600">
               Visit our office in New Delhi for in-person consultations
             </p>
