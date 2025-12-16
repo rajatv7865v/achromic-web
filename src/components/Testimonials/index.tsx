@@ -56,22 +56,140 @@ const testimonials: Testimonial[] = [
   {
     id: 1,
     name: "Ahmed Zaki",
-    initials: "SK",
+    initials: "AZ",
     role: "Independent Arbitrator",
     company: "SVP Legal Affairs - Al Hamra Group LLC",
-    quote:
-      `I want to extend my heartfelt appreciation to my fellow outstanding panellists —
+    quote: `I want to extend my heartfelt appreciation to my fellow outstanding panellists —
 Andrea, Wolora, Awanish and Vijai— for sharing their valuable insights and candid
 perspectives. Your practical advice and thought-provoking contributions made this
 
-discussion truly engaging and impactful.`,
+discussion truly engaging and impactful.
+
+A special thank you goes to Aashish, Nupur, Surabhi, and the entire fantastic team
+of Achromic Point for their exceptional efforts, seamless coordination, and
+continued dedication behind the scenes. Your professionalism and attention to detail
+ensured the success of this session. It was a privilege moderating such an insightful
+
+and dynamic discussion with all of you.`,
     rating: 5,
     event: "Fraud Risk Management Course",
     gradientFrom: "#6c7cae",
     gradientTo: "#9c408c",
     animation: "animate-bounce-slow",
   },
+  {
+    id: 2,
+    name: "Susie Beaumont",
+    initials: "SB",
+    role: "Award Recipient",
+    company: "",
+    quote: `Thank you so much. I feel very humbled and grateful to receive the award. Thank
+you also for the kind invitation to attend the event - I really enjoyed it.`,
+    rating: 5,
+    event: "Recognition at Achromic Point",
+    gradientFrom: "#be3437",
+    gradientTo: "#f59e0b",
+  },
+  {
+    id: 3,
+    name: "Aishwarya Gaur",
+    initials: "AG",
+    role: "Senior Legal Counsel",
+    company: "esyasoft",
+    quote: `Congratulations to you and the entire team at Achromic Point for managing the
+General Counsel Summit so well. It was my pleasure to be there and look forward to
 
+your next events in the UAE.`,
+    rating: 5,
+    event: "General Counsel Summit",
+    gradientFrom: "#0ea5e9",
+    gradientTo: "#6366f1",
+  },
+  {
+    id: 4,
+    name: "General Counsel Summit Panelist",
+    initials: "GP",
+    role: "Panelist",
+    company: "The Summit of Legal Minds - Dubai, UAE",
+    quote: `Many thanks, Surabhi! It was a pleasure to be part of this event on General Counsel
+
+Summit (UAE) The Summit of Legal Minds - Dubai, UAE`,
+    rating: 5,
+    event: "General Counsel Summit (UAE)",
+    gradientFrom: "#10b981",
+    gradientTo: "#0ea5e9",
+  },
+  {
+    id: 5,
+    name: "Andrea Sesin-Tabarelli",
+    initials: "AS",
+    role: "Legal Manager - Local Office",
+    company: "Attorney & Solicitor (EW)",
+    quote:
+      "Many thanks — it was a pleasure to share the panel with all of you. Special thanks to Achromic Point for the organization.",
+    rating: 5,
+    event: "General Counsel Summit (UAE)",
+    gradientFrom: "#f97316",
+    gradientTo: "#ec4899",
+  },
+  {
+    id: 6,
+    name: "Sumeet Bajaj",
+    initials: "SB",
+    role: "Vice President - Legal",
+    company: "Canara HSBC Life Insurance",
+    quote: `Dear Achromic Point Team,
+
+We sincerely thank you for the warm wishes and for recognizing us with the award at
+the Commercial Litigation & Disputes: Current Trends & Developments – Conference
+
+and Awards held on 20th November 2025 in New Delhi.
+
+It is truly an honour to be acknowledged, and we deeply appreciate the efforts
+Achromic Point invests in creating a platform that fosters meaningful dialogue and
+
+celebrates excellence in the field.
+
+We look forward to continued engagement and contributing together to the evolving
+
+landscape of commercial litigation and dispute resolution.`,
+    rating: 5,
+    event: "Commercial Litigation & Disputes Conference",
+    gradientFrom: "#22c55e",
+    gradientTo: "#0ea5e9",
+  },
+  {
+    id: 7,
+    name: "Alok Saxena",
+    initials: "AS",
+    role: "Head - Legal and Compliance",
+    company: "Hippo Homes",
+    quote: `Thank you for your kind message. It was a privilege to be part of such a well-
+
+organized and insightful event.
+
+I truly appreciate the efforts of the entire Achromic Point team in putting together
+such a structured and knowledge-rich program. I look forward to future
+
+engagements.`,
+    rating: 5,
+    event: "Industry Roundtable",
+    gradientFrom: "#6c7cae",
+    gradientTo: "#be3437",
+  },
+  {
+    id: 8,
+    name: "Puja Tiwari",
+    initials: "PT",
+    role: "Legal Advisor",
+    company: "Experion Developers",
+    quote:
+      "It was a pleasure to be part of the well-organized event and to hear the views of learned industry colleagues and friends.",
+    rating: 5,
+    event: "Legal Leadership Forum",
+    gradientFrom: "#14b8a6",
+    gradientTo: "#0ea5e9",
+  },
 ];
 
 export default function Testimonials({ className = "" }: TestimonialsProps) {
@@ -88,6 +206,7 @@ export default function Testimonials({ className = "" }: TestimonialsProps) {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null);
 
   const checkScrollButtons = () => {
     if (scrollContainerRef.current) {
@@ -102,6 +221,13 @@ export default function Testimonials({ className = "" }: TestimonialsProps) {
       setActiveIndex(Math.min(newIndex, allTestimonials.length - 1));
     }
   };
+
+  const renderQuoteWithBreaks = (quote: string) =>
+    quote.split('\n').map((paragraph, idx) => (
+      <p key={idx} className='mb-3 last:mb-0'>
+        {paragraph.trim()}
+      </p>
+    ));
 
   useEffect(() => {
     checkScrollButtons();
@@ -143,6 +269,8 @@ export default function Testimonials({ className = "" }: TestimonialsProps) {
       scrollContainerRef.current.scrollBy({ left: cardWidth + 24, behavior: 'smooth' });
     }
   };
+
+  const closeModal = () => setSelectedTestimonial(null);
 
   return (
     <div className={`relative py-16 md:py-20 overflow-hidden bg-white ${className}`}>
@@ -255,20 +383,26 @@ export default function Testimonials({ className = "" }: TestimonialsProps) {
                         />
                       ))}
                     </div>
-                    <blockquote className='text-gray-700 text-sm md:text-base leading-relaxed mb-3 flex-grow overflow-hidden' style={{
+                    <blockquote className='text-gray-700 text-sm md:text-base leading-relaxed mb-4 flex-grow overflow-hidden' style={{
                       display: '-webkit-box',
                       WebkitLineClamp: 6,
                       WebkitBoxOrient: 'vertical',
                     }}>
                       "{testimonial.quote}"
                     </blockquote>
-                    {/* {testimonial.event && (
-                      <div className='mt-auto pt-2 border-t border-gray-100'>
+                    <div className='mt-auto flex items-center justify-between pt-2 border-t border-gray-100 gap-3'>
+                      {testimonial.event && (
                         <p className='text-xs text-gray-500 truncate'>
                           {testimonial.event}
                         </p>
-                      </div>
-                    )} */}
+                      )}
+                      <button
+                        onClick={() => setSelectedTestimonial(testimonial)}
+                        className='text-xs font-semibold text-[#be3437] hover:text-[#9c2f32] transition-colors'
+                      >
+                        Read more
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -304,6 +438,53 @@ export default function Testimonials({ className = "" }: TestimonialsProps) {
           </div>
         </div>
       </div>
+
+      {selectedTestimonial && (
+        <div
+          className='fixed inset-0 z-50 flex items-center justify-center px-4 md:px-6'
+          role='dialog'
+          aria-modal='true'
+        >
+          <div className='absolute inset-0 bg-black/40 backdrop-blur-sm' onClick={closeModal}></div>
+          <div className='relative bg-white max-w-3xl w-full rounded-2xl shadow-2xl border border-gray-200 overflow-hidden'>
+            <div className='absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-[#be3437] via-[#6c7cae] to-[#9c408c]'></div>
+            <div className='p-6 md:p-8'>
+              <div className='flex items-start gap-4 mb-4'>
+                <div
+                  className='w-14 h-14 rounded-full flex items-center justify-center text-white font-bold shadow-sm'
+                  style={{
+                    background: `linear-gradient(to right, ${selectedTestimonial.gradientFrom}, ${selectedTestimonial.gradientTo})`,
+                  }}
+                >
+                  {selectedTestimonial.initials}
+                </div>
+                <div className='flex-1'>
+                  <h3 className='text-xl font-bold text-gray-900'>{selectedTestimonial.name}</h3>
+                  <p className='text-sm text-gray-600'>
+                    {selectedTestimonial.role}
+                    {selectedTestimonial.company ? ` • ${selectedTestimonial.company}` : ""}
+                  </p>
+                  {selectedTestimonial.event && (
+                    <p className='text-xs text-gray-500 mt-1'>{selectedTestimonial.event}</p>
+                  )}
+                </div>
+                <button
+                  onClick={closeModal}
+                  className='text-gray-500 hover:text-gray-700 transition-colors'
+                  aria-label='Close testimonial'
+                >
+                  <svg className='w-6 h-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
+                  </svg>
+                </button>
+              </div>
+              <div className='text-gray-700 text-base leading-relaxed space-y-3'>
+                {renderQuoteWithBreaks(selectedTestimonial.quote)}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Custom Scrollbar Styles */}
       <style jsx>{`
