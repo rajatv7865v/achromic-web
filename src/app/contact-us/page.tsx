@@ -153,7 +153,7 @@ export default function ContactUsPage() {
     {
       icon: PhoneIcon,
       title: "Phone",
-      details: ["011-4601-1835", "+91-8447758768 - National", "+91 9999219228 – International"],
+      details: ["011-4601-1835", "+91-8447758768 - India", "+91 9999219228 – International"],
       color: "from-[#be3437] to-[#be3437]/80",
     },
     {
