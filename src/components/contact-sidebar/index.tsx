@@ -61,13 +61,13 @@ export default function ContactSidebar() {
 
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 <a
-                  href="tel:01146011835"
+                  href="tel:+91 11 4601 1835"
                   className="flex items-center gap-3 rounded-xl border border-gray-200 p-4 hover:bg-gray-50 transition"
                 >
                   <span>📞</span>
                   <div>
                     <p className="text-sm text-gray-500">Call us</p>
-                    <p className="font-semibold text-gray-900">011-4601-1835</p>
+                    <p className="font-semibold text-gray-900">+91 11 4601 1835</p>
                   </div>
                 </a>
                 <a
