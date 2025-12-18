@@ -329,10 +329,19 @@ const heroSlides = [
     id: 7,
     type: "video",
     video:
-      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      "/video/video1.mp4",
     title: "Watch Our Success Story",
     subtitle: "See how we've transformed careers and organizations",
   },
+  {
+    id: 8,
+    type: "video",
+    video:
+      "/video/video2.mp4",
+    title: "Watch Our Success Story",
+    subtitle: "See how we've transformed careers and organizations",
+  },
+  
 ];
 
 // Hero Carousel Component
