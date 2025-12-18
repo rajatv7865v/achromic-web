@@ -458,69 +458,15 @@ export default function pgae() {
             {/* Tab Content */}
             <div className="bg-gray-50 rounded-xl p-8">
               {activeTab === "overview" && (
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div>
+                <div className="space-y-6 w-full">
+                  <div className=" gap-8 w-full text-justify">
+                    <div className="prose prose-lg text-gray-700 max-w-none">
                       <h3 className="text-2xl font-bold text-gray-900 mb-4">
                         Event Overview
                       </h3>
-                      <p className="text-gray-600 mb-6">
-                        {selectedEvent.longDescription}
-                      </p>
-
-                      <div className="space-y-4">
-                        <h4 className="text-lg font-semibold text-gray-900">
-                          Key Highlights:
-                        </h4>
-                        <ul className="space-y-2">
-                          {selectedEvent.highlights.map((highlight, index) => (
-                            <li
-                              key={index}
-                              className="flex items-center space-x-3"
-                            >
-                              <CheckCircleIcon className="w-5 h-5 text-[#be3437] flex-shrink-0" />
-                              <span className="text-gray-700">{highlight}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="bg-white rounded-lg p-6 shadow-sm">
-                      <h4 className="text-lg font-semibold text-gray-900 mb-4">
-                        Event Details
-                      </h4>
-                      <div className="space-y-4">
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Date:</span>
-                          <span className="font-medium text-gray-600" >{event.dateFrom}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Time:</span>
-                          <span className="font-medium text-gray-600">{event?.timeFrom}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Venue:</span>
-                          <span className="font-medium text-right">
-                            {selectedEvent.venue}
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Location:</span>
-                          <span className="font-medium">
-                            {selectedEvent.location}
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Category:</span>
-                          <span className="font-medium font-gray-600">
-                            {selectedEvent.category}
-                          </span>
-                        </div>
-                       
-                      </div>
-
-                      
+                      <div
+                        dangerouslySetInnerHTML={{ __html: event?.content }}
+                      />
                     </div>
                   </div>
                 </div>
