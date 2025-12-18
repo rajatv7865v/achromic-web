@@ -175,7 +175,7 @@ const Footer: React.FC = () => {
               <li className="flex items-center">
                 <span className="mr-2">📞</span>
                 <a
-                  href="tel:011-4601-1835"
+                  href="tel:+91 11 4601 1835"
                   className="hover:text-white transition-colors"
                 >
                   +91 11 4601 1835

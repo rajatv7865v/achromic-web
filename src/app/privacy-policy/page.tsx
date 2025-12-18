@@ -175,8 +175,8 @@ export default function PrivacyPolicyPage() {
                 </div>
                 <div className="flex items-center">
                   <span className="font-semibold text-gray-800 w-24">Phone:</span>
-                  <a href="tel:011-4601-1835" className="text-gray-700 hover:text-[#be3437]">
-                    011-4601-1835
+                  <a href="tel:+91 11 4601 1835" className="text-gray-700 hover:text-[#be3437]">
+                    +91 11 4601 1835
                   </a>
                 </div>
               </div>

@@ -153,7 +153,7 @@ export default function ContactUsPage() {
     {
       icon: PhoneIcon,
       title: "Phone",
-      details: ["011-4601-1835", "+91-8447758768 - India", "+91 9999219228 – International"],
+      details: ["+91 11 4601 1835", "+91-8447758768 - India", "+91 9999219228 – International"],
       color: "from-[#be3437] to-[#be3437]/80",
     },
     {
@@ -192,7 +192,7 @@ export default function ContactUsPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <div className="bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20">
-                <span className="text-white font-medium">📞 011-4601-1835</span>
+                <span className="text-white font-medium">📞 +91 11 4601 1835</span>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20">
                 <span className="text-white font-medium">
@@ -472,7 +472,7 @@ export default function ContactUsPage() {
       <div className="bg-gray-900 text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gray-300">
-            📞 Need immediate assistance? Call us at 011-4601-1835 or
+            📞 Need immediate assistance? Call us at +91 11 4601 1835 or
             +91-8447758768
           </p>
           <p className="text-sm text-gray-400 mt-2">

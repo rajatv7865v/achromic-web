@@ -696,7 +696,7 @@ export default function RegistrationPage() {
                 href='tel:+911146011835'
                 className='border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#be3437] transition-all duration-200'
               >
-                Call: 011-4601-1835
+                Call: +91 11 4601 1835
               </Link>
             </div>
           </div>

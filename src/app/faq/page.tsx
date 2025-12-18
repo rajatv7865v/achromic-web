@@ -18,7 +18,7 @@ const faqs = [
       },
       {
         question: "How can I contact Achromic Point?",
-        answer: "You can contact us through multiple channels: Phone: 011-4601-1835, Email: contactus@achromicpoint.com, or visit our office in New Delhi. You can also use our website's contact form or WhatsApp chat for immediate assistance."
+        answer: "You can contact us through multiple channels: Phone: +91 11 4601 1835, Email: contactus@achromicpoint.com, or visit our office in New Delhi. You can also use our website's contact form or WhatsApp chat for immediate assistance."
       }
     ]
   },
@@ -277,7 +277,7 @@ export default function FAQPage() {
               Contact Us
             </Link>
             <a
-              href="tel:011-4601-1835"
+              href="tel:+91 11 4601 1835"
               className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#be3437] transition-colors duration-200"
             >
               Call Now
