@@ -2,24 +2,28 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Footer from "@/components/footer";
 import Partners from "../components/partners";
 import { mockPartners } from "../data/mockPartners";
 import Testimonials from "@/components/Testimonials";
+
+import Banner1 from "@/components/assets/banner/banner 1.jpg";
+import Banner2 from "@/components/assets/banner/banner 2.jpg";
+import Banner3 from "@/components/assets/banner/banner 3.jpg";
+import Banner4 from "@/components/assets/banner/banner 4.jpg";
 
 // Simple SVG Icons
 const CalendarIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
-    fill='none'
-    viewBox='0 0 24 24'
-    stroke='currentColor'
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
   >
     <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
+      strokeLinecap="round"
+      strokeLinejoin="round"
       strokeWidth={2}
-      d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'
+      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
     />
   </svg>
 );
@@ -27,15 +31,15 @@ const CalendarIcon = ({ className }: { className?: string }) => (
 const UsersIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
-    fill='none'
-    viewBox='0 0 24 24'
-    stroke='currentColor'
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
   >
     <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
+      strokeLinecap="round"
+      strokeLinejoin="round"
       strokeWidth={2}
-      d='M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z'
+      d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
     />
   </svg>
 );
@@ -43,15 +47,15 @@ const UsersIcon = ({ className }: { className?: string }) => (
 const CheckCircleIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
-    fill='none'
-    viewBox='0 0 24 24'
-    stroke='currentColor'
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
   >
     <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
+      strokeLinecap="round"
+      strokeLinejoin="round"
       strokeWidth={2}
-      d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
+      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
     />
   </svg>
 );
@@ -59,15 +63,15 @@ const CheckCircleIcon = ({ className }: { className?: string }) => (
 const StarIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
-    fill='none'
-    viewBox='0 0 24 24'
-    stroke='currentColor'
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
   >
     <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
+      strokeLinecap="round"
+      strokeLinejoin="round"
       strokeWidth={2}
-      d='M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z'
+      d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
     />
   </svg>
 );
@@ -75,15 +79,15 @@ const StarIcon = ({ className }: { className?: string }) => (
 const ArrowRightIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
-    fill='none'
-    viewBox='0 0 24 24'
-    stroke='currentColor'
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
   >
     <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
+      strokeLinecap="round"
+      strokeLinejoin="round"
       strokeWidth={2}
-      d='M13 7l5 5m0 0l-5 5m5-5H6'
+      d="M13 7l5 5m0 0l-5 5m5-5H6"
     />
   </svg>
 );
@@ -91,15 +95,15 @@ const ArrowRightIcon = ({ className }: { className?: string }) => (
 const ChevronDownIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
-    fill='none'
-    viewBox='0 0 24 24'
-    stroke='currentColor'
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
   >
     <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
+      strokeLinecap="round"
+      strokeLinejoin="round"
       strokeWidth={2}
-      d='M19 9l-7 7-7-7'
+      d="M19 9l-7 7-7-7"
     />
   </svg>
 );
@@ -107,15 +111,15 @@ const ChevronDownIcon = ({ className }: { className?: string }) => (
 const AwardIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
-    fill='none'
-    viewBox='0 0 24 24'
-    stroke='currentColor'
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
   >
     <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
+      strokeLinecap="round"
+      strokeLinejoin="round"
       strokeWidth={2}
-      d='M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z'
+      d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
     />
   </svg>
 );
@@ -123,15 +127,15 @@ const AwardIcon = ({ className }: { className?: string }) => (
 const BookOpenIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
-    fill='none'
-    viewBox='0 0 24 24'
-    stroke='currentColor'
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
   >
     <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
+      strokeLinecap="round"
+      strokeLinejoin="round"
       strokeWidth={2}
-      d='M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'
+      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
     />
   </svg>
 );
@@ -139,15 +143,15 @@ const BookOpenIcon = ({ className }: { className?: string }) => (
 const ChartBarIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
-    fill='none'
-    viewBox='0 0 24 24'
-    stroke='currentColor'
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
   >
     <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
+      strokeLinecap="round"
+      strokeLinejoin="round"
       strokeWidth={2}
-      d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'
+      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
     />
   </svg>
 );
@@ -155,15 +159,15 @@ const ChartBarIcon = ({ className }: { className?: string }) => (
 const ChevronLeftIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
-    fill='none'
-    viewBox='0 0 24 24'
-    stroke='currentColor'
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
   >
     <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
+      strokeLinecap="round"
+      strokeLinejoin="round"
       strokeWidth={2}
-      d='M15 19l-7-7 7-7'
+      d="M15 19l-7-7 7-7"
     />
   </svg>
 );
@@ -171,15 +175,15 @@ const ChevronLeftIcon = ({ className }: { className?: string }) => (
 const ChevronRightIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
-    fill='none'
-    viewBox='0 0 24 24'
-    stroke='currentColor'
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
   >
     <path
-      strokeLinecap='round'
-      strokeLinejoin='round'
+      strokeLinecap="round"
+      strokeLinejoin="round"
       strokeWidth={2}
-      d='M9 5l7 7-7 7'
+      d="M9 5l7 7-7 7"
     />
   </svg>
 );
@@ -292,52 +296,40 @@ const stats = [
 
 // Carousel slides data
 const heroSlides = [
-  {
-    id: 1,
-    type: "image",
-    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80",
-    title: "Empowering Professionals Through Excellence in Training",
-    subtitle: "Join India's premier platform for professional development",
-  },
-  {
-    id: 2,
-    type: "image",
-    image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80",
-    title: "Expert-led Training Programs",
-    subtitle: "Learn from industry professionals with extensive experience",
-  },
-  {
-    id: 3,
-    type: "image",
-    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80",
-    title: "Industry-recognized Certifications",
-    subtitle: "Earn valuable certifications that enhance your professional credibility",
-  },
-  {
-    id: 4,
-    type: "image",
-    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80",
-    title: "Comprehensive Enterprise Solutions",
-    subtitle: "Tailored training and development solutions for organizations",
-  },
-  {
-    id: 5,
-    type: "image",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80",
-    title: "Strong Event & Networking Capabilities",
-    subtitle: "Connect with industry peers and expand your professional network",
-  },
-  {
-    id: 6,
-    type: "image",
-    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1926&q=80",
-    title: "Transform Your Career Today",
-    subtitle: "Join thousands of professionals who have advanced their careers",
-  },
+    {
+      id: 1,
+      type: "image",
+      image: '/image/banner 1.jpg',
+      title: "Empowering Professionals Through Excellence in Training",
+      subtitle: "Join India's premier platform for professional development",
+    },
+    {
+      id: 2,
+      type: "image",
+      image: '/image/banner 2.jpg',
+      title: "Empowering Professionals Through Excellence in Training",
+      subtitle: "Join India's premier platform for professional development",
+    },
+    {
+      id: 3,
+      type: "image",
+      image: '/image/banner 3.jpg',
+      title: "Empowering Professionals Through Excellence in Training",
+      subtitle: "Join India's premier platform for professional development",
+    },
+    {
+      id: 4,
+      type: "image",
+      image: '/image/banner 4.jpg',
+      title: "Empowering Professionals Through Excellence in Training",
+      subtitle: "Join India's premier platform for professional development",
+    },
+
   {
     id: 7,
     type: "video",
-    video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    video:
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     title: "Watch Our Success Story",
     subtitle: "See how we've transformed careers and organizations",
   },
@@ -391,7 +383,9 @@ function HeroCarousel() {
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+    setCurrentSlide(
+      (prev) => (prev - 1 + heroSlides.length) % heroSlides.length
+    );
     setIsPlaying(false);
     setTimeout(() => setIsPlaying(true), 3000);
   };
@@ -407,9 +401,6 @@ function HeroCarousel() {
               index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
           >
-            {/* Background Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#be3437]/90 to-[#6c7cae]/90 z-10"></div>
-            
             {/* Slide Content */}
             {slide.type === "video" ? (
               <div className="absolute inset-0 z-0">
@@ -425,26 +416,30 @@ function HeroCarousel() {
                 />
               </div>
             ) : (
-              <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-                style={{ backgroundImage: `url(${slide.image})` }}
-              ></div>
+              slide.image && (
+                <img
+                  src={slide.image.replace(/ /g, '%20')}
+                  alt={slide.title}
+                  className="w-full h-full object-cover"
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+              )
             )}
-            
+
             {/* Content Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#be3437]/80 to-[#6c7cae]/80 z-20"></div>
+            {/* <div className="absolute inset-0 bg-gradient-to-r from-[#be3437]/80 to-[#6c7cae]/80 z-20"></div> */}
 
             {/* Animated Decorative Elements */}
-            <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse z-30"></div>
+            {/* <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse z-30"></div>
             <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/5 rounded-full blur-2xl animate-pulse delay-1000 z-30"></div>
-            <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-white/10 rounded-full blur-lg animate-pulse delay-500 z-30"></div>
+            <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-white/10 rounded-full blur-lg animate-pulse delay-500 z-30"></div> */}
 
             {/* Floating Geometric Shapes */}
-            <div className="absolute top-20 right-20 w-8 h-8 border-2 border-white/20 rotate-45 animate-spin-slow z-30"></div>
-            <div className="absolute bottom-32 left-32 w-12 h-12 border-2 border-white/15 rounded-full animate-bounce-slow z-30"></div>
+            {/* <div className="absolute top-20 right-20 w-8 h-8 border-2 border-white/20 rotate-45 animate-spin-slow z-30"></div>
+            <div className="absolute bottom-32 left-32 w-12 h-12 border-2 border-white/15 rounded-full animate-bounce-slow z-30"></div> */}
 
             {/* Text Content */}
-            <div className="relative z-40 h-full flex items-center justify-center">
+            {/* <div className="relative z-40 h-full flex items-center justify-center">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <div className="mb-6">
                   <div className="inline-block bg-white/10 backdrop-blur-sm rounded-full px-6 py-2 border border-white/20 mb-4">
@@ -474,7 +469,7 @@ function HeroCarousel() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
@@ -516,44 +511,38 @@ function HeroCarousel() {
 
 const faqs = [
   {
-    question: "What types of events does Achromic Point organize?",
-    answer:
-      "We organize conferences, workshops, training programs, and seminars across various domains including finance, legal, taxation, compliance, and professional development.",
+    question: "What type of events do you organize?",
+    answer: "We organize professional seminars, conferences, workshops, panel discussions, and corporate training events on topics which revolves around Compliance. Risk, Accounting, Finance and Taxation."
   },
   {
-    question: "How can I register for an upcoming event?",
-    answer:
-      "You can register for our events through our website by clicking on the 'Register Now' button on the event page, or contact us directly for bulk registrations.",
+    question: "Who can attend your seminars and conferences?",
+    answer: "Our events are open to professionals, business leaders, students, entrepreneurs, academics, and organizations, depending on the event theme and target audience."
   },
   {
-    question: "Do you provide certificates for event participation?",
-    answer:
-      "Yes, we provide certificates of participation for all our events. For certain training programs, we also offer industry-recognized certifications.",
+    question: "How can I register for an event?",
+    answer: "You can register online through our website by selecting the event and completing the registration form. Confirmation details will be sent via email after successful registration."
   },
   {
-    question: "Can organizations request custom training programs?",
-    answer:
-      "Absolutely! We offer customized training solutions tailored to your organization's specific needs. Contact our enterprise solutions team for more details.",
+    question: "Are your events held online or in person?",
+    answer: "We offer in-person and virtual events. The format of each event is clearly stated on the event details page."
   },
   {
-    question: "What is included in the event fee?",
-    answer:
-      "Event fees typically include access to all sessions, networking opportunities, lunch and refreshments, event materials, and a certificate of participation.",
+    question: "What is included in the registration fee?",
+    answer: "Registration fees typically include access to event sessions, conference materials, certificates of participation, and refreshments or meals for in-person events. Specific inclusions vary by event."
   },
   {
-    question: "Do you offer early bird discounts?",
-    answer:
-      "Yes, we offer early bird discounts for most of our events. Early bird pricing is usually available until 30 days before the event date.",
+    question: "Do you offer group or corporate discounts?",
+    answer: "Yes, we offer special rates for group registrations and corporate bookings. Please contact us directly for details and customized packages."
   },
 ];
 
 // Partners Section Component
 function PartnersSection() {
   // Use static mock data directly
-  const partners = mockPartners.filter(p => p.isActive);
+  const partners = mockPartners.filter((p) => p.isActive);
 
   return (
-    <Partners 
+    <Partners
       partners={partners}
       title="Trusted by Leading Organizations"
       subtitle="We're proud to partner with industry leaders across various sectors"
@@ -760,7 +749,7 @@ export default function Home() {
         }
       `}</style>
 
-      <div className='min-h-screen bg-white'>
+      <div className="min-h-screen bg-white">
         {/* Hero Section with Carousel */}
         <HeroCarousel />
 
@@ -768,63 +757,66 @@ export default function Home() {
         <PartnersSection />
 
         {/* Creative Features Showcase */}
-        <div className='relative py-16 bg-gradient-to-br from-gray-50 via-white to-gray-50'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='text-center mb-12'>
-              <h2 className='text-3xl font-bold text-gray-900 mb-4'>
+        <div className="relative py-16 bg-gradient-to-br from-gray-50 via-white to-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
                 Why Choose{" "}
-                <span className='gradient-text'>Achromic Point?</span>
+                <span className="gradient-text">Achromic Point?</span>
               </h2>
-              <p className='text-lg text-gray-600'>
+              <p className="text-lg text-gray-600">
                 Experience the future of professional development
               </p>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Feature 1 - Expert-led Training Programs */}
-              <div className='group relative'>
-                <div className='absolute inset-0 bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
-                <div className='relative glass-card rounded-2xl p-6 text-center hover-lift'>
-                  <div className='w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#be3437] to-[#6c7cae] rounded-full flex items-center justify-center animate-float'>
-                    <AwardIcon className='w-8 h-8 text-white' />
+              <div className="group relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="relative glass-card rounded-2xl p-6 text-center hover-lift">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#be3437] to-[#6c7cae] rounded-full flex items-center justify-center animate-float">
+                    <AwardIcon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className='text-lg font-semibold text-gray-900 mb-2'>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     Expert-led Training Programs
                   </h3>
-                  <p className='text-sm text-gray-600'>
-                    Industry professionals with extensive experience leading comprehensive training sessions
+                  <p className="text-sm text-gray-600">
+                    Industry professionals with extensive experience leading
+                    comprehensive training sessions
                   </p>
                 </div>
               </div>
 
               {/* Feature 2 - Industry-recognized Certifications */}
-              <div className='group relative'>
-                <div className='absolute inset-0 bg-gradient-to-r from-[#6c7cae]/10 to-[#9c408c]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
-                <div className='relative glass-card rounded-2xl p-6 text-center hover-lift'>
-                  <div className='w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#6c7cae] to-[#9c408c] rounded-full flex items-center justify-center animate-float-delayed'>
-                    <BookOpenIcon className='w-8 h-8 text-white' />
+              <div className="group relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#6c7cae]/10 to-[#9c408c]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="relative glass-card rounded-2xl p-6 text-center hover-lift">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#6c7cae] to-[#9c408c] rounded-full flex items-center justify-center animate-float-delayed">
+                    <BookOpenIcon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className='text-lg font-semibold text-gray-900 mb-2'>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     Industry-recognized Certifications
                   </h3>
-                  <p className='text-sm text-gray-600'>
-                    Earn valuable certifications that enhance your professional credibility
+                  <p className="text-sm text-gray-600">
+                    Earn valuable certifications that enhance your professional
+                    credibility
                   </p>
                 </div>
               </div>
 
               {/* Feature 3 - Flexible Learning Options */}
-              <div className='group relative'>
-                <div className='absolute inset-0 bg-gradient-to-r from-[#9c408c]/10 to-[#be3437]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
-                <div className='relative glass-card rounded-2xl p-6 text-center hover-lift'>
-                  <div className='w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#9c408c] to-[#be3437] rounded-full flex items-center justify-center animate-bounce-slow'>
-                    <CalendarIcon className='w-8 h-8 text-white' />
+              <div className="group relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#9c408c]/10 to-[#be3437]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="relative glass-card rounded-2xl p-6 text-center hover-lift">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#9c408c] to-[#be3437] rounded-full flex items-center justify-center animate-bounce-slow">
+                    <CalendarIcon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className='text-lg font-semibold text-gray-900 mb-2'>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     Flexible Learning Options
                   </h3>
-                  <p className='text-sm text-gray-600'>
-                    Choose from online, offline, or hybrid learning formats to fit your schedule
+                  <p className="text-sm text-gray-600">
+                    Choose from online, offline, or hybrid learning formats to
+                    fit your schedule
                   </p>
                 </div>
               </div>
@@ -846,49 +838,52 @@ export default function Home() {
               </div> */}
 
               {/* Feature 5 - Strong Event & Networking Capabilities */}
-              <div className='group relative'>
-                <div className='absolute inset-0 bg-gradient-to-r from-[#6c7cae]/10 to-[#9c408c]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
-                <div className='relative glass-card rounded-2xl p-6 text-center hover-lift'>
-                  <div className='w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#6c7cae] to-[#9c408c] rounded-full flex items-center justify-center animate-float'>
-                    <CalendarIcon className='w-8 h-8 text-white' />
+              <div className="group relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#6c7cae]/10 to-[#9c408c]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="relative glass-card rounded-2xl p-6 text-center hover-lift">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#6c7cae] to-[#9c408c] rounded-full flex items-center justify-center animate-float">
+                    <CalendarIcon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className='text-lg font-semibold text-gray-900 mb-2'>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     Strong Event & Networking Capabilities
                   </h3>
-                  <p className='text-sm text-gray-600'>
-                    Connect with industry peers and expand your professional network
+                  <p className="text-sm text-gray-600">
+                    Connect with industry peers and expand your professional
+                    network
                   </p>
                 </div>
               </div>
 
               {/* Feature 6 - Brand Visibility & Lead Generation */}
-              <div className='group relative'>
-                <div className='absolute inset-0 bg-gradient-to-r from-[#9c408c]/10 to-[#be3437]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
-                <div className='relative glass-card rounded-2xl p-6 text-center hover-lift'>
-                  <div className='w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#9c408c] to-[#be3437] rounded-full flex items-center justify-center animate-bounce-slow'>
-                    <StarIcon className='w-8 h-8 text-white' />
+              <div className="group relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#9c408c]/10 to-[#be3437]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="relative glass-card rounded-2xl p-6 text-center hover-lift">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#9c408c] to-[#be3437] rounded-full flex items-center justify-center animate-bounce-slow">
+                    <StarIcon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className='text-lg font-semibold text-gray-900 mb-2'>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     Brand Visibility & Lead Generation
                   </h3>
-                  <p className='text-sm text-gray-600'>
-                    Enhance your brand presence and generate valuable business opportunities
+                  <p className="text-sm text-gray-600">
+                    Enhance your brand presence and generate valuable business
+                    opportunities
                   </p>
                 </div>
               </div>
 
               {/* Feature 7 - Comprehensive Enterprise Solutions */}
-              <div className='group relative md:col-span-2 lg:col-span-1'>
-                <div className='absolute inset-0 bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
-                <div className='relative glass-card rounded-2xl p-6 text-center hover-lift'>
-                  <div className='w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#be3437] to-[#6c7cae] rounded-full flex items-center justify-center animate-float-delayed'>
-                    <AwardIcon className='w-8 h-8 text-white' />
+              <div className="group relative md:col-span-2 lg:col-span-1">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="relative glass-card rounded-2xl p-6 text-center hover-lift">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#be3437] to-[#6c7cae] rounded-full flex items-center justify-center animate-float-delayed">
+                    <AwardIcon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className='text-lg font-semibold text-gray-900 mb-2'>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     Comprehensive Enterprise Solutions
                   </h3>
-                  <p className='text-sm text-gray-600'>
-                    Tailored training and development solutions for organizations of all sizes
+                  <p className="text-sm text-gray-600">
+                    Tailored training and development solutions for
+                    organizations of all sizes
                   </p>
                 </div>
               </div>
@@ -897,18 +892,18 @@ export default function Home() {
         </div>
 
         {/* Statistics Section */}
-        <div className='bg-gray-50 py-16'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='grid grid-cols-2 md:grid-cols-4 gap-8'>
+        <div className="bg-gray-50 py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((stat, index) => (
-                <div key={index} className='text-center'>
-                  <div className='inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#be3437] to-[#6c7cae] rounded-full mb-4'>
-                    <stat.icon className='w-8 h-8 text-white' />
+                <div key={index} className="text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#be3437] to-[#6c7cae] rounded-full mb-4">
+                    <stat.icon className="w-8 h-8 text-white" />
                   </div>
-                  <div className='text-3xl font-bold text-gray-900 mb-2'>
+                  <div className="text-3xl font-bold text-gray-900 mb-2">
                     {stat.value}
                   </div>
-                  <div className='text-gray-600 font-medium'>{stat.label}</div>
+                  <div className="text-gray-600 font-medium">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -916,66 +911,64 @@ export default function Home() {
         </div>
 
         {/* Upcoming Events Section */}
-        <div className='py-20 bg-white'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='text-center mb-16'>
-              <h2 className='text-4xl font-bold text-gray-900 mb-4'>
+        <div className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
                 Upcoming Events
               </h2>
-              <p className='text-xl text-gray-600 max-w-3xl mx-auto'>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Don't miss our upcoming conferences, workshops, and training
                 programs. Secure your spot and advance your professional
                 journey.
               </p>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12'>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
               {upcomingEvents.map((event) => (
                 <div
                   key={event.id}
-                  className='bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100'
+                  className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100"
                 >
-                  <div className='relative'>
-                    <div className='h-48 bg-gradient-to-br from-[#be3437]/10 to-[#6c7cae]/10 flex items-center justify-center'>
-                      <div className='text-center'>
-                        <CalendarIcon className='w-16 h-16 text-[#be3437] mx-auto mb-4' />
-                        <div className='text-2xl font-bold text-gray-800 mb-2'>
+                  <div className="relative">
+                    <div className="h-48 bg-gradient-to-br from-[#be3437]/10 to-[#6c7cae]/10 flex items-center justify-center">
+                      <div className="text-center">
+                        <CalendarIcon className="w-16 h-16 text-[#be3437] mx-auto mb-4" />
+                        <div className="text-2xl font-bold text-gray-800 mb-2">
                           {event.date}
                         </div>
-                        <div className='text-lg font-semibold text-gray-700'>
+                        <div className="text-lg font-semibold text-gray-700">
                           {event.location}
                         </div>
                       </div>
                     </div>
                     {event.featured && (
-                      <div className='absolute top-4 right-4 bg-[#be3437] text-white px-3 py-1 rounded-full text-sm font-semibold'>
+                      <div className="absolute top-4 right-4 bg-[#be3437] text-white px-3 py-1 rounded-full text-sm font-semibold">
                         Featured
                       </div>
                     )}
                   </div>
 
-                  <div className='p-6'>
-                    <div className='flex items-center justify-between mb-3'>
-                      <span className='bg-[#be3437]/10 text-[#be3437] px-3 py-1 rounded-full text-sm font-medium'>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="bg-[#be3437]/10 text-[#be3437] px-3 py-1 rounded-full text-sm font-medium">
                         {event.category}
                       </span>
-                      <div className='text-right'>
-                        <div className='text-lg font-bold text-gray-900'>
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-gray-900">
                           ₹{event.price.toLocaleString()}
                         </div>
-                        <div className='text-xs text-gray-500'>Early Bird</div>
+                        <div className="text-xs text-gray-500">Early Bird</div>
                       </div>
                     </div>
 
-                    <h3 className='text-lg font-bold text-gray-900 mb-3 line-clamp-2'>
+                    <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2">
                       {event.title}
                     </h3>
 
-                   
-
                     <Link
-                      href='/upcoming-event'
-                      className='w-full bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200 text-center block'
+                      href="/upcoming-event"
+                      className="w-full bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200 text-center block"
                     >
                       View Details
                     </Link>
@@ -984,51 +977,49 @@ export default function Home() {
               ))}
             </div>
 
-            <div className='text-center'>
+            <div className="text-center">
               <Link
-                href='/upcoming-event'
-                className='inline-flex items-center bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-8 py-3 rounded-full font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg'
+                href="/upcoming-event"
+                className="inline-flex items-center bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-8 py-3 rounded-full font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg"
               >
                 View All Upcoming Events
-                <ArrowRightIcon className='w-5 h-5 ml-2' />
+                <ArrowRightIcon className="w-5 h-5 ml-2" />
               </Link>
             </div>
           </div>
         </div>
 
-     
-
         {/* Services Section */}
-        <div className='bg-gray-50 py-20'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='text-center mb-16'>
-              <h2 className='text-4xl font-bold text-gray-900 mb-4'>
+        <div className="bg-gray-50 py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
                 Our Services
               </h2>
-              <p className='text-xl text-gray-600 max-w-3xl mx-auto'>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Comprehensive solutions designed to meet your professional
                 development and training needs.
               </p>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {services.map((service) => (
                 <div
                   key={service.id}
-                  className='bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1'
+                  className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  <div className='inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#be3437] to-[#6c7cae] rounded-full mb-6'>
-                    <service.icon className='w-8 h-8 text-white' />
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#be3437] to-[#6c7cae] rounded-full mb-6">
+                    <service.icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className='text-xl font-bold text-gray-900 mb-4'>
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">
                     {service.title}
                   </h3>
-                  <p className='text-gray-600 mb-6'>{service.description}</p>
-                  <ul className='space-y-2'>
+                  <p className="text-gray-600 mb-6">{service.description}</p>
+                  <ul className="space-y-2">
                     {service.features.map((feature, index) => (
-                      <li key={index} className='flex items-center space-x-2'>
-                        <CheckCircleIcon className='w-4 h-4 text-[#be3437] flex-shrink-0' />
-                        <span className='text-gray-700 text-sm'>{feature}</span>
+                      <li key={index} className="flex items-center space-x-2">
+                        <CheckCircleIcon className="w-4 h-4 text-[#be3437] flex-shrink-0" />
+                        <span className="text-gray-700 text-sm">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -1039,61 +1030,60 @@ export default function Home() {
         </div>
 
         {/* Past Events Section */}
-        <div className='py-20 bg-white'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='text-center mb-16'>
-              <h2 className='text-4xl font-bold text-gray-900 mb-4'>
+        <div className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
                 Past Events
               </h2>
-              <p className='text-xl text-gray-600 max-w-3xl mx-auto'>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Explore our successful past events and conferences. Learn from
                 our expertise and join us for future transformative experiences.
               </p>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12'>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
               {pastEvents.map((event) => (
                 <div
                   key={event.id}
-                  className='bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100'
+                  className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100"
                 >
-                  <div className='relative'>
-                    <div className='h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center'>
-                      <div className='text-center'>
-                        <CalendarIcon className='w-16 h-16 text-gray-600 mx-auto mb-4' />
-                        <div className='text-2xl font-bold text-gray-800 mb-2'>
+                  <div className="relative">
+                    <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                      <div className="text-center">
+                        <CalendarIcon className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                        <div className="text-2xl font-bold text-gray-800 mb-2">
                           {event.date}
                         </div>
-                        <div className='text-lg font-semibold text-gray-700'>
+                        <div className="text-lg font-semibold text-gray-700">
                           {event.location}
                         </div>
                       </div>
                     </div>
                     {event.featured && (
-                      <div className='absolute top-4 right-4 bg-[#6c7cae] text-white px-3 py-1 rounded-full text-sm font-semibold'>
+                      <div className="absolute top-4 right-4 bg-[#6c7cae] text-white px-3 py-1 rounded-full text-sm font-semibold">
                         Featured
                       </div>
                     )}
                   </div>
 
-                  <div className='p-6'>
-                    <h3 className='text-lg font-bold text-gray-900 mb-3 line-clamp-2'>
+                  <div className="p-6">
+                    <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2">
                       {event.title}
                     </h3>
 
-                    <div className='flex items-center justify-between text-sm text-gray-500 mb-4'>
-                     
-                      <div className='flex items-center space-x-1'>
+                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                      <div className="flex items-center space-x-1">
                         {renderStars(event.rating)}
-                        <span className='text-xs text-gray-500 ml-1'>
+                        <span className="text-xs text-gray-500 ml-1">
                           ({event.rating})
                         </span>
                       </div>
                     </div>
 
                     <Link
-                      href='/past-event'
-                      className='w-full bg-gradient-to-r from-[#6c7cae] to-[#9c408c] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#6c7cae]/90 hover:to-[#9c408c]/90 transition-all duration-200 text-center block'
+                      href="/past-event"
+                      className="w-full bg-gradient-to-r from-[#6c7cae] to-[#9c408c] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#6c7cae]/90 hover:to-[#9c408c]/90 transition-all duration-200 text-center block"
                     >
                       View Details
                     </Link>
@@ -1102,46 +1092,46 @@ export default function Home() {
               ))}
             </div>
 
-            <div className='text-center'>
+            <div className="text-center">
               <Link
-                href='/past-event'
-                className='inline-flex items-center bg-gradient-to-r from-[#6c7cae] to-[#9c408c] text-white px-8 py-3 rounded-full font-semibold hover:from-[#6c7cae]/90 hover:to-[#9c408c]/90 transition-all duration-200 shadow-lg'
+                href="/past-event"
+                className="inline-flex items-center bg-gradient-to-r from-[#6c7cae] to-[#9c408c] text-white px-8 py-3 rounded-full font-semibold hover:from-[#6c7cae]/90 hover:to-[#9c408c]/90 transition-all duration-200 shadow-lg"
               >
                 View All Past Events
-                <ArrowRightIcon className='w-5 h-5 ml-2' />
+                <ArrowRightIcon className="w-5 h-5 ml-2" />
               </Link>
             </div>
           </div>
         </div>
 
         {/* Gallery Section */}
-        <div className='py-20 bg-gray-50'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='text-center mb-16'>
-              <h2 className='text-4xl font-bold text-gray-900 mb-4'>
+        <div className="py-20 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
                 Event Gallery
               </h2>
-              <p className='text-xl text-gray-600 max-w-3xl mx-auto'>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Take a look at our successful events and see the impact we've
                 made in professional development and training.
               </p>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12'>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {/* Gallery Item 1 */}
-              <div className='group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-card-float'>
-                <div className='h-64 bg-gradient-to-br from-[#be3437]/20 to-[#6c7cae]/20 flex items-center justify-center'>
-                  <div className='text-center'>
-                    <UsersIcon className='w-16 h-16 text-[#be3437] mx-auto mb-3' />
-                    <h3 className='text-lg font-semibold text-gray-800'>
+              <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-card-float">
+                <div className="h-64 bg-gradient-to-br from-[#be3437]/20 to-[#6c7cae]/20 flex items-center justify-center">
+                  <div className="text-center">
+                    <UsersIcon className="w-16 h-16 text-[#be3437] mx-auto mb-3" />
+                    <h3 className="text-lg font-semibold text-gray-800">
                       Financial Summit 2024
                     </h3>
-                    <p className='text-sm text-gray-600'>150+ Professionals</p>
+                    <p className="text-sm text-gray-600">150+ Professionals</p>
                   </div>
                 </div>
-                <div className='absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4'>
-                  <div className='text-white'>
-                    <p className='text-sm font-medium'>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                  <div className="text-white">
+                    <p className="text-sm font-medium">
                       Keynote sessions and networking
                     </p>
                   </div>
@@ -1149,19 +1139,19 @@ export default function Home() {
               </div>
 
               {/* Gallery Item 2 */}
-              <div className='group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-card-float'>
-                <div className='h-64 bg-gradient-to-br from-[#6c7cae]/20 to-[#9c408c]/20 flex items-center justify-center'>
-                  <div className='text-center'>
-                    <AwardIcon className='w-16 h-16 text-[#6c7cae] mx-auto mb-3' />
-                    <h3 className='text-lg font-semibold text-gray-800'>
+              <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-card-float">
+                <div className="h-64 bg-gradient-to-br from-[#6c7cae]/20 to-[#9c408c]/20 flex items-center justify-center">
+                  <div className="text-center">
+                    <AwardIcon className="w-16 h-16 text-[#6c7cae] mx-auto mb-3" />
+                    <h3 className="text-lg font-semibold text-gray-800">
                       Legal Conference 2024
                     </h3>
-                    <p className='text-sm text-gray-600'>120+ Attendees</p>
+                    <p className="text-sm text-gray-600">120+ Attendees</p>
                   </div>
                 </div>
-                <div className='absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4'>
-                  <div className='text-white'>
-                    <p className='text-sm font-medium'>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                  <div className="text-white">
+                    <p className="text-sm font-medium">
                       Corporate governance discussions
                     </p>
                   </div>
@@ -1169,19 +1159,19 @@ export default function Home() {
               </div>
 
               {/* Gallery Item 3 */}
-              <div className='group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1'>
-                <div className='h-64 bg-gradient-to-br from-[#9c408c]/20 to-[#be3437]/20 flex items-center justify-center'>
-                  <div className='text-center'>
-                    <BookOpenIcon className='w-16 h-16 text-[#9c408c] mx-auto mb-3' />
-                    <h3 className='text-lg font-semibold text-gray-800'>
+              <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="h-64 bg-gradient-to-br from-[#9c408c]/20 to-[#be3437]/20 flex items-center justify-center">
+                  <div className="text-center">
+                    <BookOpenIcon className="w-16 h-16 text-[#9c408c] mx-auto mb-3" />
+                    <h3 className="text-lg font-semibold text-gray-800">
                       GST Workshop 2024
                     </h3>
-                    <p className='text-sm text-gray-600'>80+ Participants</p>
+                    <p className="text-sm text-gray-600">80+ Participants</p>
                   </div>
                 </div>
-                <div className='absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4'>
-                  <div className='text-white'>
-                    <p className='text-sm font-medium'>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                  <div className="text-white">
+                    <p className="text-sm font-medium">
                       Hands-on training sessions
                     </p>
                   </div>
@@ -1189,19 +1179,19 @@ export default function Home() {
               </div>
 
               {/* Gallery Item 4 */}
-              <div className='group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1'>
-                <div className='h-64 bg-gradient-to-br from-[#be3437]/20 to-[#6c7cae]/20 flex items-center justify-center'>
-                  <div className='text-center'>
-                    <ChartBarIcon className='w-16 h-16 text-[#be3437] mx-auto mb-3' />
-                    <h3 className='text-lg font-semibold text-gray-800'>
+              <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="h-64 bg-gradient-to-br from-[#be3437]/20 to-[#6c7cae]/20 flex items-center justify-center">
+                  <div className="text-center">
+                    <ChartBarIcon className="w-16 h-16 text-[#be3437] mx-auto mb-3" />
+                    <h3 className="text-lg font-semibold text-gray-800">
                       Enterprise Training
                     </h3>
-                    <p className='text-sm text-gray-600'>Corporate Programs</p>
+                    <p className="text-sm text-gray-600">Corporate Programs</p>
                   </div>
                 </div>
-                <div className='absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4'>
-                  <div className='text-white'>
-                    <p className='text-sm font-medium'>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                  <div className="text-white">
+                    <p className="text-sm font-medium">
                       Custom training solutions
                     </p>
                   </div>
@@ -1209,21 +1199,21 @@ export default function Home() {
               </div>
 
               {/* Gallery Item 5 */}
-              <div className='group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1'>
-                <div className='h-64 bg-gradient-to-br from-[#6c7cae]/20 to-[#9c408c]/20 flex items-center justify-center'>
-                  <div className='text-center'>
-                    <StarIcon className='w-16 h-16 text-[#6c7cae] mx-auto mb-3' />
-                    <h3 className='text-lg font-semibold text-gray-800'>
+              <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="h-64 bg-gradient-to-br from-[#6c7cae]/20 to-[#9c408c]/20 flex items-center justify-center">
+                  <div className="text-center">
+                    <StarIcon className="w-16 h-16 text-[#6c7cae] mx-auto mb-3" />
+                    <h3 className="text-lg font-semibold text-gray-800">
                       Award Ceremony 2024
                     </h3>
-                    <p className='text-sm text-gray-600'>
+                    <p className="text-sm text-gray-600">
                       Excellence Recognition
                     </p>
                   </div>
                 </div>
-                <div className='absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4'>
-                  <div className='text-white'>
-                    <p className='text-sm font-medium'>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                  <div className="text-white">
+                    <p className="text-sm font-medium">
                       Celebrating achievements
                     </p>
                   </div>
@@ -1231,21 +1221,21 @@ export default function Home() {
               </div>
 
               {/* Gallery Item 6 */}
-              <div className='group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1'>
-                <div className='h-64 bg-gradient-to-br from-[#9c408c]/20 to-[#be3437]/20 flex items-center justify-center'>
-                  <div className='text-center'>
-                    <CheckCircleIcon className='w-16 h-16 text-[#9c408c] mx-auto mb-3' />
-                    <h3 className='text-lg font-semibold text-gray-800'>
+              <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="h-64 bg-gradient-to-br from-[#9c408c]/20 to-[#be3437]/20 flex items-center justify-center">
+                  <div className="text-center">
+                    <CheckCircleIcon className="w-16 h-16 text-[#9c408c] mx-auto mb-3" />
+                    <h3 className="text-lg font-semibold text-gray-800">
                       Certification Program
                     </h3>
-                    <p className='text-sm text-gray-600'>
+                    <p className="text-sm text-gray-600">
                       Professional Development
                     </p>
                   </div>
                 </div>
-                <div className='absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4'>
-                  <div className='text-white'>
-                    <p className='text-sm font-medium'>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                  <div className="text-white">
+                    <p className="text-sm font-medium">
                       Industry-recognized certifications
                     </p>
                   </div>
@@ -1253,86 +1243,86 @@ export default function Home() {
               </div>
             </div>
 
-            <div className='text-center'>
+            <div className="text-center">
               <Link
-                href='/past-event'
-                className='inline-flex items-center bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-8 py-3 rounded-full font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg'
+                href="/past-event"
+                className="inline-flex items-center bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-8 py-3 rounded-full font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg"
               >
                 View All Event Photos
-                <ArrowRightIcon className='w-5 h-5 ml-2' />
+                <ArrowRightIcon className="w-5 h-5 ml-2" />
               </Link>
             </div>
           </div>
         </div>
 
         {/* About Section */}
-        <div className='bg-gradient-to-r from-[#be3437] to-[#6c7cae] py-20'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
+        <div className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className='text-4xl font-bold text-white mb-6'>
+                <h2 className="text-4xl font-bold text-white mb-6">
                   About Achromic Point
                 </h2>
-                <p className='text-xl text-white/90 mb-6'>
+                <p className="text-xl text-white/90 mb-6">
                   We are India's leading platform for professional development,
                   compliance training, and industry expertise. With over 15
                   years of experience, we have successfully trained more than
                   50,000 professionals across various industries.
                 </p>
-                <p className='text-lg text-white/80 mb-8'>
+                <p className="text-lg text-white/80 mb-8">
                   Our mission is to empower professionals through excellence in
                   training, providing them with the knowledge and skills needed
                   to excel in their careers and contribute to organizational
                   success.
                 </p>
-                <div className='flex flex-col sm:flex-row gap-4'>
+                <div className="flex flex-col sm:flex-row gap-4">
                   <Link
-                    href='/contact-us'
-                    className='bg-white text-[#be3437] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg text-center'
+                    href="/contact-us"
+                    className="bg-white text-[#be3437] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg text-center"
                   >
                     Learn More About Us
                   </Link>
                   <Link
-                    href='/emagzine'
-                    className='border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#be3437] transition-all duration-200 text-center'
+                    href="/emagzine"
+                    className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#be3437] transition-all duration-200 text-center"
                   >
                     Read Our eMagazine
                   </Link>
                 </div>
               </div>
-              <div className='relative'>
-                <div className='bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20'>
-                  <div className='grid grid-cols-2 gap-6'>
-                    <div className='text-center'>
-                      <div className='text-3xl font-bold text-white mb-2'>
+              <div className="relative">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-white mb-2">
                         15+
                       </div>
-                      <div className='text-white/80 text-sm'>
+                      <div className="text-white/80 text-sm">
                         Years Experience
                       </div>
                     </div>
-                    <div className='text-center'>
-                      <div className='text-3xl font-bold text-white mb-2'>
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-white mb-2">
                         25,000+
                       </div>
-                      <div className='text-white/80 text-sm'>
+                      <div className="text-white/80 text-sm">
                         Events ConductedParticipants Trained
                       </div>
                     </div>
-                    <div className='text-center'>
-                      <div className='text-3xl font-bold text-white mb-2'>
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-white mb-2">
                         4,500+
                       </div>
-                      <div className='text-white/80 text-sm'>
-                      Corporate Partnerships
+                      <div className="text-white/80 text-sm">
+                        Corporate Partnerships
                       </div>
                     </div>
-                    <div className='text-center'>
-                      <div className='text-3xl font-bold text-white mb-2'>
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-white mb-2">
                         2,000+
                       </div>
-                      <div className='text-white/80 text-sm'>
-                      Global Events Delivered
+                      <div className="text-white/80 text-sm">
+                        Global Events Delivered
                       </div>
                     </div>
                   </div>
@@ -1343,28 +1333,28 @@ export default function Home() {
         </div>
 
         {/* FAQ Section */}
-        <div className='py-20 bg-gray-50'>
-          <div className='max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='text-center mb-16'>
-              <h2 className='text-4xl font-bold text-gray-900 mb-4'>
+        <div className="py-20 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
                 Frequently Asked Questions
               </h2>
-              <p className='text-xl text-gray-600'>
+              <p className="text-xl text-gray-600">
                 Find answers to common questions about our events and services.
               </p>
             </div>
 
-            <div className='space-y-4'>
+            <div className="space-y-4">
               {faqs.map((faq, index) => (
                 <div
                   key={index}
-                  className='bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden'
+                  className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
                 >
                   <button
                     onClick={() => toggleFaq(index)}
-                    className='w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200'
+                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
                   >
-                    <span className='font-semibold text-gray-900'>
+                    <span className="font-semibold text-gray-900">
                       {faq.question}
                     </span>
                     <ChevronDownIcon
@@ -1374,8 +1364,8 @@ export default function Home() {
                     />
                   </button>
                   {openFaq === index && (
-                    <div className='px-6 pb-4'>
-                      <p className='text-gray-600 leading-relaxed'>
+                    <div className="px-6 pb-4">
+                      <p className="text-gray-600 leading-relaxed">
                         {faq.answer}
                       </p>
                     </div>
@@ -1387,12 +1377,10 @@ export default function Home() {
         </div>
 
         {/* CTA Section */}
-      
-        <Testimonials/>
-       
+
+        <Testimonials />
 
         {/* Enhanced Testimonial Section */}
-        
       </div>
     </>
   );

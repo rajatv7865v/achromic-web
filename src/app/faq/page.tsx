@@ -47,20 +47,44 @@ const faqs = [
     category: "Events and Conferences",
     questions: [
       {
-        question: "What types of events do you organize?",
-        answer: "We organize various types of events including industry conferences, training workshops, networking events, corporate seminars, and professional development sessions. Our events cover topics ranging from technology and finance to leadership and innovation."
+        question: "What type of events do you organize?",
+        answer: "We organize professional seminars, conferences, workshops, panel discussions, and corporate training events on topics which revolves around Compliance. Risk, Accounting, Finance and Taxation."
       },
       {
-        question: "How can I register for your events?",
-        answer: "You can register for our events through our website's registration page, by calling us directly, or by email. We also offer early bird discounts and group registration benefits for organizations."
+        question: "Who can attend your seminars and conferences?",
+        answer: "Our events are open to professionals, business leaders, students, entrepreneurs, academics, and organizations, depending on the event theme and target audience."
       },
       {
-        question: "Do you offer virtual events?",
-        answer: "Yes, we offer both in-person and virtual events. Our virtual events include live webinars, online workshops, and interactive training sessions that you can attend from anywhere in the world."
+        question: "How can I register for an event?",
+        answer: "You can register online through our website by selecting the event and completing the registration form. Confirmation details will be sent via email after successful registration."
       },
       {
-        question: "Can I get a refund if I cannot attend an event?",
-        answer: "Our refund policy varies depending on the event type and timing. Generally, we offer full refunds for cancellations made at least 7 days before the event. Please check the specific terms for each event during registration."
+        question: "Are your events held online or in person?",
+        answer: "We offer in-person and virtual events. The format of each event is clearly stated on the event details page."
+      },
+      {
+        question: "What is included in the registration fee?",
+        answer: "Registration fees typically include access to event sessions, conference materials, certificates of participation, and refreshments or meals for in-person events. Specific inclusions vary by event."
+      },
+      {
+        question: "Do you offer group or corporate discounts?",
+        answer: "Yes, we offer special rates for group registrations and corporate bookings. Please contact us directly for details and customized packages."
+      },
+      {
+        question: "Will I receive a certificate of participation?",
+        answer: "Yes, participants receive a certificate of participation or attendance after completing the seminar or conference, either digitally or in print."
+      },
+      {
+        question: "Can I cancel or transfer my registration?",
+        answer: "Cancellation and transfer policies vary by event. Please refer to the event's terms and conditions or contact our support team for assistance."
+      },
+      {
+        question: "How can I become a speaker or partner for your events?",
+        answer: "If you are interested in speaking, sponsoring, or partnering with us, please reach out through our contact page or email us with your proposal and credentials."
+      },
+      {
+        question: "How can I contact you for more information?",
+        answer: "You can contact us via email, phone, or the contact form on our website. Our team will be happy to assist you with any inquiries."
       }
     ]
   },
