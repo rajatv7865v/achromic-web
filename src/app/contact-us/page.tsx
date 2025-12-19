@@ -154,7 +154,7 @@ export default function ContactUsPage() {
       icon: PhoneIcon,
       title: "Phone",
       details: ["+91 11 4601 1835", "+91-8447758768 - India", "+91 9999219228 – International"],
-      color: "from-[#be3437] to-[#be3437]/80",
+      color: "from-[#2b8ffb] to-[#2b8ffb]/80",
     },
     {
       icon: EmailIcon,
@@ -175,14 +175,14 @@ export default function ContactUsPage() {
         "Monday - Friday: 9:30 AM - 6:00 PM",
         "1st, 3rd & 5th Saturday: 09:30 AM - 6:00 PM",
       ],
-      color: "from-[#be3437] to-[#6c7cae]",
+      color: "from-[#2b8ffb] to-[#6c7cae]",
     },
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-[#6c7cae]/5">
       {/* Top Banner */}
-      <div className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] py-20">
+      <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-5xl font-bold text-white mb-6">Contact Us</h1>
@@ -251,37 +251,37 @@ export default function ContactUsPage() {
             </div>
 
             {/* Additional Info */}
-            <div className="bg-gradient-to-r from-[#be3437]/5 to-[#6c7cae]/5 rounded-xl p-6 border border-[#be3437]/10">
+            <div className="bg-gradient-to-r from-[#2b8ffb]/5 to-[#6c7cae]/5 rounded-xl p-6 border border-[#2b8ffb]/10">
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
                 Why Choose Achromic Point?
               </h3>
               <ul className="space-y-2 text-gray-600">
                 <li className="flex items-center space-x-2">
-                  <span className="text-[#be3437]">✓</span>
+                  <span className="text-[#2b8ffb]">✓</span>
                   <span>Expert-led training programs</span>
                 </li>
                 <li className="flex items-center space-x-2">
-                  <span className="text-[#be3437]">✓</span>
+                  <span className="text-[#2b8ffb]">✓</span>
                   <span>Industry-recognized certifications</span>
                 </li>
                 <li className="flex items-center space-x-2">
-                  <span className="text-[#be3437]">✓</span>
+                  <span className="text-[#2b8ffb]">✓</span>
                   <span>Flexible learning options</span>
                 </li>
                 {/* <li className="flex items-center space-x-2">
-                  <span className="text-[#be3437]">✓</span>
+                  <span className="text-[#2b8ffb]">✓</span>
                   <span>Post-training support</span>
                 </li> */}
                 <li className="flex items-center space-x-2">
-                  <span className="text-[#be3437]">✓</span>
+                  <span className="text-[#2b8ffb]">✓</span>
                   <span>Strong Event & Networking Capabilities</span>
                 </li>
                 <li className="flex items-center space-x-2">
-                  <span className="text-[#be3437]">✓</span>
+                  <span className="text-[#2b8ffb]">✓</span>
                   <span>Brand Visibility & Lead Generation</span>
                 </li>
                 <li className="flex items-center space-x-2">
-                  <span className="text-[#be3437]">✓</span>
+                  <span className="text-[#2b8ffb]">✓</span>
                   <span>Comprehensive Enterprise Solutions</span>
                 </li>
               </ul>
@@ -328,7 +328,7 @@ export default function ContactUsPage() {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200"
                     placeholder="Your full name"
                   />
                 </div>
@@ -347,7 +347,7 @@ export default function ContactUsPage() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -367,7 +367,7 @@ export default function ContactUsPage() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200"
                     placeholder="Your phone number"
                   />
                 </div>
@@ -386,7 +386,7 @@ export default function ContactUsPage() {
                     value={formData.company}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200"
                     placeholder="Your company name"
                   />
                 </div>
@@ -406,7 +406,7 @@ export default function ContactUsPage() {
                   onChange={handleInputChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-colors duration-200 resize-none"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200 resize-none"
                   placeholder="Tell us how we can help you..."
                 />
               </div>
@@ -417,7 +417,7 @@ export default function ContactUsPage() {
                 className={`w-full py-4 px-6 rounded-lg font-semibold text-white transition-all duration-200 flex items-center justify-center space-x-2 ${
                   isSubmitting
                     ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-gradient-to-r from-[#be3437] to-[#6c7cae] hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 shadow-lg hover:shadow-xl"
+                    : "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 shadow-lg hover:shadow-xl"
                 }`}
               >
                 {isSubmitting ? (
@@ -446,9 +446,9 @@ export default function ContactUsPage() {
           </div>
 
           <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div className="h-96 bg-gradient-to-br from-[#be3437]/10 to-[#6c7cae]/10 flex items-center justify-center">
+            <div className="h-96 bg-gradient-to-br from-[#2b8ffb]/10 to-[#6c7cae]/10 flex items-center justify-center">
               <div className="text-center">
-                <LocationIcon className="w-16 h-16 text-[#be3437] mx-auto mb-4" />
+                <LocationIcon className="w-16 h-16 text-[#2b8ffb] mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   Achromic Point Office
                 </h3>
@@ -458,7 +458,7 @@ export default function ContactUsPage() {
                 <a
                   href="https://www.google.com/maps/search/F-11,+First+Floor,+Kalkaji+New+Delhi-110019,+India/@28.5406586,77.2484486,15.76z?entry=ttu&g_ep=EgoyMDI1MTAyOS4yIKXMDSoASAFQAw%3D%3D"
                   target="_blank"
-                  className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-6 py-3 rounded-lg font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200"
+                  className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-6 py-3 rounded-lg font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200"
                 >
                   Get Directions
                 </a>

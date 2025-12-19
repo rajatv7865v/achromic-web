@@ -57,7 +57,7 @@ export default function RegisterCard({ event }: { event: any }) {
     <div
       key={event.id}
       className={`group relative cursor-pointer transition-all duration-300 ${
-        isInCart ? "ring-4 ring-[#be3437] ring-opacity-50" : ""
+        isInCart ? "ring-4 ring-[#2b8ffb] ring-opacity-50" : ""
       }`}
       // onClick={() => {
       //   setSelectedEvent(event.id);
@@ -67,16 +67,16 @@ export default function RegisterCard({ event }: { event: any }) {
       //   }));
       // }}
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-[#2b8ffb]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
       <div className="relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover-lift border border-gray-100">
         {event.featured && (
-          <div className="absolute top-4 right-4 bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-3 py-1 rounded-full text-sm font-semibold">
+          <div className="absolute top-4 right-4 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-3 py-1 rounded-full text-sm font-semibold">
             Featured
           </div>
         )}
 
         <div className="mb-4">
-          <span className="bg-[#be3437]/10 text-[#be3437] px-3 py-1 rounded-full text-sm font-medium">
+          <span className="bg-[#2b8ffb]/10 text-[#2b8ffb] px-3 py-1 rounded-full text-sm font-medium">
             {event.category}
           </span>
         </div>
@@ -87,7 +87,7 @@ export default function RegisterCard({ event }: { event: any }) {
 
         <div className="space-y-3 mb-6">
           <div className="flex items-center text-gray-600">
-            <CalendarIcon className="w-5 h-5 mr-2 text-[#be3437]" />
+            <CalendarIcon className="w-5 h-5 mr-2 text-[#2b8ffb]" />
             <span className="font-medium">{event.date}</span>
           </div>
           <div className="flex items-center text-gray-600">
@@ -108,7 +108,7 @@ export default function RegisterCard({ event }: { event: any }) {
           </h4>
           <div className="space-y-3">
             {/* Industry Price */}
-            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-[#be3437]/5 to-[#be3437]/10 rounded-lg border border-[#be3437]/20">
+            <div className="flex items-center justify-between p-3 bg-gradient-to-r from-[#2b8ffb]/5 to-[#2b8ffb]/10 rounded-lg border border-[#2b8ffb]/20">
               <div>
                 <div className="text-sm font-medium text-gray-700">
                   Industry
@@ -190,7 +190,7 @@ export default function RegisterCard({ event }: { event: any }) {
           onClick={isInCart ? handleRemoveFromCart : handleAddToCart}
           className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-200 ${
             isInCart
-              ? "bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white shadow-lg"
+              ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white shadow-lg"
               : "bg-gray-100 text-gray-700 hover:bg-gray-200"
           }`}
         >

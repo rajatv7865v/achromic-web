@@ -258,8 +258,8 @@ export default function RegistrationPage() {
 
       <div className='min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50'>
         {/* Hero Section */}
-        <div className='relative py-16 bg-gradient-to-r from-[#be3437] to-[#6c7cae] overflow-hidden'>
-          <div className='absolute inset-0 bg-gradient-to-r from-[#be3437]/90 to-[#6c7cae]/90'>
+        <div className='relative py-16 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] overflow-hidden'>
+          <div className='absolute inset-0 bg-gradient-to-r from-[#2b8ffb]/90 to-[#6c7cae]/90'>
             <div className='absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse'></div>
             <div className='absolute bottom-10 right-10 w-32 h-32 bg-white/5 rounded-full blur-2xl animate-pulse delay-1000'></div>
             <div className='absolute top-1/2 left-1/4 w-16 h-16 bg-white/10 rounded-full blur-lg animate-pulse delay-500'></div>
@@ -295,7 +295,7 @@ export default function RegistrationPage() {
             <div className='text-center mb-12'>
               <h2 className='text-3xl font-bold text-gray-900 mb-4'>
                 Choose Your{" "}
-                <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#be3437] to-[#6c7cae]'>
+                <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae]'>
                   Event
                 </span>
               </h2>
@@ -311,7 +311,7 @@ export default function RegistrationPage() {
                   key={event.id}
                   className={`group relative cursor-pointer transition-all duration-300 ${
                     selectedEvent === event.id
-                      ? "ring-4 ring-[#be3437] ring-opacity-50"
+                      ? "ring-4 ring-[#2b8ffb] ring-opacity-50"
                       : ""
                   }`}
                   onClick={() => {
@@ -322,16 +322,16 @@ export default function RegistrationPage() {
                     }));
                   }}
                 >
-                  <div className='absolute inset-0 bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
+                  <div className='absolute inset-0 bg-gradient-to-r from-[#2b8ffb]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
                   <div className='relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover-lift border border-gray-100'>
                     {event.featured && (
-                      <div className='absolute top-4 right-4 bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-3 py-1 rounded-full text-sm font-semibold'>
+                      <div className='absolute top-4 right-4 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-3 py-1 rounded-full text-sm font-semibold'>
                         Featured
                       </div>
                     )}
 
                     <div className='mb-4'>
-                      <span className='bg-[#be3437]/10 text-[#be3437] px-3 py-1 rounded-full text-sm font-medium'>
+                      <span className='bg-[#2b8ffb]/10 text-[#2b8ffb] px-3 py-1 rounded-full text-sm font-medium'>
                         {event.category}
                       </span>
                     </div>
@@ -342,7 +342,7 @@ export default function RegistrationPage() {
 
                     <div className='space-y-3 mb-6'>
                       <div className='flex items-center text-gray-600'>
-                        <CalendarIcon className='w-5 h-5 mr-2 text-[#be3437]' />
+                        <CalendarIcon className='w-5 h-5 mr-2 text-[#2b8ffb]' />
                         <span className='font-medium'>{event.date}</span>
                       </div>
                       <div className='flex items-center text-gray-600'>
@@ -394,7 +394,7 @@ export default function RegistrationPage() {
                     <button
                       className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-200 ${
                         selectedEvent === event.id
-                          ? "bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white shadow-lg"
+                          ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white shadow-lg"
                           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                       }`}
                     >
@@ -414,7 +414,7 @@ export default function RegistrationPage() {
               <div className='text-center mb-12'>
                 <h2 className='text-3xl font-bold text-gray-900 mb-4'>
                   Complete Your{" "}
-                  <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#be3437] to-[#6c7cae]'>
+                  <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae]'>
                     Registration
                   </span>
                 </h2>
@@ -428,7 +428,7 @@ export default function RegistrationPage() {
                   {/* Personal Information */}
                   <div>
                     <h3 className='text-xl font-semibold text-gray-900 mb-6 flex items-center'>
-                      <UserIcon className='w-6 h-6 mr-3 text-[#be3437]' />
+                      <UserIcon className='w-6 h-6 mr-3 text-[#2b8ffb]' />
                       Personal Information
                     </h3>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
@@ -446,7 +446,7 @@ export default function RegistrationPage() {
                           required
                           value={formData.firstName}
                           onChange={handleInputChange}
-                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-all duration-200'
+                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-all duration-200'
                           placeholder='Enter your first name'
                         />
                       </div>
@@ -464,7 +464,7 @@ export default function RegistrationPage() {
                           required
                           value={formData.lastName}
                           onChange={handleInputChange}
-                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-all duration-200'
+                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-all duration-200'
                           placeholder='Enter your last name'
                         />
                       </div>
@@ -482,7 +482,7 @@ export default function RegistrationPage() {
                           required
                           value={formData.email}
                           onChange={handleInputChange}
-                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-all duration-200'
+                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-all duration-200'
                           placeholder='Enter your email address'
                         />
                       </div>
@@ -500,7 +500,7 @@ export default function RegistrationPage() {
                           required
                           value={formData.phone}
                           onChange={handleInputChange}
-                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-all duration-200'
+                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-all duration-200'
                           placeholder='Enter your phone number'
                         />
                       </div>
@@ -528,7 +528,7 @@ export default function RegistrationPage() {
                           required
                           value={formData.company}
                           onChange={handleInputChange}
-                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-all duration-200'
+                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-all duration-200'
                           placeholder='Enter your company name'
                         />
                       </div>
@@ -546,7 +546,7 @@ export default function RegistrationPage() {
                           required
                           value={formData.designation}
                           onChange={handleInputChange}
-                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-all duration-200'
+                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-all duration-200'
                           placeholder='Enter your job title'
                         />
                       </div>
@@ -563,7 +563,7 @@ export default function RegistrationPage() {
                           required
                           value={formData.experience}
                           onChange={handleInputChange}
-                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-all duration-200'
+                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-all duration-200'
                         >
                           <option value=''>Select your experience level</option>
                           <option value='0-1'>0-1 years</option>
@@ -596,7 +596,7 @@ export default function RegistrationPage() {
                           name='dietaryRequirements'
                           value={formData.dietaryRequirements}
                           onChange={handleInputChange}
-                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-all duration-200'
+                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-all duration-200'
                           placeholder='Any dietary restrictions or preferences'
                         />
                       </div>
@@ -613,7 +613,7 @@ export default function RegistrationPage() {
                           rows={4}
                           value={formData.specialRequests}
                           onChange={handleInputChange}
-                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent transition-all duration-200'
+                          className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-all duration-200'
                           placeholder='Any special requests or additional information'
                         />
                       </div>
@@ -627,7 +627,7 @@ export default function RegistrationPage() {
                         type='checkbox'
                         id='terms'
                         required
-                        className='mt-1 h-4 w-4 text-[#be3437] border-gray-300 rounded focus:ring-[#be3437]'
+                        className='mt-1 h-4 w-4 text-[#2b8ffb] border-gray-300 rounded focus:ring-[#2b8ffb]'
                       />
                       <label
                         htmlFor='terms'
@@ -636,14 +636,14 @@ export default function RegistrationPage() {
                         I agree to the{" "}
                         <Link
                           href='/terms'
-                          className='text-[#be3437] hover:underline'
+                          className='text-[#2b8ffb] hover:underline'
                         >
                           Terms and Conditions
                         </Link>{" "}
                         and{" "}
                         <Link
                           href='/privacy'
-                          className='text-[#be3437] hover:underline'
+                          className='text-[#2b8ffb] hover:underline'
                         >
                           Privacy Policy
                         </Link>
@@ -657,7 +657,7 @@ export default function RegistrationPage() {
                   <div className='flex flex-col sm:flex-row gap-4'>
                     <button
                       type='submit'
-                      className='flex-1 bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white py-4 px-8 rounded-lg font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center'
+                      className='flex-1 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white py-4 px-8 rounded-lg font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center'
                     >
                       Complete Registration
                       <ArrowRightIcon className='w-5 h-5 ml-2' />
@@ -676,7 +676,7 @@ export default function RegistrationPage() {
         )}
 
         {/* Call to Action */}
-        <div className='py-16 bg-gradient-to-r from-[#be3437] to-[#6c7cae]'>
+        <div className='py-16 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae]'>
           <div className='max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
             <h2 className='text-3xl font-bold text-white mb-6'>
               Need Help with Registration?
@@ -688,13 +688,13 @@ export default function RegistrationPage() {
             <div className='flex flex-col sm:flex-row gap-4 justify-center'>
               <Link
                 href='/contact-us'
-                className='bg-white text-[#be3437] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg'
+                className='bg-white text-[#2b8ffb] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg'
               >
                 Contact Support
               </Link>
               <Link
                 href='tel:+911146011835'
-                className='border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#be3437] transition-all duration-200'
+                className='border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#2b8ffb] transition-all duration-200'
               >
                 Call: +91 11 4601 1835
               </Link>

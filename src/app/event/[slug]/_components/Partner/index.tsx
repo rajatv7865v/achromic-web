@@ -118,7 +118,7 @@ export default function Partner({ eventId }: { eventId: string }) {
   if (loading) {
     return (
       <div className="text-center py-12">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#be3437] mx-auto mb-4"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2b8ffb] mx-auto mb-4"></div>
         <p className="text-gray-600">Loading partners...</p>
       </div>
     );
@@ -171,10 +171,10 @@ export default function Partner({ eventId }: { eventId: string }) {
                 return (
                   <div
                     key={partnerKey}
-                    className={`group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-2xl border-2 ${getCategoryBorderColor(category)} hover:border-[#be3437]/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2`}
+                    className={`group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-2xl border-2 ${getCategoryBorderColor(category)} hover:border-[#2b8ffb]/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2`}
                   >
                     {/* Decorative background pattern */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#be3437]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#2b8ffb]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                     {/* Category Badge */}
                     <div className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${getCategoryColor(category)} text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
@@ -207,7 +207,7 @@ export default function Partner({ eventId }: { eventId: string }) {
                       </div>
 
                       {/* Hover indicator */}
-                      <div className="absolute -top-2 -right-2 w-4 h-4 bg-[#be3437] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100">
+                      <div className="absolute -top-2 -right-2 w-4 h-4 bg-[#2b8ffb] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100">
                         <div className="w-full h-full bg-white rounded-full scale-50"></div>
                       </div>
                     </Link>

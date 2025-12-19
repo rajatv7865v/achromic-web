@@ -135,7 +135,7 @@ export default function EMagazinePage() {
               comprehensive digital magazine.
             </p>
             <div className="mt-8 flex justify-center">
-              <div className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-8 py-3 rounded-full font-semibold shadow-lg">
+              <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-8 py-3 rounded-full font-semibold shadow-lg">
                 📚 Free Digital Publications
               </div>
             </div>
@@ -161,7 +161,7 @@ export default function EMagazinePage() {
               className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
             >
               <div className="relative">
-                <div className="h-80 bg-gradient-to-br from-[#be3437]/10 to-[#6c7cae]/10 flex items-center justify-center">
+                <div className="h-80 bg-gradient-to-br from-[#2b8ffb]/10 to-[#6c7cae]/10 flex items-center justify-center">
                   <div className="text-center">
                     <div className="w-32 h-40 bg-white rounded-lg shadow-lg mx-auto mb-4 flex items-center justify-center">
                       <span className="text-2xl font-bold text-gray-700">
@@ -188,7 +188,7 @@ export default function EMagazinePage() {
                   {issue.categories.map((tag) => (
                     <span
                       key={tag}
-                      className="bg-[#be3437]/10 text-[#be3437] px-3 py-1 rounded-full text-sm font-medium"
+                      className="bg-[#2b8ffb]/10 text-[#2b8ffb] px-3 py-1 rounded-full text-sm font-medium"
                     >
                       {tag}
                     </span>
@@ -196,7 +196,7 @@ export default function EMagazinePage() {
                 </div>
 
                 <div className="flex space-x-3">
-                  <button className="flex-1 bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200 flex items-center justify-center space-x-2">
+                  <button className="flex-1 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200 flex items-center justify-center space-x-2">
                     <DownloadIcon className="w-4 h-4" />
                     <span>Download Free</span>
                   </button>
@@ -230,7 +230,7 @@ export default function EMagazinePage() {
                   onClick={() => setSelectedCategory(category)}
                   className={`px-6 py-2 rounded-full font-medium transition-all duration-200 ${
                     selectedCategory === category
-                      ? "bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white shadow-lg"
+                      ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white shadow-lg"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                   }`}
                 >
@@ -250,7 +250,7 @@ export default function EMagazinePage() {
                 onMouseLeave={() => setHoveredIssue(null)}
               >
                 <div className="relative">
-                  <div className="h-48 bg-gradient-to-br from-[#be3437]/5 to-[#6c7cae]/5 flex items-center justify-center">
+                  <div className="h-48 bg-gradient-to-br from-[#2b8ffb]/5 to-[#6c7cae]/5 flex items-center justify-center">
                     <div className="text-center">
                       <div className="w-16 h-20 bg-white rounded shadow-md mx-auto mb-2 flex items-center justify-center">
                         <span className="text-sm font-bold text-gray-700">
@@ -265,7 +265,7 @@ export default function EMagazinePage() {
 
                   {hoveredIssue === issue.id && (
                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center space-x-3">
-                      <button className="bg-[#be3437] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#be3437]/90 transition-colors duration-200 flex items-center space-x-2">
+                      <button className="bg-[#2b8ffb] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#2b8ffb]/90 transition-colors duration-200 flex items-center space-x-2">
                         <DownloadIcon className="w-4 h-4" />
                         <span>Download</span>
                       </button>
@@ -319,7 +319,7 @@ export default function EMagazinePage() {
 
           {/* Load More Button */}
           <div className="text-center mt-12">
-            <button className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-8 py-3 rounded-full font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg">
+            <button className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-8 py-3 rounded-full font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg">
               Load More Issues
             </button>
           </div>
@@ -327,7 +327,7 @@ export default function EMagazinePage() {
       </div>
 
       {/* Newsletter Subscription */}
-      <div className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] py-16">
+      <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Stay Updated</h2>
           <p className="text-xl text-white/90 mb-8">
@@ -341,7 +341,7 @@ export default function EMagazinePage() {
               placeholder="Enter your email address"
               className="flex-1 px-4 py-3 rounded-lg border-0 focus:ring-2 focus:ring-white focus:outline-none"
             />
-            <button className="bg-white text-[#be3437] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
+            <button className="bg-white text-[#2b8ffb] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
               Subscribe
             </button>
           </div>

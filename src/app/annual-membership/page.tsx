@@ -43,7 +43,7 @@ export default function CorporateMembershipPage() {
   return (
     <div>
       <section className='relative overflow-hidden'>
-        <div className='absolute inset-0 bg-gradient-to-br from-[#be3437] via-[#be3437]/80 to-[#6c7cae] opacity-90'>
+        <div className='absolute inset-0 bg-gradient-to-br from-[#2b8ffb] via-[#2b8ffb]/80 to-[#6c7cae] opacity-90'>
         </div>
         <svg
           className='absolute -top-20 -right-20 w-[520px] h-[520px] text-white/10'
@@ -73,7 +73,7 @@ export default function CorporateMembershipPage() {
               <div className='mt-8 flex flex-wrap items-center gap-4'>
                 <a
                   href='#pricing'
-                  className='inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-[#be3437] font-semibold shadow-lg hover:shadow-xl transition-all'
+                  className='inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-[#2b8ffb] font-semibold shadow-lg hover:shadow-xl transition-all'
                 >
                   View Plans
                 </a>
@@ -165,25 +165,25 @@ export default function CorporateMembershipPage() {
               </ul>
             </div>
 
-            <div className='bg-gradient-to-br from-[#be3437]/5 to-[#6c7cae]/5 rounded-2xl border-2 border-[#be3437]/20 shadow-sm p-8'>
+            <div className='bg-gradient-to-br from-[#2b8ffb]/5 to-[#6c7cae]/5 rounded-2xl border-2 border-[#2b8ffb]/20 shadow-sm p-8'>
               <h3 className='text-2xl font-bold text-gray-900 mb-6'>
                 Next Steps
               </h3>
               <div className='space-y-4 text-gray-700'>
                 <div className='flex items-start gap-3'>
-                  <span className='text-[#be3437] font-bold mt-1'>1.</span>
+                  <span className='text-[#2b8ffb] font-bold mt-1'>1.</span>
                   <p>
                     Please confirm the number of events <b>(5 to 10+)</b> and share the <b>event names</b> you wish to opt for.
                   </p>
                 </div>
                 <div className='flex items-start gap-3'>
-                  <span className='text-[#be3437] font-bold mt-1'>2.</span>
+                  <span className='text-[#2b8ffb] font-bold mt-1'>2.</span>
                   <p>
                     Select your membership type: <b>Delegate</b> or <b>Combo</b>.
                   </p>
                 </div>
                 <div className='flex items-start gap-3'>
-                  <span className='text-[#be3437] font-bold mt-1'>3.</span>
+                  <span className='text-[#2b8ffb] font-bold mt-1'>3.</span>
                   <p>
                     If convenient, we can <b>schedule a call</b> to discuss the best-fit plan for your organization and address any queries.
                   </p>
@@ -192,7 +192,7 @@ export default function CorporateMembershipPage() {
               <div className='mt-8'>
                 <a
                   href='/registeration'
-                  className='inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
+                  className='inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
                 >
                   Get Started
                 </a>
@@ -227,7 +227,7 @@ export default function CorporateMembershipPage() {
                 <p className='text-sm text-gray-500 mt-1'>3 Topics</p>
                 <button
                   onClick={() => handleAddToCart('Industry', 'Bronze', 15000, 3)}
-                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
+                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
                 >
                   Choose Bronze
                 </button>
@@ -240,23 +240,23 @@ export default function CorporateMembershipPage() {
                 <p className='text-sm text-gray-500 mt-1'>5 Topics</p>
                 <button
                   onClick={() => handleAddToCart('Industry', 'Silver', 23000, 5)}
-                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
+                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
                 >
                   Choose Silver
                 </button>
               </div>
-              <div className='bg-white rounded-2xl border-2 border-[#be3437] shadow-lg p-6 relative'>
-                <span className='absolute -top-3 right-4 px-3 py-1 rounded-full text-xs font-bold bg-[#be3437] text-white shadow'>
+              <div className='bg-white rounded-2xl border-2 border-[#2b8ffb] shadow-lg p-6 relative'>
+                <span className='absolute -top-3 right-4 px-3 py-1 rounded-full text-xs font-bold bg-[#2b8ffb] text-white shadow'>
                   Popular
                 </span>
-                <p className='text-sm font-semibold text-[#be3437]'>Gold</p>
+                <p className='text-sm font-semibold text-[#2b8ffb]'>Gold</p>
                 <h3 className='mt-1 text-3xl font-extrabold text-gray-800'>
                   ₹28,000
                 </h3>
                 <p className='text-sm text-gray-500 mt-1'>7 Topics</p>
                 <button
                   onClick={() => handleAddToCart('Industry', 'Gold', 28000, 7)}
-                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
+                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
                 >
                   Choose Gold
                 </button>
@@ -269,7 +269,7 @@ export default function CorporateMembershipPage() {
                 <p className='text-sm text-gray-500 mt-1'>9 Topics</p>
                 <button
                   onClick={() => handleAddToCart('Industry', 'Platinum', 32000, 9)}
-                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
+                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
                 >
                   Choose Platinum
                 </button>
@@ -291,7 +291,7 @@ export default function CorporateMembershipPage() {
                 <p className='text-sm text-gray-500 mt-1'>3 Topics</p>
                 <button
                   onClick={() => handleAddToCart('Consulting', 'Bronze', 30000, 3)}
-                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
+                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
                 >
                   Choose Bronze
                 </button>
@@ -304,23 +304,23 @@ export default function CorporateMembershipPage() {
                 <p className='text-sm text-gray-500 mt-1'>5 Topics</p>
                 <button
                   onClick={() => handleAddToCart('Consulting', 'Silver', 48000, 5)}
-                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
+                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
                 >
                   Choose Silver
                 </button>
               </div>
-              <div className='bg-white rounded-2xl border-2 border-[#be3437] shadow-lg p-6 relative'>
-                <span className='absolute -top-3 right-4 px-3 py-1 rounded-full text-xs font-bold bg-[#be3437] text-white shadow'>
+              <div className='bg-white rounded-2xl border-2 border-[#2b8ffb] shadow-lg p-6 relative'>
+                <span className='absolute -top-3 right-4 px-3 py-1 rounded-full text-xs font-bold bg-[#2b8ffb] text-white shadow'>
                   Popular
                 </span>
-                <p className='text-sm font-semibold text-[#be3437]'>Gold</p>
+                <p className='text-sm font-semibold text-[#2b8ffb]'>Gold</p>
                 <h3 className='mt-1 text-3xl font-extrabold text-gray-800'>
                   ₹58,800
                 </h3>
                 <p className='text-sm text-gray-500 mt-1'>7 Topics</p>
                 <button
                   onClick={() => handleAddToCart('Consulting', 'Gold', 58800, 7)}
-                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
+                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
                 >
                   Choose Gold
                 </button>
@@ -333,7 +333,7 @@ export default function CorporateMembershipPage() {
                 <p className='text-sm text-gray-500 mt-1'>9 Topics</p>
                 <button
                   onClick={() => handleAddToCart('Consulting', 'Platinum', 64800, 9)}
-                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
+                  className='mt-6 inline-flex w-full items-center justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
                 >
                   Choose Platinum
                 </button>
@@ -399,7 +399,7 @@ export default function CorporateMembershipPage() {
               <div className='mt-6'>
                 <a
                   href='/registeration'
-                  className='inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
+                  className='inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
                 >
                   Enroll Now
                 </a>

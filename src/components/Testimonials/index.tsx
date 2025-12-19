@@ -48,7 +48,7 @@ const featuredTestimonial = {
     "Thank you. It was a wonderful session and full of learning. I got to know more about new labour codes and it will be really useful in my job. I would like to appreciate your company for organizing such a great session through a qualified trainer. The quality and content of the slides are excellent and it has resolved many of my queries related to new labour reforms in India. Thank you very much for organizing this session.",
   rating: 5,
   event: "New Labour Codes Training",
-  gradientFrom: "#be3437",
+  gradientFrom: "#2b8ffb",
   gradientTo: "#6c7cae",
 };
 
@@ -87,7 +87,7 @@ and dynamic discussion with all of you.`,
 you also for the kind invitation to attend the event - I really enjoyed it.`,
     rating: 5,
     event: "Recognition at Achromic Point",
-    gradientFrom: "#be3437",
+    gradientFrom: "#2b8ffb",
     gradientTo: "#f59e0b",
   },
   {
@@ -175,7 +175,7 @@ engagements.`,
     rating: 5,
     event: "Industry Roundtable",
     gradientFrom: "#6c7cae",
-    gradientTo: "#be3437",
+    gradientTo: "#2b8ffb",
   },
   {
     id: 8,
@@ -277,21 +277,21 @@ export default function Testimonials({ className = "" }: TestimonialsProps) {
       {/* Background with animated elements */}
       <div className='absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-50'>
         {/* Floating decorative elements */}
-        <div className='absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-[#be3437]/5 to-[#6c7cae]/5 rounded-full blur-3xl animate-float'></div>
+        <div className='absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-[#2b8ffb]/5 to-[#6c7cae]/5 rounded-full blur-3xl animate-float'></div>
         <div className='absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-r from-[#6c7cae]/5 to-[#9c408c]/5 rounded-full blur-3xl animate-float-delayed'></div>
-        <div className='absolute top-1/2 left-1/4 w-24 h-24 bg-gradient-to-r from-[#9c408c]/5 to-[#be3437]/5 rounded-full blur-2xl animate-bounce-slow'></div>
+        <div className='absolute top-1/2 left-1/4 w-24 h-24 bg-gradient-to-r from-[#9c408c]/5 to-[#2b8ffb]/5 rounded-full blur-2xl animate-bounce-slow'></div>
       </div>
 
       <div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='text-center mb-8 md:mb-12'>
-          <div className='inline-block bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 backdrop-blur-sm rounded-full px-6 py-2 border border-[#be3437]/20 mb-4'>
-            <span className='text-[#be3437] font-semibold text-sm uppercase tracking-wider'>
+          <div className='inline-block bg-gradient-to-r from-[#2b8ffb]/10 to-[#6c7cae]/10 backdrop-blur-sm rounded-full px-6 py-2 border border-[#2b8ffb]/20 mb-4'>
+            <span className='text-[#2b8ffb] font-semibold text-sm uppercase tracking-wider'>
               ⭐ Testimonials
             </span>
           </div>
           <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3'>
             Voices of
-            <span className='block text-transparent bg-clip-text bg-gradient-to-r from-[#be3437] via-[#6c7cae] to-[#9c408c]'>
+            <span className='block text-transparent bg-clip-text bg-gradient-to-r from-[#2b8ffb] via-[#6c7cae] to-[#9c408c]'>
               Success
             </span>
           </h2>
@@ -310,7 +310,7 @@ export default function Testimonials({ className = "" }: TestimonialsProps) {
               className='absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-all border border-gray-200 hidden md:flex items-center justify-center'
               aria-label='Scroll left'
             >
-              <svg className='w-5 h-5 text-[#be3437]' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+              <svg className='w-5 h-5 text-[#2b8ffb]' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
                 <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7' />
               </svg>
             </button>
@@ -321,7 +321,7 @@ export default function Testimonials({ className = "" }: TestimonialsProps) {
               className='absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-all border border-gray-200 hidden md:flex items-center justify-center'
               aria-label='Scroll right'
             >
-              <svg className='w-5 h-5 text-[#be3437]' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+              <svg className='w-5 h-5 text-[#2b8ffb]' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
                 <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7' />
               </svg>
             </button>
@@ -398,7 +398,7 @@ export default function Testimonials({ className = "" }: TestimonialsProps) {
                       )}
                       <button
                         onClick={() => setSelectedTestimonial(testimonial)}
-                        className='text-xs font-semibold text-[#be3437] hover:text-[#9c2f32] transition-colors'
+                        className='text-xs font-semibold text-[#2b8ffb] hover:text-[#9c2f32] transition-colors'
                       >
                         Read more
                       </button>
@@ -428,7 +428,7 @@ export default function Testimonials({ className = "" }: TestimonialsProps) {
                   }}
                   className={`transition-all duration-300 rounded-full ${
                     isActive 
-                      ? 'w-8 h-2 bg-gradient-to-r from-[#be3437] to-[#6c7cae]' 
+                      ? 'w-8 h-2 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae]' 
                       : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
@@ -447,7 +447,7 @@ export default function Testimonials({ className = "" }: TestimonialsProps) {
         >
           <div className='absolute inset-0 bg-black/40 backdrop-blur-sm' onClick={closeModal}></div>
           <div className='relative bg-white max-w-3xl w-full rounded-2xl shadow-2xl border border-gray-200 overflow-hidden'>
-            <div className='absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-[#be3437] via-[#6c7cae] to-[#9c408c]'></div>
+            <div className='absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-[#2b8ffb] via-[#6c7cae] to-[#9c408c]'></div>
             <div className='p-6 md:p-8'>
               <div className='flex items-start gap-4 mb-4'>
                 <div
@@ -490,7 +490,7 @@ export default function Testimonials({ className = "" }: TestimonialsProps) {
       <style jsx>{`
         .scrollbar-hide {
           scrollbar-width: thin;
-          scrollbar-color: #be3437 #f1f1f1;
+          scrollbar-color: #2b8ffb #f1f1f1;
         }
         .scrollbar-hide::-webkit-scrollbar {
           height: 6px;
@@ -501,7 +501,7 @@ export default function Testimonials({ className = "" }: TestimonialsProps) {
           margin: 0 1rem;
         }
         .scrollbar-hide::-webkit-scrollbar-thumb {
-          background: linear-gradient(to right, #be3437, #6c7cae);
+          background: linear-gradient(to right, #2b8ffb, #6c7cae);
           border-radius: 10px;
         }
         .scrollbar-hide::-webkit-scrollbar-thumb:hover {

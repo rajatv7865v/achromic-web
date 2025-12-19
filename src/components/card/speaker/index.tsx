@@ -66,7 +66,7 @@ export default function SpeakerCard({ speaker }: { speaker: any }) {
   };
 
   return (
-    <div className="group relative flex items-center bg-gradient-to-br from-white to-gray-50 py-8 px-6 text-gray-800 gap-6 rounded-2xl hover:text-white hover:bg-gradient-to-br hover:from-[#be3437] hover:to-[#8b2a2d] transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-105 border border-gray-100 hover:border-[#be3437]/20">
+    <div className="group relative flex items-center bg-gradient-to-br from-white to-gray-50 py-8 px-6 text-gray-800 gap-6 rounded-2xl hover:text-white hover:bg-gradient-to-br hover:from-[#2b8ffb] hover:to-[#8b2a2d] transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-105 border border-gray-100 hover:border-[#2b8ffb]/20">
       {/* LinkedIn Icon in top-right corner */}
       {speaker?.linkedinUrl && (
         <a
@@ -81,7 +81,7 @@ export default function SpeakerCard({ speaker }: { speaker: any }) {
       )}
       
       {/* Decorative corner accent */}
-      <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#be3437]/10 rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#2b8ffb]/10 rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       
       <section className="h-32 w-32 rounded-full border-2 border-white shadow-xl flex items-center justify-center p-1 overflow-hidden group-hover:border-white/20 transition-all duration-300">
         {speaker?.avatar && !imageError && typeof speaker.avatar === 'string' ? (
@@ -117,7 +117,7 @@ export default function SpeakerCard({ speaker }: { speaker: any }) {
             )}
           </>
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center transition-all duration-300 group-hover:from-[#be3437]/20 group-hover:to-[#8b2a2d]/20">
+          <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center transition-all duration-300 group-hover:from-[#2b8ffb]/20 group-hover:to-[#8b2a2d]/20">
             <span className="text-gray-600 font-semibold text-2xl transition-colors duration-300 group-hover:text-white">
               {speaker?.name?.charAt(0)?.toUpperCase() || "S"}
             </span>
@@ -130,7 +130,7 @@ export default function SpeakerCard({ speaker }: { speaker: any }) {
             {speaker?.name || "Unknown Speaker"}
           </h3>
           <div className="flex flex-col gap-1">
-            <h4 className="text-[#be3437] font-semibold text-sm group-hover:text-white/90 transition-colors duration-300">
+            <h4 className="text-[#2b8ffb] font-semibold text-sm group-hover:text-white/90 transition-colors duration-300">
               {speaker?.designation || "N/A"}
             </h4>
             <h4 className="text-gray-600 font-medium text-sm group-hover:text-white/80 transition-colors duration-300">

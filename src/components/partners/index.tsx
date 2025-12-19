@@ -58,7 +58,7 @@ const Partners: React.FC<PartnersProps> = ({
                     rel="noopener noreferrer"
                     className='group block'
                   >
-                    <div className='flex items-center justify-center p-6 bg-white border-2 border-gray-200 rounded-2xl shadow-lg hover:border-[#be3437] hover:shadow-2xl transition-all duration-300 min-w-[180px] h-[120px]'>
+                    <div className='flex items-center justify-center p-6 bg-white border-2 border-gray-200 rounded-2xl shadow-lg hover:border-[#2b8ffb] hover:shadow-2xl transition-all duration-300 min-w-[180px] h-[120px]'>
                       <div className='relative w-40 h-20'>
                         {partner.logo ? (
                           <Image

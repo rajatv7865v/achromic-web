@@ -77,7 +77,7 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
           {/* Cart Panel */}
           <div className="absolute right-0 top-0 h-full w-[90vw] sm:w-[480px] lg:w-[520px] bg-white shadow-2xl flex flex-col transform transition-transform animate-slide-in pointer-events-auto">
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#be3437] via-[#9c408c] to-[#6c7cae] text-white p-6 flex items-center justify-between shadow-lg">
+            <div className="bg-gradient-to-r from-[#2b8ffb] via-[#9c408c] to-[#6c7cae] text-white p-6 flex items-center justify-between shadow-lg">
               <div className="flex items-center gap-3">
                 <div className="bg-white/20 p-2 rounded-lg">
                   <ShoppingCart className="w-6 h-6" />
@@ -117,11 +117,11 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
-                            <span className="bg-[#be3437]/10 text-[#be3437] px-3 py-1 rounded-full text-xs font-semibold">
+                            <span className="bg-[#2b8ffb]/10 text-[#2b8ffb] px-3 py-1 rounded-full text-xs font-semibold">
                               {item.category}
                             </span>
                             {item.featured && (
-                              <span className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
+                              <span className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-3 py-1 rounded-full text-xs font-semibold shadow-sm">
                                 ⭐ Featured
                               </span>
                             )}
@@ -142,8 +142,8 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
                       {/* Event Details */}
                       <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-4 mb-4 space-y-3">
                         <div className="flex items-center text-sm text-gray-700">
-                          <div className="bg-[#be3437]/10 p-1.5 rounded-lg mr-3">
-                            <Calendar className="w-4 h-4 text-[#be3437]" />
+                          <div className="bg-[#2b8ffb]/10 p-1.5 rounded-lg mr-3">
+                            <Calendar className="w-4 h-4 text-[#2b8ffb]" />
                           </div>
                           <span className="font-medium">{item.date}</span>
                         </div>
@@ -175,8 +175,8 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
                             )}
                             className={`px-4 py-3 rounded-xl text-sm font-semibold transition-all transform ${
                               item.selectedType === 'Industry'
-                                ? 'bg-gradient-to-r from-[#be3437] to-[#be3437]/90 text-white shadow-lg scale-105'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-2 border-transparent hover:border-[#be3437]/30'
+                                ? 'bg-gradient-to-r from-[#2b8ffb] to-[#2b8ffb]/90 text-white shadow-lg scale-105'
+                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-2 border-transparent hover:border-[#2b8ffb]/30'
                             }`}
                           >
                             <div className="text-xs opacity-90 mb-1">Industry</div>
@@ -205,12 +205,12 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
                       </div>
 
                       {/* Selected Price */}
-                      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-[#be3437]/10 via-[#6c7cae]/10 to-[#be3437]/10 rounded-xl border-2 border-[#be3437]/20">
+                      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-[#2b8ffb]/10 via-[#6c7cae]/10 to-[#2b8ffb]/10 rounded-xl border-2 border-[#2b8ffb]/20">
                         <span className="text-sm font-semibold text-gray-800 flex items-center gap-2">
-                          <DollarSign className="w-4 h-4 text-[#be3437]" />
+                          <DollarSign className="w-4 h-4 text-[#2b8ffb]" />
                           Selected Price:
                         </span>
-                        <span className="text-2xl font-bold text-[#be3437]">
+                        <span className="text-2xl font-bold text-[#2b8ffb]">
                           ${(item.selectedPrice || item.price || 0).toLocaleString()}
                         </span>
                       </div>
@@ -223,15 +223,15 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
             {/* Footer */}
             {cartItems.length > 0 && (
               <div className="border-t-2 border-gray-200 p-6 bg-gradient-to-br from-white via-gray-50 to-white shadow-2xl">
-                <div className="flex items-center justify-between mb-6 p-4 bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 rounded-xl border-2 border-[#be3437]/20">
+                <div className="flex items-center justify-between mb-6 p-4 bg-gradient-to-r from-[#2b8ffb]/10 to-[#6c7cae]/10 rounded-xl border-2 border-[#2b8ffb]/20">
                   <div>
                     <span className="text-sm text-gray-600 block">Total Amount</span>
-                    <span className="text-3xl font-bold text-[#be3437]">
+                    <span className="text-3xl font-bold text-[#2b8ffb]">
                       ${totalAmount.toLocaleString()}
                     </span>
                   </div>
                   <div className="bg-white p-3 rounded-lg shadow-md">
-                    <DollarSign className="w-8 h-8 text-[#be3437]" />
+                    <DollarSign className="w-8 h-8 text-[#2b8ffb]" />
                   </div>
                 </div>
                 <div className="flex gap-3">
@@ -246,7 +246,7 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
                       setIsCheckoutOpen(true);
                       setIsOpen(false); // Close cart when opening checkout
                     }}
-                    className="flex-1 bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white py-3.5 px-4 rounded-xl font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                    className="flex-1 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white py-3.5 px-4 rounded-xl font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
                   >
                     Proceed to Checkout
                   </button>

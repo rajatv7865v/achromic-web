@@ -165,7 +165,7 @@ export default function FAQPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] py-16">
+      <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Frequently Asked Questions
@@ -185,7 +185,7 @@ export default function FAQPage() {
               placeholder="Search FAQs..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-3 pl-10 pr-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#be3437] focus:border-transparent"
+              className="w-full px-4 py-3 pl-10 pr-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent"
             />
             <svg
               className="absolute left-3 top-3.5 h-5 w-5 text-gray-400"
@@ -220,7 +220,7 @@ export default function FAQPage() {
           <div className="space-y-8">
             {filteredFaqs.map((category, categoryIndex) => (
               <div key={categoryIndex} className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] px-6 py-4">
+                <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] px-6 py-4">
                   <h2 className="text-xl font-bold text-white">{category.category}</h2>
                 </div>
                 <div className="divide-y divide-gray-200">
@@ -228,7 +228,7 @@ export default function FAQPage() {
                     <div key={questionIndex} className="border-b border-gray-200 last:border-b-0">
                       <button
                         onClick={() => toggleFaq(category.category, questionIndex)}
-                        className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#be3437] focus:ring-inset"
+                        className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#2b8ffb] focus:ring-inset"
                       >
                         <span className="font-semibold text-gray-900 pr-4">
                           {faq.question}
@@ -261,7 +261,7 @@ export default function FAQPage() {
       </div>
 
       {/* Contact Section */}
-      <div className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] py-12">
+      <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             Still have questions?
@@ -272,13 +272,13 @@ export default function FAQPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact-us"
-              className="bg-white text-[#be3437] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
+              className="bg-white text-[#2b8ffb] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
             >
               Contact Us
             </Link>
             <a
               href="tel:+91 11 4601 1835"
-              className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#be3437] transition-colors duration-200"
+              className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-[#2b8ffb] transition-colors duration-200"
             >
               Call Now
             </a>

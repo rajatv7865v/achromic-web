@@ -136,6 +136,13 @@ interface Session {
   date?: string;
   venue?: string;
   content?: string;
+  images?: string[];
+  analytics?: {
+    views?: number;
+    likes?: number;
+    attendees?: number;
+    rating?: number;
+  };
   type: "keynote" | "panel" | "workshop" | "break" | "networking";
   description: string;
   sessions: Session[];
@@ -234,7 +241,7 @@ export default function Agenda({ eventId }: AgendaProps) {
   const getSessionTypeColor = (type: Session["type"]) => {
     switch (type) {
       case "keynote":
-        return "bg-[#be3437]/10 text-[#be3437] border-[#be3437]/20";
+        return "bg-[#2b8ffb]/10 text-[#2b8ffb] border-[#2b8ffb]/20";
       case "panel":
         return "bg-[#6c7cae]/10 text-[#6c7cae] border-[#6c7cae]/20";
       case "workshop":
@@ -269,7 +276,7 @@ export default function Agenda({ eventId }: AgendaProps) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-[#6c7cae]/5 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#be3437] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2b8ffb] mx-auto mb-4"></div>
           <p className="text-gray-600">Loading agenda...</p>
         </div>
       </div>
@@ -291,7 +298,7 @@ export default function Agenda({ eventId }: AgendaProps) {
           </div>
           <button
             onClick={retryFetch}
-            className="px-4 py-2 bg-[#be3437] text-white rounded-lg hover:bg-[#be3437]/80"
+            className="px-4 py-2 bg-[#2b8ffb] text-white rounded-lg hover:bg-[#2b8ffb]/80"
           >
             Retry
           </button>
@@ -310,13 +317,13 @@ export default function Agenda({ eventId }: AgendaProps) {
           <div className="text-xl text-gray-600 font-medium space-y-2">
             {agendaData[0]?.date && (
               <p className="flex items-center justify-center space-x-2">
-                <CalendarIcon className="w-5 h-5 text-[#be3437]" />
+                <CalendarIcon className="w-5 h-5 text-[#2b8ffb]" />
                 <span>{agendaData[0].date}</span>
               </p>
             )}
             {agendaData[0]?.venue && (
               <p className="flex items-center justify-center space-x-2">
-                <MapPinIcon className="w-5 h-5 text-[#be3437]" />
+                <MapPinIcon className="w-5 h-5 text-[#2b8ffb]" />
                 <span>{agendaData[0].venue}</span>
               </p>
             )}
@@ -329,7 +336,7 @@ export default function Agenda({ eventId }: AgendaProps) {
         {/* Agenda Timeline */}
         <div className="relative">
           {/* Main Timeline Line */}
-          <div className="absolute left-8 top-8 bottom-8 w-0.5 bg-gradient-to-b from-[#be3437] to-[#6c7cae]"></div>
+          <div className="absolute left-8 top-8 bottom-8 w-0.5 bg-gradient-to-b from-[#2b8ffb] to-[#6c7cae]"></div>
 
           <div className="space-y-8">
             {!Array.isArray(agendaData) || agendaData.length === 0 ? (
@@ -343,7 +350,7 @@ export default function Agenda({ eventId }: AgendaProps) {
                 (session: Session, index: number) => (
                   <div key={session.id} className="relative flex items-start">
                     {/* Time Badge */}
-                    <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-[#be3437] to-[#6c7cae] rounded-full flex items-center justify-center text-white font-bold text-lg relative z-10 border-4 border-white shadow-lg">
+                    <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-[#2b8ffb] to-[#6c7cae] rounded-full flex items-center justify-center text-white font-bold text-lg relative z-10 border-4 border-white shadow-lg">
                       {session.time}
                     </div>
 
@@ -429,6 +436,86 @@ export default function Agenda({ eventId }: AgendaProps) {
                                   </p>
                                 </div>
                               )}
+                              {session.content && (
+                                <div className="mb-6">
+                                  <h5 className="text-sm uppercase tracking-wide text-gray-500 mb-2">
+                                    Additional Details
+                                  </h5>
+                                  <div
+                                    className="prose prose-sm max-w-none text-gray-700"
+                                    dangerouslySetInnerHTML={{
+                                      __html: session.content || "",
+                                    }}
+                                  />
+                                </div>
+                              )}
+                              {/* Analytics Snapshot */}
+                              {session.analytics && (
+                                <div className="mb-6">
+                                  <h5 className="text-sm uppercase tracking-wide text-gray-500 mb-3">
+                                    Session Analytics
+                                  </h5>
+                                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                    {session.analytics.attendees !== undefined && (
+                                      <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
+                                        <p className="text-xs text-gray-500">Attendees</p>
+                                        <p className="text-xl font-semibold text-gray-900">
+                                          {session.analytics.attendees}
+                                        </p>
+                                      </div>
+                                    )}
+                                    {session.analytics.views !== undefined && (
+                                      <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
+                                        <p className="text-xs text-gray-500">Views</p>
+                                        <p className="text-xl font-semibold text-gray-900">
+                                          {session.analytics.views}
+                                        </p>
+                                      </div>
+                                    )}
+                                    {session.analytics.likes !== undefined && (
+                                      <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
+                                        <p className="text-xs text-gray-500">Likes</p>
+                                        <p className="text-xl font-semibold text-gray-900">
+                                          {session.analytics.likes}
+                                        </p>
+                                      </div>
+                                    )}
+                                    {session.analytics.rating !== undefined && (
+                                      <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
+                                        <p className="text-xs text-gray-500">Avg. Rating</p>
+                                        <p className="text-xl font-semibold text-gray-900">
+                                          {session.analytics.rating.toFixed(1)}
+                                        </p>
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              )}
+                              {/* Image Gallery */}
+                              {session.images && session.images.length > 0 && (
+                                <div className="mb-6">
+                                  <h5 className="text-sm uppercase tracking-wide text-gray-500 mb-3">
+                                    Session Gallery
+                                  </h5>
+                                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                    {session.images.map((src, idx) => (
+                                      <div
+                                        key={`${session.id}-img-${idx}`}
+                                        className="relative overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
+                                      >
+                                        <img
+                                          src={src}
+                                          alt={`Session media ${idx + 1}`}
+                                          className="w-full h-28 object-cover"
+                                          onError={(e) => {
+                                            (e.target as HTMLImageElement).style.display = "none";
+                                          }}
+                                        />
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
                               
                               {/* Speakers */}
                               {session.speakers && session.speakers.length > 0 && (
@@ -473,7 +560,7 @@ export default function Agenda({ eventId }: AgendaProps) {
                                           <h5 className="font-semibold text-gray-900">
                                             {speaker.name}
                                           </h5>
-                                          <p className="text-sm text-[#be3437] font-medium">
+                                          <p className="text-sm text-[#2b8ffb] font-medium">
                                             {speaker.designation}
                                           </p>
                                           <p className="text-sm text-gray-600">
@@ -523,8 +610,8 @@ export default function Agenda({ eventId }: AgendaProps) {
         </div>
 
         {/* Footer Note */}
-        <div className="text-center mt-12 p-6 bg-[#be3437]/5 rounded-xl border border-[#be3437]/20">
-          <p className="text-[#be3437] font-medium">
+        <div className="text-center mt-12 p-6 bg-[#2b8ffb]/5 rounded-xl border border-[#2b8ffb]/20">
+          <p className="text-[#2b8ffb] font-medium">
             📅 All times are in local timezone. Schedule subject to change.
           </p>
         </div>

@@ -152,7 +152,7 @@ const eventTypes: EventType[] = [
     title: "Conferences",
     description: "Professional conferences with expert speakers and networking opportunities",
     icon: UsersIcon,
-    color: "from-[#be3437] to-[#be3437]/80",
+    color: "from-[#2b8ffb] to-[#2b8ffb]/80",
   },
   {
     id: "exhibitions",
@@ -217,7 +217,7 @@ export default function ManagedEventsPage() {
       {/* Hero Section */}
       <div className='relative py-20 overflow-hidden'>
         {/* Background Image */}
-        <div className='absolute inset-0 bg-gradient-to-r from-[#be3437]/90 to-[#6c7cae]/90'>
+        <div className='absolute inset-0 bg-gradient-to-r from-[#2b8ffb]/90 to-[#6c7cae]/90'>
           <div
             className='absolute inset-0 bg-cover bg-center bg-no-repeat'
             style={{
@@ -225,7 +225,7 @@ export default function ManagedEventsPage() {
                 'url("https://images.unsplash.com/photo-1505236858219-8359eb29e329?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80")',
             }}
           ></div>
-          <div className='absolute inset-0 bg-gradient-to-r from-[#be3437]/80 to-[#6c7cae]/80'></div>
+          <div className='absolute inset-0 bg-gradient-to-r from-[#2b8ffb]/80 to-[#6c7cae]/80'></div>
 
           {/* Decorative Elements */}
           <div className='absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse'></div>
@@ -257,10 +257,10 @@ export default function ManagedEventsPage() {
               trust us to deliver.
             </p>
             <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-              <button className='bg-white text-[#be3437] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg'>
+              <button className='bg-white text-[#2b8ffb] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg'>
                 Plan Your Event
               </button>
-              <button className='border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#be3437] transition-all duration-200'>
+              <button className='border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#2b8ffb] transition-all duration-200'>
                 View Our Portfolio
               </button>
             </div>
@@ -284,8 +284,8 @@ export default function ManagedEventsPage() {
           </div>
 
           <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-            <div className='text-center p-6 rounded-xl bg-gradient-to-br from-[#be3437]/5 to-[#be3437]/10 border border-[#be3437]/20'>
-              <div className='w-16 h-16 bg-gradient-to-r from-[#be3437] to-[#be3437]/80 rounded-full flex items-center justify-center mx-auto mb-4'>
+            <div className='text-center p-6 rounded-xl bg-gradient-to-br from-[#2b8ffb]/5 to-[#2b8ffb]/10 border border-[#2b8ffb]/20'>
+              <div className='w-16 h-16 bg-gradient-to-r from-[#2b8ffb] to-[#2b8ffb]/80 rounded-full flex items-center justify-center mx-auto mb-4'>
                 <CheckCircleIcon className='w-8 h-8 text-white' />
               </div>
               <h3 className='text-xl font-semibold text-gray-900 mb-3'>
@@ -382,14 +382,14 @@ export default function ManagedEventsPage() {
             {services.map((service) => (
               <div
                 key={service.id}
-                className='bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-xl hover:border-[#be3437]/30 transition-all duration-300'
+                className='bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-xl hover:border-[#2b8ffb]/30 transition-all duration-300'
                 onMouseEnter={() => setHoveredService(service.id)}
                 onMouseLeave={() => setHoveredService(null)}
               >
                 <div
                   className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-all duration-300 ${
                     hoveredService === service.id
-                      ? "bg-gradient-to-r from-[#be3437] to-[#6c7cae]"
+                      ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae]"
                       : "bg-gray-100"
                   }`}
                 >
@@ -425,7 +425,7 @@ export default function ManagedEventsPage() {
 
           <div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
             <div className='text-center'>
-              <div className='w-16 h-16 bg-gradient-to-r from-[#be3437] to-[#6c7cae] rounded-full flex items-center justify-center mx-auto mb-4'>
+              <div className='w-16 h-16 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] rounded-full flex items-center justify-center mx-auto mb-4'>
                 <span className='text-white font-bold text-xl'>1</span>
               </div>
               <h3 className='text-lg font-semibold text-gray-900 mb-2'>
@@ -450,7 +450,7 @@ export default function ManagedEventsPage() {
             </div>
 
             <div className='text-center'>
-              <div className='w-16 h-16 bg-gradient-to-r from-[#9c408c] to-[#be3437] rounded-full flex items-center justify-center mx-auto mb-4'>
+              <div className='w-16 h-16 bg-gradient-to-r from-[#9c408c] to-[#2b8ffb] rounded-full flex items-center justify-center mx-auto mb-4'>
                 <span className='text-white font-bold text-xl'>3</span>
               </div>
               <h3 className='text-lg font-semibold text-gray-900 mb-2'>
@@ -462,7 +462,7 @@ export default function ManagedEventsPage() {
             </div>
 
             <div className='text-center'>
-              <div className='w-16 h-16 bg-gradient-to-r from-[#be3437] to-[#6c7cae] rounded-full flex items-center justify-center mx-auto mb-4'>
+              <div className='w-16 h-16 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] rounded-full flex items-center justify-center mx-auto mb-4'>
                 <span className='text-white font-bold text-xl'>4</span>
               </div>
               <h3 className='text-lg font-semibold text-gray-900 mb-2'>
@@ -486,7 +486,7 @@ export default function ManagedEventsPage() {
               </h2>
               <div className='space-y-4'>
                 <div className='flex items-start space-x-3'>
-                  <CheckCircleIcon className='w-6 h-6 text-[#be3437] flex-shrink-0 mt-1' />
+                  <CheckCircleIcon className='w-6 h-6 text-[#2b8ffb] flex-shrink-0 mt-1' />
                   <div>
                     <h4 className='font-semibold text-gray-900 mb-1'>
                       Cost-Effective Solutions
@@ -499,7 +499,7 @@ export default function ManagedEventsPage() {
                 </div>
 
                 <div className='flex items-start space-x-3'>
-                  <CheckCircleIcon className='w-6 h-6 text-[#be3437] flex-shrink-0 mt-1' />
+                  <CheckCircleIcon className='w-6 h-6 text-[#2b8ffb] flex-shrink-0 mt-1' />
                   <div>
                     <h4 className='font-semibold text-gray-900 mb-1'>
                       Resource Optimization
@@ -512,7 +512,7 @@ export default function ManagedEventsPage() {
                 </div>
 
                 <div className='flex items-start space-x-3'>
-                  <CheckCircleIcon className='w-6 h-6 text-[#be3437] flex-shrink-0 mt-1' />
+                  <CheckCircleIcon className='w-6 h-6 text-[#2b8ffb] flex-shrink-0 mt-1' />
                   <div>
                     <h4 className='font-semibold text-gray-900 mb-1'>
                       Market Reach Enhancement
@@ -525,7 +525,7 @@ export default function ManagedEventsPage() {
                 </div>
 
                 <div className='flex items-start space-x-3'>
-                  <CheckCircleIcon className='w-6 h-6 text-[#be3437] flex-shrink-0 mt-1' />
+                  <CheckCircleIcon className='w-6 h-6 text-[#2b8ffb] flex-shrink-0 mt-1' />
                   <div>
                     <h4 className='font-semibold text-gray-900 mb-1'>
                       Stress-Free Experience
@@ -538,7 +538,7 @@ export default function ManagedEventsPage() {
                 </div>
 
                 <div className='flex items-start space-x-3'>
-                  <CheckCircleIcon className='w-6 h-6 text-[#be3437] flex-shrink-0 mt-1' />
+                  <CheckCircleIcon className='w-6 h-6 text-[#2b8ffb] flex-shrink-0 mt-1' />
                   <div>
                     <h4 className='font-semibold text-gray-900 mb-1'>
                       Professional Excellence
@@ -552,9 +552,9 @@ export default function ManagedEventsPage() {
               </div>
             </div>
 
-            <div className='bg-gradient-to-br from-[#be3437]/5 to-[#6c7cae]/5 rounded-2xl p-8 border border-[#be3437]/10'>
+            <div className='bg-gradient-to-br from-[#2b8ffb]/5 to-[#6c7cae]/5 rounded-2xl p-8 border border-[#2b8ffb]/10'>
               <div className='text-center'>
-                <GlobeIcon className='w-16 h-16 text-[#be3437] mx-auto mb-6' />
+                <GlobeIcon className='w-16 h-16 text-[#2b8ffb] mx-auto mb-6' />
                 <h3 className='text-2xl font-bold text-gray-900 mb-4'>
                   Ready to Create Something Amazing?
                 </h3>
@@ -564,15 +564,15 @@ export default function ManagedEventsPage() {
                 </p>
                 <div className='space-y-3'>
                   <div className='flex items-center justify-center space-x-2 text-gray-700'>
-                    <CalendarIcon className='w-5 h-5 text-[#be3437]' />
+                    <CalendarIcon className='w-5 h-5 text-[#2b8ffb]' />
                     <span>Worldwide event locations</span>
                   </div>
                   <div className='flex items-center justify-center space-x-2 text-gray-700'>
-                    <UsersIcon className='w-5 h-5 text-[#be3437]' />
+                    <UsersIcon className='w-5 h-5 text-[#2b8ffb]' />
                     <span>Experienced specialist team</span>
                   </div>
                   <div className='flex items-center justify-center space-x-2 text-gray-700'>
-                    <StarIcon className='w-5 h-5 text-[#be3437]' />
+                    <StarIcon className='w-5 h-5 text-[#2b8ffb]' />
                     <span>High-value services</span>
                   </div>
                 </div>
@@ -583,7 +583,7 @@ export default function ManagedEventsPage() {
       </div>
 
       {/* CTA Section */}
-      <div className='bg-gradient-to-r from-[#be3437] to-[#6c7cae] py-16'>
+      <div className='bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] py-16'>
         <div className='max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
           <h2 className='text-3xl font-bold text-white mb-4'>
             Let's Create Your Next Successful Event
@@ -594,10 +594,10 @@ export default function ManagedEventsPage() {
           </p>
 
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-            <button className='bg-white text-[#be3437] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg'>
+            <button className='bg-white text-[#2b8ffb] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg'>
               Get Started
             </button>
-            <button className='border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#be3437] transition-all duration-200'>
+            <button className='border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#2b8ffb] transition-all duration-200'>
               Contact Our Team
             </button>
           </div>

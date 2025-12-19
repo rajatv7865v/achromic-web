@@ -5,7 +5,7 @@ export default function PrivacyPolicyPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header Section */}
-      <div className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] py-16">
+      <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Privacy Policy
@@ -169,13 +169,13 @@ export default function PrivacyPolicyPage() {
                 </div>
                 <div className="flex items-center mt-4">
                   <span className="font-semibold text-gray-800 w-24">Email:</span>
-                  <a href="mailto:contactus@achromicpoint.com" className="text-[#be3437] hover:underline">
+                  <a href="mailto:contactus@achromicpoint.com" className="text-[#2b8ffb] hover:underline">
                     contactus@achromicpoint.com
                   </a>
                 </div>
                 <div className="flex items-center">
                   <span className="font-semibold text-gray-800 w-24">Phone:</span>
-                  <a href="tel:+91 11 4601 1835" className="text-gray-700 hover:text-[#be3437]">
+                  <a href="tel:+91 11 4601 1835" className="text-gray-700 hover:text-[#2b8ffb]">
                     +91 11 4601 1835
                   </a>
                 </div>
@@ -187,7 +187,7 @@ export default function PrivacyPolicyPage() {
           <div className="text-center pt-8 border-t border-gray-200">
             <Link 
               href="/" 
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white rounded-lg hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200"
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white rounded-lg hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />

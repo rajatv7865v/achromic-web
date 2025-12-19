@@ -368,7 +368,7 @@ export default function pgae() {
     <div>
       <div className="relative py-20 overflow-hidden">
         {/* Background Image */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#be3437]/90 to-[#6c7cae]/90">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#2b8ffb]/90 to-[#6c7cae]/90">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
@@ -376,7 +376,7 @@ export default function pgae() {
                 'url("https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80")',
             }}
           ></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#be3437]/80 to-[#6c7cae]/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#2b8ffb]/80 to-[#6c7cae]/80"></div>
 
           {/* Decorative Elements */}
           <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse"></div>
@@ -395,15 +395,15 @@ export default function pgae() {
             </p>
             <div className="flex flex-wrap justify-center items-center gap-4 text-white text-[18px] font-semibold">
               <div className="flex items-center space-x-2">
-                <CalendarIcon className="w-5 h-5 text-[#be3437]" />
+                <CalendarIcon className="w-5 h-5 text-[#2b8ffb]" />
                 <span>{event.dateFrom}</span>
               </div>
               <div className="flex items-center space-x-2">
-                <ClockIcon className="w-5 h-5 text-[#be3437]" />
+                <ClockIcon className="w-5 h-5 text-[#2b8ffb]" />
                 <span>{event.timeFrom}</span>
               </div>
               <div className="flex items-center space-x-2">
-                <MapPinIcon className="w-5 h-5 text-[#be3437]" />
+                <MapPinIcon className="w-5 h-5 text-[#2b8ffb]" />
                 <span>
                   {event.venue}, {event.location}
                 </span>
@@ -411,10 +411,10 @@ export default function pgae() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-10">
-              <button className="bg-white text-[#be3437] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg">
+              <button className="bg-white text-[#2b8ffb] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg">
                 Register Now
               </button>
-              <button className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#be3437] transition-all duration-200">
+              <button className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#2b8ffb] transition-all duration-200">
                 Download Brochure
               </button>
             </div>
@@ -446,7 +446,7 @@ export default function pgae() {
                   onClick={() => setActiveTab(tab)}
                   className={`px-6 py-2 rounded-full font-medium transition-all duration-200 capitalize ${
                     activeTab === tab
-                      ? "bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white shadow-lg"
+                      ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white shadow-lg"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                   }`}
                 >
@@ -500,7 +500,7 @@ export default function pgae() {
                         key={index}
                         className="flex items-center space-x-3 p-4 bg-white rounded-lg shadow-sm border border-gray-100"
                       >
-                        <CheckCircleIcon className="w-6 h-6 text-[#be3437] flex-shrink-0" />
+                        <CheckCircleIcon className="w-6 h-6 text-[#2b8ffb] flex-shrink-0" />
                         <span className="text-gray-700 font-medium">
                           {benefit}
                         </span>

@@ -436,7 +436,7 @@ function HeroCarousel() {
             )}
 
             {/* Content Overlay */}
-            {/* <div className="absolute inset-0 bg-gradient-to-r from-[#be3437]/80 to-[#6c7cae]/80 z-20"></div> */}
+            {/* <div className="absolute inset-0 bg-gradient-to-r from-[#2b8ffb]/80 to-[#6c7cae]/80 z-20"></div> */}
 
             {/* Animated Decorative Elements */}
             {/* <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse z-30"></div>
@@ -466,13 +466,13 @@ function HeroCarousel() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link
                     href="/upcoming-event"
-                    className="bg-white text-[#be3437] px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg text-lg"
+                    className="bg-white text-[#2b8ffb] px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg text-lg"
                   >
                     View Upcoming Events
                   </Link>
                   <Link
                     href="/contact-us"
-                    className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-[#be3437] transition-all duration-200 text-lg"
+                    className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-[#2b8ffb] transition-all duration-200 text-lg"
                   >
                     Get Started
                   </Link>
@@ -781,9 +781,9 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {/* Feature 1 - Expert-led Training Programs */}
               <div className="group relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#2b8ffb]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
                 <div className="relative glass-card rounded-2xl p-6 text-center hover-lift">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#be3437] to-[#6c7cae] rounded-full flex items-center justify-center animate-float">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] rounded-full flex items-center justify-center animate-float">
                     <AwardIcon className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -815,9 +815,9 @@ export default function Home() {
 
               {/* Feature 3 - Flexible Learning Options */}
               <div className="group relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#9c408c]/10 to-[#be3437]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#9c408c]/10 to-[#2b8ffb]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
                 <div className="relative glass-card rounded-2xl p-6 text-center hover-lift">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#9c408c] to-[#be3437] rounded-full flex items-center justify-center animate-bounce-slow">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#9c408c] to-[#2b8ffb] rounded-full flex items-center justify-center animate-bounce-slow">
                     <CalendarIcon className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -832,9 +832,9 @@ export default function Home() {
 
               {/* Feature 4 - Post-training Support */}
               {/* <div className='group relative'>
-                <div className='absolute inset-0 bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
+                <div className='absolute inset-0 bg-gradient-to-r from-[#2b8ffb]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300'></div>
                 <div className='relative glass-card rounded-2xl p-6 text-center hover-lift'>
-                  <div className='w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#be3437] to-[#6c7cae] rounded-full flex items-center justify-center animate-spin-slow'>
+                  <div className='w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] rounded-full flex items-center justify-center animate-spin-slow'>
                     <StarIcon className='w-8 h-8 text-white' />
                   </div>
                   <h3 className='text-lg font-semibold text-gray-900 mb-2'>
@@ -865,9 +865,9 @@ export default function Home() {
 
               {/* Feature 6 - Brand Visibility & Lead Generation */}
               <div className="group relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#9c408c]/10 to-[#be3437]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#9c408c]/10 to-[#2b8ffb]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
                 <div className="relative glass-card rounded-2xl p-6 text-center hover-lift">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#9c408c] to-[#be3437] rounded-full flex items-center justify-center animate-bounce-slow">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#9c408c] to-[#2b8ffb] rounded-full flex items-center justify-center animate-bounce-slow">
                     <StarIcon className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -882,9 +882,9 @@ export default function Home() {
 
               {/* Feature 7 - Comprehensive Enterprise Solutions */}
               <div className="group relative md:col-span-2 lg:col-span-1">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#be3437]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#2b8ffb]/10 to-[#6c7cae]/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
                 <div className="relative glass-card rounded-2xl p-6 text-center hover-lift">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#be3437] to-[#6c7cae] rounded-full flex items-center justify-center animate-float-delayed">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] rounded-full flex items-center justify-center animate-float-delayed">
                     <AwardIcon className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -906,7 +906,7 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#be3437] to-[#6c7cae] rounded-full mb-4">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#2b8ffb] to-[#6c7cae] rounded-full mb-4">
                     <stat.icon className="w-8 h-8 text-white" />
                   </div>
                   <div className="text-3xl font-bold text-gray-900 mb-2">
@@ -940,9 +940,9 @@ export default function Home() {
                   className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100"
                 >
                   <div className="relative">
-                    <div className="h-48 bg-gradient-to-br from-[#be3437]/10 to-[#6c7cae]/10 flex items-center justify-center">
+                    <div className="h-48 bg-gradient-to-br from-[#2b8ffb]/10 to-[#6c7cae]/10 flex items-center justify-center">
                       <div className="text-center">
-                        <CalendarIcon className="w-16 h-16 text-[#be3437] mx-auto mb-4" />
+                        <CalendarIcon className="w-16 h-16 text-[#2b8ffb] mx-auto mb-4" />
                         <div className="text-2xl font-bold text-gray-800 mb-2">
                           {event.date}
                         </div>
@@ -952,7 +952,7 @@ export default function Home() {
                       </div>
                     </div>
                     {event.featured && (
-                      <div className="absolute top-4 right-4 bg-[#be3437] text-white px-3 py-1 rounded-full text-sm font-semibold">
+                      <div className="absolute top-4 right-4 bg-[#2b8ffb] text-white px-3 py-1 rounded-full text-sm font-semibold">
                         Featured
                       </div>
                     )}
@@ -960,7 +960,7 @@ export default function Home() {
 
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="bg-[#be3437]/10 text-[#be3437] px-3 py-1 rounded-full text-sm font-medium">
+                      <span className="bg-[#2b8ffb]/10 text-[#2b8ffb] px-3 py-1 rounded-full text-sm font-medium">
                         {event.category}
                       </span>
                       <div className="text-right">
@@ -977,7 +977,7 @@ export default function Home() {
 
                     <Link
                       href="/upcoming-event"
-                      className="w-full bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200 text-center block"
+                      className="w-full bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200 text-center block"
                     >
                       View Details
                     </Link>
@@ -989,7 +989,7 @@ export default function Home() {
             <div className="text-center">
               <Link
                 href="/upcoming-event"
-                className="inline-flex items-center bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-8 py-3 rounded-full font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg"
+                className="inline-flex items-center bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-8 py-3 rounded-full font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg"
               >
                 View All Upcoming Events
                 <ArrowRightIcon className="w-5 h-5 ml-2" />
@@ -1017,7 +1017,7 @@ export default function Home() {
                   key={service.id}
                   className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#be3437] to-[#6c7cae] rounded-full mb-6">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#2b8ffb] to-[#6c7cae] rounded-full mb-6">
                     <service.icon className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-4">
@@ -1027,7 +1027,7 @@ export default function Home() {
                   <ul className="space-y-2">
                     {service.features.map((feature, index) => (
                       <li key={index} className="flex items-center space-x-2">
-                        <CheckCircleIcon className="w-4 h-4 text-[#be3437] flex-shrink-0" />
+                        <CheckCircleIcon className="w-4 h-4 text-[#2b8ffb] flex-shrink-0" />
                         <span className="text-gray-700 text-sm">{feature}</span>
                       </li>
                     ))}
@@ -1129,9 +1129,9 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
               {/* Gallery Item 1 */}
               <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-card-float">
-                <div className="h-64 bg-gradient-to-br from-[#be3437]/20 to-[#6c7cae]/20 flex items-center justify-center">
+                <div className="h-64 bg-gradient-to-br from-[#2b8ffb]/20 to-[#6c7cae]/20 flex items-center justify-center">
                   <div className="text-center">
-                    <UsersIcon className="w-16 h-16 text-[#be3437] mx-auto mb-3" />
+                    <UsersIcon className="w-16 h-16 text-[#2b8ffb] mx-auto mb-3" />
                     <h3 className="text-lg font-semibold text-gray-800">
                       Financial Summit 2024
                     </h3>
@@ -1169,7 +1169,7 @@ export default function Home() {
 
               {/* Gallery Item 3 */}
               <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="h-64 bg-gradient-to-br from-[#9c408c]/20 to-[#be3437]/20 flex items-center justify-center">
+                <div className="h-64 bg-gradient-to-br from-[#9c408c]/20 to-[#2b8ffb]/20 flex items-center justify-center">
                   <div className="text-center">
                     <BookOpenIcon className="w-16 h-16 text-[#9c408c] mx-auto mb-3" />
                     <h3 className="text-lg font-semibold text-gray-800">
@@ -1189,9 +1189,9 @@ export default function Home() {
 
               {/* Gallery Item 4 */}
               <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="h-64 bg-gradient-to-br from-[#be3437]/20 to-[#6c7cae]/20 flex items-center justify-center">
+                <div className="h-64 bg-gradient-to-br from-[#2b8ffb]/20 to-[#6c7cae]/20 flex items-center justify-center">
                   <div className="text-center">
-                    <ChartBarIcon className="w-16 h-16 text-[#be3437] mx-auto mb-3" />
+                    <ChartBarIcon className="w-16 h-16 text-[#2b8ffb] mx-auto mb-3" />
                     <h3 className="text-lg font-semibold text-gray-800">
                       Enterprise Training
                     </h3>
@@ -1231,7 +1231,7 @@ export default function Home() {
 
               {/* Gallery Item 6 */}
               <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="h-64 bg-gradient-to-br from-[#9c408c]/20 to-[#be3437]/20 flex items-center justify-center">
+                <div className="h-64 bg-gradient-to-br from-[#9c408c]/20 to-[#2b8ffb]/20 flex items-center justify-center">
                   <div className="text-center">
                     <CheckCircleIcon className="w-16 h-16 text-[#9c408c] mx-auto mb-3" />
                     <h3 className="text-lg font-semibold text-gray-800">
@@ -1255,7 +1255,7 @@ export default function Home() {
             <div className="text-center">
               <Link
                 href="/past-event"
-                className="inline-flex items-center bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-8 py-3 rounded-full font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg"
+                className="inline-flex items-center bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-8 py-3 rounded-full font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg"
               >
                 View All Event Photos
                 <ArrowRightIcon className="w-5 h-5 ml-2" />
@@ -1265,7 +1265,7 @@ export default function Home() {
         </div>
 
         {/* About Section */}
-        <div className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] py-20">
+        <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
@@ -1287,13 +1287,13 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
                     href="/contact-us"
-                    className="bg-white text-[#be3437] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg text-center"
+                    className="bg-white text-[#2b8ffb] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg text-center"
                   >
                     Learn More About Us
                   </Link>
                   <Link
                     href="/emagzine"
-                    className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#be3437] transition-all duration-200 text-center"
+                    className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#2b8ffb] transition-all duration-200 text-center"
                   >
                     Read Our eMagazine
                   </Link>

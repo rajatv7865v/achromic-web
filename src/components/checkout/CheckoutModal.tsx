@@ -125,7 +125,7 @@ export default function CheckoutModal({
       <div className="absolute inset-0 flex items-center justify-center p-4 pointer-events-none">
         <div className={`bg-white rounded-3xl shadow-2xl w-full ${currentView === "login" || currentView === "forgot-password" ? "max-w-md min-w-[400px] sm:min-w-[450px]" : currentView === "signup" ? "max-w-2xl" : "max-w-3xl"} max-h-[95vh] overflow-hidden flex flex-col pointer-events-auto transform transition-all animate-slide-in`}>
           {/* Header */}
-          <div className="bg-gradient-to-r from-[#be3437] via-[#9c408c] to-[#6c7cae] text-white p-6 flex items-center justify-between shadow-lg">
+          <div className="bg-gradient-to-r from-[#2b8ffb] via-[#9c408c] to-[#6c7cae] text-white p-6 flex items-center justify-between shadow-lg">
             <div className="flex items-center gap-3">
               <div className="bg-white/20 p-2 rounded-xl">
                 {currentView === "login" && <Lock className="w-6 h-6" />}
@@ -183,7 +183,7 @@ export default function CheckoutModal({
                     </label>
                     <div className="relative group">
                       <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                        <Mail className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                        <Mail className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                       </div>
                       <input
                         type="email"
@@ -192,7 +192,7 @@ export default function CheckoutModal({
                         onChange={(e) =>
                           setLoginForm({ ...loginForm, email: e.target.value })
                         }
-                        className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                        className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                         placeholder="Enter your email"
                       />
                     </div>
@@ -204,7 +204,7 @@ export default function CheckoutModal({
                     </label>
                     <div className="relative group">
                       <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                        <Lock className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                        <Lock className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                       </div>
                       <input
                         type={showPassword ? "text" : "password"}
@@ -216,13 +216,13 @@ export default function CheckoutModal({
                             password: e.target.value,
                           })
                         }
-                        className="w-full pl-12 pr-14 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                        className="w-full pl-12 pr-14 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                         placeholder="Enter your password"
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#be3437] transition-colors"
+                        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#2b8ffb] transition-colors"
                       >
                         {showPassword ? (
                           <EyeOff className="w-5 h-5" />
@@ -238,7 +238,7 @@ export default function CheckoutModal({
                   <button
                     type="button"
                     onClick={() => setCurrentView("forgot-password")}
-                    className="text-sm font-medium text-[#be3437] hover:text-[#be3437]/80 hover:underline transition-colors"
+                    className="text-sm font-medium text-[#2b8ffb] hover:text-[#2b8ffb]/80 hover:underline transition-colors"
                   >
                     Forgot Password?
                   </button>
@@ -246,7 +246,7 @@ export default function CheckoutModal({
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white py-4 px-6 rounded-xl font-semibold hover:from-[#be3437]/95 hover:to-[#6c7cae]/95 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white py-4 px-6 rounded-xl font-semibold hover:from-[#2b8ffb]/95 hover:to-[#6c7cae]/95 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
                 >
                   Sign In
                 </button>
@@ -268,7 +268,7 @@ export default function CheckoutModal({
                     <button
                       type="button"
                       onClick={() => setCurrentView("signup")}
-                      className="font-semibold text-[#be3437] hover:text-[#be3437]/80 hover:underline transition-colors"
+                      className="font-semibold text-[#2b8ffb] hover:text-[#2b8ffb]/80 hover:underline transition-colors"
                     >
                       Create Account
                     </button>
@@ -290,7 +290,7 @@ export default function CheckoutModal({
                     </label>
                     <div className="relative group">
                       <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                        <User className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                        <User className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                       </div>
                       <input
                         type="text"
@@ -302,7 +302,7 @@ export default function CheckoutModal({
                             firstName: e.target.value,
                           })
                         }
-                        className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                        className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                         placeholder="First Name"
                       />
                     </div>
@@ -313,7 +313,7 @@ export default function CheckoutModal({
                     </label>
                     <div className="relative group">
                       <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                        <User className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                        <User className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                       </div>
                       <input
                         type="text"
@@ -325,7 +325,7 @@ export default function CheckoutModal({
                             lastName: e.target.value,
                           })
                         }
-                        className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                        className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                         placeholder="Last Name"
                       />
                     </div>
@@ -338,7 +338,7 @@ export default function CheckoutModal({
                   </label>
                   <div className="relative group">
                     <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                      <Mail className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                      <Mail className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                     </div>
                     <input
                       type="email"
@@ -347,7 +347,7 @@ export default function CheckoutModal({
                       onChange={(e) =>
                         setSignupForm({ ...signupForm, email: e.target.value })
                       }
-                      className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                      className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                       placeholder="Enter your email"
                     />
                   </div>
@@ -359,7 +359,7 @@ export default function CheckoutModal({
                   </label>
                   <div className="relative group">
                     <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                      <Phone className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                      <Phone className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                     </div>
                     <input
                       type="tel"
@@ -368,7 +368,7 @@ export default function CheckoutModal({
                       onChange={(e) =>
                         setSignupForm({ ...signupForm, phone: e.target.value })
                       }
-                      className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                      className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                       placeholder="Enter your phone"
                     />
                   </div>
@@ -381,7 +381,7 @@ export default function CheckoutModal({
                     </label>
                     <div className="relative group">
                       <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                        <Lock className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                        <Lock className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                       </div>
                       <input
                         type={showPassword ? "text" : "password"}
@@ -393,13 +393,13 @@ export default function CheckoutModal({
                             password: e.target.value,
                           })
                         }
-                        className="w-full pl-12 pr-14 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                        className="w-full pl-12 pr-14 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                         placeholder="Create password"
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#be3437] transition-colors"
+                        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#2b8ffb] transition-colors"
                       >
                         {showPassword ? (
                           <EyeOff className="w-5 h-5" />
@@ -415,7 +415,7 @@ export default function CheckoutModal({
                     </label>
                     <div className="relative group">
                       <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                        <Lock className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                        <Lock className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                       </div>
                       <input
                         type={showConfirmPassword ? "text" : "password"}
@@ -427,7 +427,7 @@ export default function CheckoutModal({
                             confirmPassword: e.target.value,
                           })
                         }
-                        className="w-full pl-12 pr-14 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                        className="w-full pl-12 pr-14 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                         placeholder="Confirm password"
                       />
                       <button
@@ -435,7 +435,7 @@ export default function CheckoutModal({
                         onClick={() =>
                           setShowConfirmPassword(!showConfirmPassword)
                         }
-                        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#be3437] transition-colors"
+                        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-[#2b8ffb] transition-colors"
                       >
                         {showConfirmPassword ? (
                           <EyeOff className="w-5 h-5" />
@@ -449,7 +449,7 @@ export default function CheckoutModal({
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white py-4 px-6 rounded-xl font-semibold hover:from-[#be3437]/95 hover:to-[#6c7cae]/95 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white py-4 px-6 rounded-xl font-semibold hover:from-[#2b8ffb]/95 hover:to-[#6c7cae]/95 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
                 >
                   Create Account
                 </button>
@@ -460,7 +460,7 @@ export default function CheckoutModal({
                     <button
                       type="button"
                       onClick={() => setCurrentView("login")}
-                      className="font-semibold text-[#be3437] hover:text-[#be3437]/80 hover:underline transition-colors"
+                      className="font-semibold text-[#2b8ffb] hover:text-[#2b8ffb]/80 hover:underline transition-colors"
                     >
                       Sign In
                     </button>
@@ -487,7 +487,7 @@ export default function CheckoutModal({
                   </label>
                   <div className="relative group">
                     <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                      <Mail className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                      <Mail className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                     </div>
                     <input
                       type="email"
@@ -499,7 +499,7 @@ export default function CheckoutModal({
                           email: e.target.value,
                         })
                       }
-                      className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                      className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                       placeholder="Enter your email"
                     />
                   </div>
@@ -507,7 +507,7 @@ export default function CheckoutModal({
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white py-4 px-6 rounded-xl font-semibold hover:from-[#be3437]/95 hover:to-[#6c7cae]/95 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white py-4 px-6 rounded-xl font-semibold hover:from-[#2b8ffb]/95 hover:to-[#6c7cae]/95 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
                 >
                   Send Reset Link
                 </button>
@@ -516,7 +516,7 @@ export default function CheckoutModal({
                   <button
                     type="button"
                     onClick={() => setCurrentView("login")}
-                    className="text-sm font-semibold text-[#be3437] hover:text-[#be3437]/80 hover:underline transition-colors"
+                    className="text-sm font-semibold text-[#2b8ffb] hover:text-[#2b8ffb]/80 hover:underline transition-colors"
                   >
                     ← Back to Login
                   </button>
@@ -531,9 +531,9 @@ export default function CheckoutModal({
                 className="max-w-3xl mx-auto space-y-6"
               >
                 {/* Personal Information Section */}
-                <div className="bg-gradient-to-r from-[#be3437]/5 via-[#9c408c]/5 to-[#6c7cae]/5 border border-[#be3437]/20 rounded-2xl p-6">
+                <div className="bg-gradient-to-r from-[#2b8ffb]/5 via-[#9c408c]/5 to-[#6c7cae]/5 border border-[#2b8ffb]/20 rounded-2xl p-6">
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] p-2 rounded-lg">
+                    <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] p-2 rounded-lg">
                       <User className="w-5 h-5 text-white" />
                     </div>
                     <h3 className="text-lg font-bold text-gray-900">
@@ -548,7 +548,7 @@ export default function CheckoutModal({
                       </label>
                       <div className="relative group">
                         <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                          <User className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                          <User className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                         </div>
                         <input
                           type="text"
@@ -560,7 +560,7 @@ export default function CheckoutModal({
                               firstName: e.target.value,
                             })
                           }
-                          className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                          className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                           placeholder="First Name"
                         />
                       </div>
@@ -571,7 +571,7 @@ export default function CheckoutModal({
                       </label>
                       <div className="relative group">
                         <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                          <User className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                          <User className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                         </div>
                         <input
                           type="text"
@@ -583,7 +583,7 @@ export default function CheckoutModal({
                               lastName: e.target.value,
                             })
                           }
-                          className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                          className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                           placeholder="Last Name"
                         />
                       </div>
@@ -597,7 +597,7 @@ export default function CheckoutModal({
                       </label>
                       <div className="relative group">
                         <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                          <Mail className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                          <Mail className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                         </div>
                         <input
                           type="email"
@@ -609,7 +609,7 @@ export default function CheckoutModal({
                               email: e.target.value,
                             })
                           }
-                          className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                          className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                           placeholder="Email"
                         />
                       </div>
@@ -620,7 +620,7 @@ export default function CheckoutModal({
                       </label>
                       <div className="relative group">
                         <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                          <Phone className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                          <Phone className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                         </div>
                         <input
                           type="tel"
@@ -632,7 +632,7 @@ export default function CheckoutModal({
                               phone: e.target.value,
                             })
                           }
-                          className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                          className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                           placeholder="Phone"
                         />
                       </div>
@@ -646,7 +646,7 @@ export default function CheckoutModal({
                       </label>
                       <div className="relative group">
                         <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                          <Building2 className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                          <Building2 className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                         </div>
                         <input
                           type="text"
@@ -657,7 +657,7 @@ export default function CheckoutModal({
                               company: e.target.value,
                             })
                           }
-                          className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                          className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                           placeholder="Company Name"
                         />
                       </div>
@@ -668,7 +668,7 @@ export default function CheckoutModal({
                       </label>
                       <div className="relative group">
                         <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                          <Briefcase className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                          <Briefcase className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                         </div>
                         <input
                           type="text"
@@ -679,7 +679,7 @@ export default function CheckoutModal({
                               designation: e.target.value,
                             })
                           }
-                          className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                          className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                           placeholder="Your Designation"
                         />
                       </div>
@@ -688,9 +688,9 @@ export default function CheckoutModal({
                 </div>
 
                 {/* Billing Address Section */}
-                <div className="bg-gradient-to-r from-[#6c7cae]/5 via-[#9c408c]/5 to-[#be3437]/5 border border-[#6c7cae]/20 rounded-2xl p-6">
+                <div className="bg-gradient-to-r from-[#6c7cae]/5 via-[#9c408c]/5 to-[#2b8ffb]/5 border border-[#6c7cae]/20 rounded-2xl p-6">
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="bg-gradient-to-r from-[#6c7cae] to-[#be3437] p-2 rounded-lg">
+                    <div className="bg-gradient-to-r from-[#6c7cae] to-[#2b8ffb] p-2 rounded-lg">
                       <MapPin className="w-5 h-5 text-white" />
                     </div>
                     <h3 className="text-lg font-bold text-gray-900">
@@ -704,7 +704,7 @@ export default function CheckoutModal({
                     </label>
                     <div className="relative group">
                       <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                        <MapPin className="w-5 h-5 text-gray-400 group-focus-within:text-[#be3437] transition-colors" />
+                        <MapPin className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
                       </div>
                       <input
                         type="text"
@@ -716,7 +716,7 @@ export default function CheckoutModal({
                             address: e.target.value,
                           })
                         }
-                        className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                        className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                         placeholder="Street Address"
                       />
                     </div>
@@ -737,7 +737,7 @@ export default function CheckoutModal({
                             city: e.target.value,
                           })
                         }
-                        className="w-full px-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                        className="w-full px-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                         placeholder="City"
                       />
                     </div>
@@ -755,7 +755,7 @@ export default function CheckoutModal({
                             state: e.target.value,
                           })
                         }
-                        className="w-full px-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                        className="w-full px-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                         placeholder="State"
                       />
                     </div>
@@ -773,7 +773,7 @@ export default function CheckoutModal({
                             zipCode: e.target.value,
                           })
                         }
-                        className="w-full px-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                        className="w-full px-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                         placeholder="Zip Code"
                       />
                     </div>
@@ -793,7 +793,7 @@ export default function CheckoutModal({
                           country: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#be3437]/20 focus:border-[#be3437] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                      className="w-full px-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                       placeholder="Country"
                     />
                   </div>
@@ -802,7 +802,7 @@ export default function CheckoutModal({
                 {/* Payment Section */}
                 <div className="bg-gradient-to-br from-white to-gray-50 border-2 border-gray-200 rounded-2xl p-6 shadow-lg">
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] p-2 rounded-lg">
+                    <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] p-2 rounded-lg">
                       <CreditCard className="w-5 h-5 text-white" />
                     </div>
                     <h3 className="text-lg font-bold text-gray-900">
@@ -813,7 +813,7 @@ export default function CheckoutModal({
                     <button
                       type="button"
                       onClick={handlePayU}
-                      className="group relative bg-gradient-to-r from-[#be3437] to-[#be3437]/90 text-white py-5 px-6 rounded-xl font-semibold hover:from-[#be3437]/95 hover:to-[#be3437]/85 transition-all shadow-lg hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 overflow-hidden"
+                      className="group relative bg-gradient-to-r from-[#2b8ffb] to-[#2b8ffb]/90 text-white py-5 px-6 rounded-xl font-semibold hover:from-[#2b8ffb]/95 hover:to-[#2b8ffb]/85 transition-all shadow-lg hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 overflow-hidden"
                     >
                       <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                       <CreditCard className="w-6 h-6 relative z-10" />

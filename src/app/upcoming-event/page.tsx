@@ -217,7 +217,7 @@ export default function UpcomingEventPage() {
       {/* Hero Section */}
       <div className="relative py-20 overflow-hidden">
         {/* Background Image */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#be3437]/90 to-[#6c7cae]/90">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#2b8ffb]/90 to-[#6c7cae]/90">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
@@ -225,7 +225,7 @@ export default function UpcomingEventPage() {
                 'url("https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80")',
             }}
           ></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#be3437]/80 to-[#6c7cae]/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#2b8ffb]/80 to-[#6c7cae]/80"></div>
 
           {/* Decorative Elements */}
           <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse"></div>
@@ -252,10 +252,10 @@ export default function UpcomingEventPage() {
               professional journey.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-[#be3437] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg">
+              <button className="bg-white text-[#2b8ffb] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg">
                 Register Now
               </button>
-              <button className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#be3437] transition-all duration-200">
+              <button className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#2b8ffb] transition-all duration-200">
                 Download Brochure
               </button>
             </div>
@@ -285,13 +285,13 @@ export default function UpcomingEventPage() {
                   className={`bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer ${
                     selectedEvent?._id === event._id ||
                     selectedEvent?.id === event.id
-                      ? "ring-2 ring-[#be3437]"
+                      ? "ring-2 ring-[#2b8ffb]"
                       : ""
                   }`}
                   onClick={() => setSelectedEvent(transformedEvent)}
                 >
                   <div className="relative">
-                    <div className="h-48 bg-gradient-to-br from-[#be3437]/10 to-[#6c7cae]/10 flex items-center justify-center">
+                    <div className="h-48 bg-gradient-to-br from-[#2b8ffb]/10 to-[#6c7cae]/10 flex items-center justify-center">
                       <Image
                         alt={event.title || event.name || "Event"}
                         src={
@@ -303,7 +303,7 @@ export default function UpcomingEventPage() {
                       />
                       
                       <div className="text-center absolute h-full w-full bg-black/40 flex flex-col justify-center text-white items-center">
-                        <CalendarIcon className="w-16 h-16 text-[#be3437] mx-auto mb-4" />
+                        <CalendarIcon className="w-16 h-16 text-[#2b8ffb] mx-auto mb-4" />
                         <div className="text-2xl font-bold text-white mb-2">
                           {formatCustomDate(event.dateFrom)}
                         </div>
@@ -329,7 +329,7 @@ export default function UpcomingEventPage() {
                         {(event.categories || []).map((tag: string) => (
                           <span
                             key={tag}
-                            className="bg-[#be3437]/10 text-[#be3437] px-3 py-1 rounded-full text-sm font-medium"
+                            className="bg-[#2b8ffb]/10 text-[#2b8ffb] px-3 py-1 rounded-full text-sm font-medium"
                           >
                             {tag}
                           </span>
@@ -373,7 +373,7 @@ export default function UpcomingEventPage() {
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <div
-                          className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] h-2 rounded-full transition-all duration-300"
+                          className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] h-2 rounded-full transition-all duration-300"
                           style={{
                             width: `${getRegistrationProgress(143, 200)}%`,
                           }}
@@ -384,7 +384,7 @@ export default function UpcomingEventPage() {
                     <div className="w-full">
                       <Link
                         href={`/event/${event.slug}`}
-                        className="w-full items-center justify-center flex bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200"
+                        className="w-full items-center justify-center flex bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200"
                       >
                         View Details & Register
                       </Link>
@@ -413,7 +413,7 @@ export default function UpcomingEventPage() {
               onClick={() => setSelectedCategory(category)}
               className={`px-6 py-2 rounded-full font-medium transition-all duration-200 ${
                 selectedCategory === category
-                  ? "bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white shadow-lg"
+                  ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white shadow-lg"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
@@ -439,13 +439,13 @@ export default function UpcomingEventPage() {
                   className={`bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer ${
                     selectedEvent?._id === event._id ||
                     selectedEvent?.id === event.id
-                      ? "ring-2 ring-[#be3437]"
+                      ? "ring-2 ring-[#2b8ffb]"
                       : ""
                   }`}
                   onClick={() => setSelectedEvent(transformedEvent)}
                 >
                   <div className="relative">
-                    <div className="h-48 bg-gradient-to-br from-[#be3437]/10 to-[#6c7cae]/10 flex items-center justify-center">
+                    <div className="h-48 bg-gradient-to-br from-[#2b8ffb]/10 to-[#6c7cae]/10 flex items-center justify-center">
                       <Image
                         alt={event.title || event.name || "Event"}
                         src={
@@ -456,7 +456,7 @@ export default function UpcomingEventPage() {
                         className="w-full h-48 object-cover rounded-lg"
                       />
                       <div className="text-center absolute h-full w-full bg-black/40 flex flex-col justify-center text-white items-center">
-                        <CalendarIcon className="w-16 h-16 text-[#be3437] mx-auto mb-4" />
+                        <CalendarIcon className="w-16 h-16 text-[#2b8ffb] mx-auto mb-4" />
                         <div className="text-2xl font-bold text-white mb-2">
                           {formatCustomDate(event.dateFrom)}
                         </div>
@@ -466,7 +466,7 @@ export default function UpcomingEventPage() {
                       </div>
                     </div>
 
-                    <div className="absolute top-4 right-2 bg-[#be3437] text-white px-2 py-1 rounded-full text-[14px] font-semibold">
+                    <div className="absolute top-4 right-2 bg-[#2b8ffb] text-white px-2 py-1 rounded-full text-[14px] font-semibold">
                       {`${daysDifference(
                         event.dateFrom,
                         event.dateTo
@@ -486,7 +486,7 @@ export default function UpcomingEventPage() {
                         {(event.categories || []).map((tag: string) => (
                           <span
                             key={tag}
-                            className="bg-[#be3437]/10 text-[#be3437] px-3 py-1 rounded-full text-sm font-medium"
+                            className="bg-[#2b8ffb]/10 text-[#2b8ffb] px-3 py-1 rounded-full text-sm font-medium"
                           >
                             {tag}
                           </span>
@@ -535,7 +535,7 @@ export default function UpcomingEventPage() {
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <div
-                          className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] h-2 rounded-full transition-all duration-300"
+                          className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] h-2 rounded-full transition-all duration-300"
                           style={{
                             width: `${getRegistrationProgress(143, 200)}%`,
                           }}
@@ -546,7 +546,7 @@ export default function UpcomingEventPage() {
                     <div className="w-full">
                       <Link
                         href={`/event/${event.slug}`}
-                        className="w-full items-center justify-center flex bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200"
+                        className="w-full items-center justify-center flex bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200"
                       >
                         View Details & Register
                       </Link>
@@ -559,7 +559,7 @@ export default function UpcomingEventPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] py-16">
+      <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             Ready to Join Us?
@@ -570,10 +570,10 @@ export default function UpcomingEventPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-[#be3437] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg">
+            <button className="bg-white text-[#2b8ffb] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg">
               Register for Event
             </button>
-            <button className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#be3437] transition-all duration-200">
+            <button className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#2b8ffb] transition-all duration-200">
               Contact Us
             </button>
           </div>

@@ -124,7 +124,7 @@ export default function Header({ onCartClick }: { onCartClick?: () => void }) {
   return (
     <header className="relative bg-white shadow-xl border-b border-gray-200">
       {/* Top Bar */}
-      <div className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] py-2">
+      <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center text-white text-sm">
             <div className="flex items-center space-x-4">
@@ -232,7 +232,7 @@ export default function Header({ onCartClick }: { onCartClick?: () => void }) {
                   <div className="relative">
                     <button
                       onClick={() => toggleDropdown(item.name)}
-                      className="flex items-center space-x-1 text-gray-700 hover:text-[#be3437] font-semibold transition-colors duration-200 py-2"
+                      className="flex items-center space-x-1 text-gray-700 hover:text-[#2b8ffb] font-semibold transition-colors duration-200 py-2"
                     >
                       <span>{item.name}</span>
                       <ChevronDownIcon className="w-4 h-4" />
@@ -244,7 +244,7 @@ export default function Header({ onCartClick }: { onCartClick?: () => void }) {
                           <Link
                             key={child.name}
                             href={child.href}
-                            className="block px-4 py-2 text-gray-700 hover:bg-[#be3437]/10 hover:text-[#be3437] transition-colors duration-200"
+                            className="block px-4 py-2 text-gray-700 hover:bg-[#2b8ffb]/10 hover:text-[#2b8ffb] transition-colors duration-200"
                             onClick={() => setActiveDropdown(null)}
                           >
                             {child.name}
@@ -256,10 +256,10 @@ export default function Header({ onCartClick }: { onCartClick?: () => void }) {
                 ) : (
                   <Link
                     href={item.href}
-                    className="text-gray-700 hover:text-[#be3437] font-semibold transition-colors duration-200 py-2 relative group"
+                    className="text-gray-700 hover:text-[#2b8ffb] font-semibold transition-colors duration-200 py-2 relative group"
                   >
                     {item.name}
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#be3437] to-[#6c7cae] transition-all duration-300 group-hover:w-full"></span>
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] transition-all duration-300 group-hover:w-full"></span>
                   </Link>
                 )}
               </div>
@@ -270,19 +270,19 @@ export default function Header({ onCartClick }: { onCartClick?: () => void }) {
           <div className="hidden lg:flex items-center space-x-4">
             <button
               onClick={onCartClick}
-              className="relative p-2 text-gray-700 hover:text-[#be3437] transition-colors duration-200"
+              className="relative p-2 text-gray-700 hover:text-[#2b8ffb] transition-colors duration-200"
               aria-label="Shopping Cart"
             >
               <ShoppingCart className="w-6 h-6" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow-lg">
+                <span className="absolute -top-1 -right-1 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold shadow-lg">
                   {cartCount}
                 </span>
               )}
             </button>
             <Link
               href="/contact-us"
-              className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-6 py-2 rounded-full font-semibold hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-6 py-2 rounded-full font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               Contact Us
             </Link>
@@ -292,7 +292,7 @@ export default function Header({ onCartClick }: { onCartClick?: () => void }) {
           <div className="lg:hidden">
             <button
               onClick={toggleMobileMenu}
-              className="text-gray-700 hover:text-[#be3437] transition-colors duration-200 p-2"
+              className="text-gray-700 hover:text-[#2b8ffb] transition-colors duration-200 p-2"
             >
               {isMobileMenuOpen ? (
                 <CloseIcon className="w-6 h-6" />
@@ -330,7 +330,7 @@ export default function Header({ onCartClick }: { onCartClick?: () => void }) {
                           <Link
                             key={child.name}
                             href={child.href}
-                            className="block px-4 py-2 text-gray-600 hover:bg-[#be3437]/10 hover:text-[#be3437] rounded-lg transition-colors duration-200"
+                            className="block px-4 py-2 text-gray-600 hover:bg-[#2b8ffb]/10 hover:text-[#2b8ffb] rounded-lg transition-colors duration-200"
                             onClick={() => {
                               setActiveDropdown(null);
                               setIsMobileMenuOpen(false);
@@ -366,14 +366,14 @@ export default function Header({ onCartClick }: { onCartClick?: () => void }) {
                 <ShoppingCart className="w-5 h-5" />
                 <span>Cart</span>
                 {cartCount > 0 && (
-                  <span className="bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                  <span className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                     {cartCount}
                   </span>
                 )}
               </button>
               <Link
                 href="/contact-us"
-                className="block w-full bg-gradient-to-r from-[#be3437] to-[#6c7cae] text-white px-6 py-3 rounded-lg font-semibold text-center hover:from-[#be3437]/90 hover:to-[#6c7cae]/90 transition-all duration-200"
+                className="block w-full bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-6 py-3 rounded-lg font-semibold text-center hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Contact Us

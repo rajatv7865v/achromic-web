@@ -15,7 +15,7 @@ export default function ContactSidebar() {
         className="fixed right-0 top-1/2 -translate-y-1/2 z-40 group"
       >
         <div className="relative overflow-hidden">
-          <div className="flex items-center bg-[#be3437] text-white shadow-2xl border-y border-l border-white/20 rounded-l-2xl transition-all duration-300 ease-in-out group-hover:w-40 w-12">
+          <div className="flex items-center bg-[#2b8ffb] text-white shadow-2xl border-y border-l border-white/20 rounded-l-2xl transition-all duration-300 ease-in-out group-hover:w-40 w-12">
             <div className="flex items-center justify-center min-w-[48px] h-12">
               <span className="text-xl">💬</span>
             </div>
@@ -109,12 +109,12 @@ export default function ContactSidebar() {
                     name="name"
                     required
                     placeholder="Your Name"
-                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#be3437]/30 focus:border-[#be3437]"
+                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2b8ffb]/30 focus:border-[#2b8ffb]"
                   />
                   <input
                     name="phone"
                     placeholder="Phone (optional)"
-                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#be3437]/30 focus:border-[#be3437]"
+                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2b8ffb]/30 focus:border-[#2b8ffb]"
                   />
                 </div>
                 <input
@@ -122,13 +122,13 @@ export default function ContactSidebar() {
                   name="email"
                   required
                   placeholder="Email"
-                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#be3437]/30 focus:border-[#be3437]"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2b8ffb]/30 focus:border-[#2b8ffb]"
                 />
                 <textarea
                   name="message"
                   rows={4}
                   placeholder="How can we help you?"
-                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#be3437]/30 focus:border-[#be3437]"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2b8ffb]/30 focus:border-[#2b8ffb]"
                 />
                 <div className="flex items-center justify-between gap-3">
                   <Link
@@ -140,7 +140,7 @@ export default function ContactSidebar() {
                   </Link>
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center rounded-lg px-5 py-3 font-semibold text-white bg-gradient-to-r from-[#be3437] to-[#6c7cae] hover:opacity-95 shadow"
+                    className="inline-flex items-center justify-center rounded-lg px-5 py-3 font-semibold text-white bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] hover:opacity-95 shadow"
                   >
                     Send Email
                   </button>
