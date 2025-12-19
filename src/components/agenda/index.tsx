@@ -135,6 +135,7 @@ interface Session {
   location: string;
   date?: string;
   venue?: string;
+  content?: string;
   type: "keynote" | "panel" | "workshop" | "break" | "networking";
   description: string;
   sessions: Session[];
@@ -376,6 +377,11 @@ export default function Agenda({ eventId }: AgendaProps) {
                               <p className="text-gray-600 mb-3">
                                 {session.description}
                               </p>
+                            <div className="text-gray-600 mb-3">
+                            <p dangerouslySetInnerHTML={{ __html: session.content || "" as string }} />
+                            </div>
+
+                              
 
                               <div className="flex items-center space-x-6 text-sm text-gray-500">
                                 <div className="flex items-center space-x-1">
@@ -410,12 +416,26 @@ export default function Agenda({ eventId }: AgendaProps) {
                         </div>
 
                         {/* Expanded Content */}
-                        {expandedSessions.includes(session.id) &&
-                          session.speakers.length > 0 && (
+                        {expandedSessions.includes(session.id) && (
                             <div className="border-t border-gray-200 bg-gray-50 p-6">
-                              <h4 className="text-lg font-semibold text-gray-900 mb-4">
-                                Speakers
-                              </h4>
+                              {/* Session Description/Content */}
+                              {session.description && (
+                                <div className="mb-6">
+                                  <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                                    About This Session
+                                  </h4>
+                                  <p className="text-gray-700 leading-relaxed">
+                                    {session.description}
+                                  </p>
+                                </div>
+                              )}
+                              
+                              {/* Speakers */}
+                              {session.speakers && session.speakers.length > 0 && (
+                                <>
+                                  <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                                    Speakers
+                                  </h4>
                               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {session.speakers &&
                                 session.speakers.length > 0 ? (
@@ -489,6 +509,8 @@ export default function Agenda({ eventId }: AgendaProps) {
                                   </div>
                                 )}
                               </div>
+                                </>
+                              )}
                             </div>
                           )}
                       </div>
