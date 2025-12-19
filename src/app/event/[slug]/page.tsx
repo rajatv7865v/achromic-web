@@ -165,7 +165,7 @@ const upcomingEvents: Event[] = [
       "Access to Event Materials",
       "Complimentary Lunch & Refreshments",
       "One-on-One Q&A Sessions",
-      "Full Day Access to Seminar",
+      "Full-day access to all sessions",
     ],
   },
   {
