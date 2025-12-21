@@ -433,7 +433,7 @@ export default function EnterpriseSolutionsPage() {
             🏢 Transform your workforce with our enterprise training solutions
           </p>
           <p className='text-sm text-gray-400 mt-2'>
-            © 2025 Achromic Point. All rights reserved.
+            © 2026 Achromic Point. All rights reserved.
           </p>
         </div>
       </div>

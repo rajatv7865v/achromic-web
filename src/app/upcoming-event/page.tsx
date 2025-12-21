@@ -29,28 +29,6 @@ const CalendarIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const MapPinIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-    />
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-    />
-  </svg>
-);
-
 const UsersIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
@@ -83,22 +61,6 @@ const ClockIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const CheckCircleIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-    />
-  </svg>
-);
-
 const StarIcon = ({ className }: { className?: string }) => (
   <svg
     className={className}
@@ -115,26 +77,9 @@ const StarIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const ArrowRightIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M13 7l5 5m0 0l-5 5m5-5H6"
-    />
-  </svg>
-);
-
 export default function UpcomingEventPage() {
   const [selectedEvent, setSelectedEvent] = useState<any>(null);
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [activeTab, setActiveTab] = useState("overview");
 
   const [categories, setCategories] = useState<any>([]);
   const [events, setEvents] = useState<any>([]);
@@ -301,26 +246,22 @@ export default function UpcomingEventPage() {
                         height={400}
                         className="w-full h-48 object-cover rounded-lg"
                       />
-                      
+
                       <div className="text-center absolute h-full w-full bg-black/40 flex flex-col justify-center text-white items-center">
                         <CalendarIcon className="w-16 h-16 text-[#2b8ffb] mx-auto mb-4" />
                         <div className="text-2xl font-bold text-white mb-2">
                           {formatCustomDate(event.dateFrom)}
                         </div>
                         <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">
-                      <div className="text-sm font-semibold text-gray-900">
-                        {getDaysUntilEvent(event.dateFrom)} days to go
-                      </div>
-                    </div>
+                          <div className="text-sm font-semibold text-gray-900">
+                            {getDaysUntilEvent(event.dateFrom)} days to go
+                          </div>
+                        </div>
                         <div className="text-xl font-semibold text-white">
                           {event.venue}, {event.location}
                         </div>
                       </div>
                     </div>
-
-                    
-
-                   
                   </div>
 
                   <div className="p-6">
@@ -360,7 +301,6 @@ export default function UpcomingEventPage() {
                             : "TBA"}
                         </span>
                       </div>
-                     
                     </div>
 
                     {/* Registration Progress */}
@@ -587,7 +527,7 @@ export default function UpcomingEventPage() {
             📅 Early bird pricing available. Limited seats remaining!
           </p>
           <p className="text-sm text-gray-400 mt-2">
-            © 2025 Achromic Point. All rights reserved.
+            © 2026 Achromic Point. All rights reserved.
           </p>
         </div>
       </div>

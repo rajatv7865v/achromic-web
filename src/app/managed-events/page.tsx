@@ -611,7 +611,7 @@ export default function ManagedEventsPage() {
             🎯 Partner with us for expertly-managed, stress-free events
           </p>
           <p className='text-sm text-gray-400 mt-2'>
-            © 2025 Achromic Point Consulting. All rights reserved.
+            © 2026 Achromic Point Consulting. All rights reserved.
           </p>
         </div>
       </div>

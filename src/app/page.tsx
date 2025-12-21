@@ -10,6 +10,8 @@ import Banner1 from "@/components/assets/banner/banner 1.jpg";
 import Banner2 from "@/components/assets/banner/banner 2.jpg";
 import Banner3 from "@/components/assets/banner/banner 3.jpg";
 import Banner4 from "@/components/assets/banner/banner 4.jpg";
+import UpcomingEvent from "@/components/Upcoming-event";
+import PastEvent from "@/components/Past-event";
 
 // Simple SVG Icons
 const CalendarIcon = ({ className }: { className?: string }) => (
@@ -189,68 +191,6 @@ const ChevronRightIcon = ({ className }: { className?: string }) => (
 );
 
 // Sample data
-const upcomingEvents = [
-  {
-    id: 1,
-    title: "Financial Compliance & Risk Management Summit 2025",
-    date: "March 15, 2025",
-    location: "New Delhi",
-    price: 12000,
-    category: "Finance",
-    attendees: "85/200",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Legal Framework & Corporate Governance Conference 2025",
-    date: "April 20, 2025",
-    location: "Mumbai",
-    price: 9500,
-    category: "Legal",
-    attendees: "67/150",
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "Taxation & GST Compliance Workshop 2025",
-    date: "May 10, 2025",
-    location: "Bangalore",
-    price: 6500,
-    category: "Tax",
-    attendees: "45/100",
-    featured: false,
-  },
-];
-
-const pastEvents = [
-  {
-    id: 1,
-    title: "Financial Compliance & Risk Management Summit 2024",
-    date: "March 15, 2024",
-    location: "New Delhi",
-    attendees: 150,
-    rating: 4.8,
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Legal Framework & Corporate Governance Conference 2024",
-    date: "February 28, 2024",
-    location: "Mumbai",
-    attendees: 120,
-    rating: 4.7,
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "Taxation & GST Compliance Workshop 2024",
-    date: "January 20, 2024",
-    location: "Bangalore",
-    attendees: 80,
-    rating: 4.9,
-    featured: false,
-  },
-];
 
 const services = [
   {
@@ -267,23 +207,23 @@ const services = [
   },
   {
     id: 2,
-    title: "Professional Development",
+    title: "Seminars and Conferences ",
     description:
-      "Skill enhancement programs for professionals across various domains.",
+      "Seminars and conferences on various topics related to compliance, risk, accounting, finance and taxation.",
     icon: AwardIcon,
     features: [
-      "Certification Programs",
-      "Skill Assessments",
-      "Career Guidance",
+      "Seminars and conferences on various topics related to compliance, risk, accounting, finance and taxation.",
     ],
   },
   {
     id: 3,
-    title: "eMagazine",
+    title: "Managed Events",
     description:
-      "Monthly insights and industry updates through our digital publication.",
+      "Managed events on various topics related to compliance, risk, accounting, finance and taxation.",
     icon: BookOpenIcon,
-    features: ["Industry Insights", "Expert Articles", "Case Studies"],
+    features: [
+      "Managed events on various topics related to compliance, risk, accounting, finance and taxation.",
+    ],
   },
 ];
 
@@ -296,52 +236,49 @@ const stats = [
 
 // Carousel slides data
 const heroSlides = [
-    {
-      id: 1,
-      type: "image",
-      image: '/image/banner 1.jpg',
-      title: "Empowering Professionals Through Excellence in Training",
-      subtitle: "Join India's premier platform for professional development",
-    },
-    {
-      id: 2,
-      type: "image",
-      image: '/image/banner 2.jpg',
-      title: "Empowering Professionals Through Excellence in Training",
-      subtitle: "Join India's premier platform for professional development",
-    },
-    {
-      id: 3,
-      type: "image",
-      image: '/image/banner 3.jpg',
-      title: "Empowering Professionals Through Excellence in Training",
-      subtitle: "Join India's premier platform for professional development",
-    },
-    {
-      id: 4,
-      type: "image",
-      image: '/image/banner 4.jpg',
-      title: "Empowering Professionals Through Excellence in Training",
-      subtitle: "Join India's premier platform for professional development",
-    },
+  {
+    id: 1,
+    type: "image",
+    image: "/image/banner 1.jpg",
+    title: "Empowering Professionals Through Excellence in Training",
+    subtitle: "Join India's premier platform for professional development",
+  },
+  {
+    id: 2,
+    type: "image",
+    image: "/image/banner 2.jpg",
+    title: "Empowering Professionals Through Excellence in Training",
+    subtitle: "Join India's premier platform for professional development",
+  },
+  {
+    id: 3,
+    type: "image",
+    image: "/image/banner 3.jpg",
+    title: "Empowering Professionals Through Excellence in Training",
+    subtitle: "Join India's premier platform for professional development",
+  },
+  {
+    id: 4,
+    type: "image",
+    image: "/image/banner 4.jpg",
+    title: "Empowering Professionals Through Excellence in Training",
+    subtitle: "Join India's premier platform for professional development",
+  },
 
   {
     id: 7,
     type: "video",
-    video:
-      "/video/video1.mp4",
+    video: "/video/video1.mp4",
     title: "Watch Our Success Story",
     subtitle: "See how we've transformed careers and organizations",
   },
   {
     id: 8,
     type: "video",
-    video:
-      "/video/video2.mp4",
+    video: "/video/video2.mp4",
     title: "Watch Our Success Story",
     subtitle: "See how we've transformed careers and organizations",
   },
-  
 ];
 
 // Hero Carousel Component
@@ -427,9 +364,9 @@ function HeroCarousel() {
             ) : (
               slide.image && (
                 <img
-                  src={slide.image.replace(/ /g, '%20')}
+                  src={slide.image.replace(/ /g, "%20")}
                   alt={slide.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full "
                   loading={index === 0 ? "eager" : "lazy"}
                 />
               )
@@ -521,27 +458,33 @@ function HeroCarousel() {
 const faqs = [
   {
     question: "What type of events do you organize?",
-    answer: "We organize professional seminars, conferences, workshops, panel discussions, and corporate training events on topics which revolves around Compliance. Risk, Accounting, Finance and Taxation."
+    answer:
+      "We organize professional seminars, conferences, workshops, panel discussions, and corporate training events on topics which revolves around Compliance. Risk, Accounting, Finance and Taxation.",
   },
   {
     question: "Who can attend your seminars and conferences?",
-    answer: "Our events are open to professionals, business leaders, students, entrepreneurs, academics, and organizations, depending on the event theme and target audience."
+    answer:
+      "Our events are open to professionals, business leaders, students, entrepreneurs, academics, and organizations, depending on the event theme and target audience.",
   },
   {
     question: "How can I register for an event?",
-    answer: "You can register online through our website by selecting the event and completing the registration form. Confirmation details will be sent via email after successful registration."
+    answer:
+      "You can register online through our website by selecting the event and completing the registration form. Confirmation details will be sent via email after successful registration.",
   },
   {
     question: "Are your events held online or in person?",
-    answer: "We offer in-person and virtual events. The format of each event is clearly stated on the event details page."
+    answer:
+      "We offer in-person and virtual events. The format of each event is clearly stated on the event details page.",
   },
   {
     question: "What is included in the registration fee?",
-    answer: "Registration fees typically include access to event sessions, conference materials, certificates of participation, and refreshments or meals for in-person events. Specific inclusions vary by event."
+    answer:
+      "Registration fees typically include access to event sessions, conference materials, certificates of participation, and refreshments or meals for in-person events. Specific inclusions vary by event.",
   },
   {
     question: "Do you offer group or corporate discounts?",
-    answer: "Yes, we offer special rates for group registrations and corporate bookings. Please contact us directly for details and customized packages."
+    answer:
+      "Yes, we offer special rates for group registrations and corporate bookings. Please contact us directly for details and customized packages.",
   },
 ];
 
@@ -565,19 +508,6 @@ export default function Home() {
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
-  };
-
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <StarIcon
-        key={i}
-        className={`w-4 h-4 ${
-          i < Math.floor(rating)
-            ? "text-yellow-400 fill-current"
-            : "text-gray-300"
-        }`}
-      />
-    ));
   };
 
   return (
@@ -920,83 +850,7 @@ export default function Home() {
         </div>
 
         {/* Upcoming Events Section */}
-        <div className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Upcoming Events
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Don't miss our upcoming conferences, workshops, and training
-                programs. Secure your spot and advance your professional
-                journey.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-              {upcomingEvents.map((event) => (
-                <div
-                  key={event.id}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100"
-                >
-                  <div className="relative">
-                    <div className="h-48 bg-gradient-to-br from-[#2b8ffb]/10 to-[#6c7cae]/10 flex items-center justify-center">
-                      <div className="text-center">
-                        <CalendarIcon className="w-16 h-16 text-[#2b8ffb] mx-auto mb-4" />
-                        <div className="text-2xl font-bold text-gray-800 mb-2">
-                          {event.date}
-                        </div>
-                        <div className="text-lg font-semibold text-gray-700">
-                          {event.location}
-                        </div>
-                      </div>
-                    </div>
-                    {event.featured && (
-                      <div className="absolute top-4 right-4 bg-[#2b8ffb] text-white px-3 py-1 rounded-full text-sm font-semibold">
-                        Featured
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="bg-[#2b8ffb]/10 text-[#2b8ffb] px-3 py-1 rounded-full text-sm font-medium">
-                        {event.category}
-                      </span>
-                      <div className="text-right">
-                        <div className="text-lg font-bold text-gray-900">
-                          ₹{event.price.toLocaleString()}
-                        </div>
-                        <div className="text-xs text-gray-500">Early Bird</div>
-                      </div>
-                    </div>
-
-                    <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2">
-                      {event.title}
-                    </h3>
-
-                    <Link
-                      href="/upcoming-event"
-                      className="w-full bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200 text-center block"
-                    >
-                      View Details
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center">
-              <Link
-                href="/upcoming-event"
-                className="inline-flex items-center bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-8 py-3 rounded-full font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg"
-              >
-                View All Upcoming Events
-                <ArrowRightIcon className="w-5 h-5 ml-2" />
-              </Link>
-            </div>
-          </div>
-        </div>
+        <UpcomingEvent />
 
         {/* Services Section */}
         <div className="bg-gray-50 py-20">
@@ -1039,79 +893,7 @@ export default function Home() {
         </div>
 
         {/* Past Events Section */}
-        <div className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Past Events
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Explore our successful past events and conferences. Learn from
-                our expertise and join us for future transformative experiences.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-              {pastEvents.map((event) => (
-                <div
-                  key={event.id}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100"
-                >
-                  <div className="relative">
-                    <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                      <div className="text-center">
-                        <CalendarIcon className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                        <div className="text-2xl font-bold text-gray-800 mb-2">
-                          {event.date}
-                        </div>
-                        <div className="text-lg font-semibold text-gray-700">
-                          {event.location}
-                        </div>
-                      </div>
-                    </div>
-                    {event.featured && (
-                      <div className="absolute top-4 right-4 bg-[#6c7cae] text-white px-3 py-1 rounded-full text-sm font-semibold">
-                        Featured
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="p-6">
-                    <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2">
-                      {event.title}
-                    </h3>
-
-                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                      <div className="flex items-center space-x-1">
-                        {renderStars(event.rating)}
-                        <span className="text-xs text-gray-500 ml-1">
-                          ({event.rating})
-                        </span>
-                      </div>
-                    </div>
-
-                    <Link
-                      href="/past-event"
-                      className="w-full bg-gradient-to-r from-[#6c7cae] to-[#9c408c] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#6c7cae]/90 hover:to-[#9c408c]/90 transition-all duration-200 text-center block"
-                    >
-                      View Details
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center">
-              <Link
-                href="/past-event"
-                className="inline-flex items-center bg-gradient-to-r from-[#6c7cae] to-[#9c408c] text-white px-8 py-3 rounded-full font-semibold hover:from-[#6c7cae]/90 hover:to-[#9c408c]/90 transition-all duration-200 shadow-lg"
-              >
-                View All Past Events
-                <ArrowRightIcon className="w-5 h-5 ml-2" />
-              </Link>
-            </div>
-          </div>
-        </div>
+        <PastEvent />
 
         {/* Gallery Section */}
         <div className="py-20 bg-gray-50">

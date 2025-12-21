@@ -202,7 +202,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-center md:text-left text-gray-400 mb-4 md:mb-0">
-              <p>&copy; 2025 Achromic Point. All rights reserved.</p>
+              <p>&copy; 2026 Achromic Point. All rights reserved.</p>
             </div>
 
             {/* Legal Links */}
@@ -213,12 +213,7 @@ const Footer: React.FC = () => {
               >
                 Privacy Policy
               </Link>
-              <Link
-                href="/terms-of-service"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Terms of Service
-              </Link>
+              
               <Link
                 href="/contact-us"
                 className="text-gray-400 hover:text-white transition-colors"

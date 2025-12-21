@@ -393,8 +393,9 @@ export default function CorporateMembershipPage() {
                 <p>
                   <b>Nupur Verma</b>
                 </p>
-                <p>Call: 8447758768</p>
-                <p>Email: contactus@achromicpoint.com</p>
+                <p>Call: <a href='tel:+918447758768' className='text-[#2b8ffb] hover:underline'>+91-8447758768</a></p>
+                <p>Email: <a href='mailto:contactus@achromicpoint.com' className='text-[#2b8ffb] hover:underline'>contactus@achromicpoint.com</a></p>
+                <p>Email: <a href='mailto:nupur.verma@achromicpoint.com' className='text-[#2b8ffb] hover:underline'>nupur.verma@achromicpoint.com</a></p>
               </div>
               <div className='mt-6'>
                 <a
@@ -415,7 +416,7 @@ export default function CorporateMembershipPage() {
             <h2 className='text-xl font-bold text-gray-900'>
               Terms & Conditions
             </h2>
-            <ul className='mt-4 space-y-3 text-gray-700'>
+            <ul className='mt-4 space-y-3 text-gray-700 list-disc list-inside pl-4'>
               <li>
                 Membership is valid for Calendar Year 2026 (January 2026 – December 2026).
               </li>
