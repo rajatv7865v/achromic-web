@@ -337,9 +337,9 @@ function HeroCarousel() {
   };
 
   return (
-    <div className="relative w-full h-[80vh] overflow-hidden">
+    <div className="relative w-full h-[600px] overflow-hidden">
       {/* Slides Container */}
-      <div className="relative w-full h-full">
+      <div className="relative w-full h-[600px]">
         {heroSlides.map((slide, index) => (
           <div
             key={slide.id}
