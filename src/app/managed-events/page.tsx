@@ -184,9 +184,9 @@ const services: Service[] = [
     icon: LightningIcon,
   },
   {
-    id: "registration",
-    title: "Attendee Registration",
-    description: "Seamless registration processes and attendee management",
+    id: "registeration",
+    title: "Attendee registeration",
+    description: "Seamless registeration processes and attendee management",
     icon: UsersIcon,
   },
   {

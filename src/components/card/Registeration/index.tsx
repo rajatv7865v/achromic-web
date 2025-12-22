@@ -104,7 +104,7 @@ export default function RegisterCard({ event }: { event: any }) {
         </p>
         <div className="mb-6">
           <h4 className="font-semibold text-gray-900 text-sm mb-3">
-            Registration Fees:
+            registeration Fees:
           </h4>
           <div className="space-y-3">
             {/* Industry Price */}

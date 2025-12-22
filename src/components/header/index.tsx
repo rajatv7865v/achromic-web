@@ -114,11 +114,7 @@ export default function Header({ onCartClick }: { onCartClick?: () => void }) {
       href: "/annual-membership",
       type: "link",
     },
-    {
-      name: "Contact",
-      href: "/contact-us",
-      type: "link",
-    },
+    
   ];
 
   return (

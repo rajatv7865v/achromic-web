@@ -164,7 +164,7 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
                       {/* Price Type Selection */}
                       <div className="mb-4">
                         <label className="block text-sm font-semibold text-gray-800 mb-3">
-                          Registration Type:
+                          registeration Type:
                         </label>
                         <div className="grid grid-cols-2 gap-3">
                           <button

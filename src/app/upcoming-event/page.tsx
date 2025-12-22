@@ -85,7 +85,7 @@ export default function UpcomingEventPage() {
   const [events, setEvents] = useState<any>([]);
   const { data, loading, error, run } = useApi<{ data: any[] }>();
 
-  // Modal state for Brochure download / quick registration
+  // Modal state for Brochure download / quick registeration
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
   const [errors, setErrors] = useState<any>({});
@@ -154,7 +154,7 @@ export default function UpcomingEventPage() {
     })();
   }, [run, selectedEvent]);
 
-  const getRegistrationProgress = (registered: number, max: number) => {
+  const getregisterationProgress = (registered: number, max: number) => {
     return (registered / max) * 100;
   };
 
@@ -438,19 +438,19 @@ export default function UpcomingEventPage() {
                       </div>
                     </div>
 
-                    {/* Registration Progress */}
+                    {/* registeration Progress */}
                     <div className="mb-4">
                       <div className="flex justify-between text-sm text-gray-600 mb-1">
-                        <span>Registration Progress</span>
+                        <span>registeration Progress</span>
                         <span>
-                          {Math.round(getRegistrationProgress(143, 200))}%
+                          {Math.round(getregisterationProgress(143, 200))}%
                         </span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <div
                           className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] h-2 rounded-full transition-all duration-300"
                           style={{
-                            width: `${getRegistrationProgress(143, 200)}%`,
+                            width: `${getregisterationProgress(143, 200)}%`,
                           }}
                         ></div>
                       </div>
@@ -600,19 +600,19 @@ export default function UpcomingEventPage() {
                       </div>
                     </div>
 
-                    {/* Registration Progress */}
+                    {/* registeration Progress */}
                     <div className="mb-4">
                       <div className="flex justify-between text-sm text-gray-600 mb-1">
-                        <span>Registration Progress</span>
+                        <span>registeration Progress</span>
                         <span>
-                          {Math.round(getRegistrationProgress(143, 200))}%
+                          {Math.round(getregisterationProgress(143, 200))}%
                         </span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <div
                           className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] h-2 rounded-full transition-all duration-300"
                           style={{
-                            width: `${getRegistrationProgress(143, 200)}%`,
+                            width: `${getregisterationProgress(143, 200)}%`,
                           }}
                         ></div>
                       </div>

@@ -56,26 +56,26 @@ const faqs = [
       },
       {
         question: "How can I register for an event?",
-        answer: "You can register online through our website by selecting the event and completing the registration form. Confirmation details will be sent via email after successful registration."
+        answer: "You can register online through our website by selecting the event and completing the registeration form. Confirmation details will be sent via email after successful registeration."
       },
       {
         question: "Are your events held online or in person?",
         answer: "We offer in-person and virtual events. The format of each event is clearly stated on the event details page."
       },
       {
-        question: "What is included in the registration fee?",
-        answer: "Registration fees typically include access to event sessions, conference materials, certificates of participation, and refreshments or meals for in-person events. Specific inclusions vary by event."
+        question: "What is included in the registeration fee?",
+        answer: "registeration fees typically include access to event sessions, conference materials, certificates of participation, and refreshments or meals for in-person events. Specific inclusions vary by event."
       },
       {
         question: "Do you offer group or corporate discounts?",
-        answer: "Yes, we offer special rates for group registrations and corporate bookings. Please contact us directly for details and customized packages."
+        answer: "Yes, we offer special rates for group registerations and corporate bookings. Please contact us directly for details and customized packages."
       },
       {
         question: "Will I receive a certificate of participation?",
         answer: "Yes, participants receive a certificate of participation or attendance after completing the seminar or conference, either digitally or in print."
       },
       {
-        question: "Can I cancel or transfer my registration?",
+        question: "Can I cancel or transfer my registeration?",
         answer: "Cancellation and transfer policies vary by event. Please refer to the event's terms and conditions or contact our support team for assistance."
       },
       {
@@ -114,7 +114,7 @@ const faqs = [
       },
       {
         question: "How can I access your e-magazines?",
-        answer: "You can access our e-magazines through our website's e-magazine section. All issues are free to download and no registration is required. You can also subscribe to our newsletter for regular updates."
+        answer: "You can access our e-magazines through our website's e-magazine section. All issues are free to download and no registeration is required. You can also subscribe to our newsletter for regular updates."
       },
       {
         question: "Do you have a speaker directory?",

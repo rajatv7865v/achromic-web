@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import Speaker from "./_components/Speaker";
 import Agenda from "@/components/agenda";
 import Partner from "./_components/Partner";
-import RegistrationPage from "./_components/Registeration";
+import RegisterationPage from "./_components/Registeration";
 
 interface Event {
   id: number;
@@ -106,7 +106,7 @@ const upcomingEvents: Event[] = [
     agenda: [
       {
         time: "9:00 AM",
-        session: "Registration & Welcome Coffee",
+        session: "registeration & Welcome Coffee",
         speaker: "",
         type: "break",
       },
@@ -220,7 +220,7 @@ const upcomingEvents: Event[] = [
     agenda: [
       {
         time: "9:00 AM",
-        session: "Registration & Welcome",
+        session: "registeration & Welcome",
         speaker: "",
         type: "break",
       },
@@ -305,7 +305,7 @@ const upcomingEvents: Event[] = [
     agenda: [
       {
         time: "10:00 AM",
-        session: "Registration & Welcome",
+        session: "registeration & Welcome",
         speaker: "",
         type: "break",
       },
@@ -475,7 +475,7 @@ export default function pgae() {
               {activeTab === "partners" && <Partner eventId={event._id} />}
               {activeTab === "speakers" && <Speaker eventId={event._id} />}
               {activeTab === "registeration" && (
-                <RegistrationPage eventId={event._id} />
+                <RegisterationPage eventId={event._id} />
               )}
               {activeTab === "agenda" && (
                 <div>

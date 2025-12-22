@@ -171,7 +171,7 @@ const events = [
   },
 ];
 
-export default function RegistrationPage({ eventId }: { eventId: string }) {
+export default function registerationPage({ eventId }: { eventId: string }) {
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -201,8 +201,8 @@ export default function RegistrationPage({ eventId }: { eventId: string }) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission
-    console.log("Registration submitted:", formData);
-    alert("Registration submitted successfully! We'll contact you soon.");
+    console.log("registeration submitted:", formData);
+    alert("registeration submitted successfully! We'll contact you soon.");
   };
 
   return (
@@ -268,7 +268,7 @@ export default function RegistrationPage({ eventId }: { eventId: string }) {
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                 Select from our upcoming professional development events and
-                secure your registration
+                secure your registeration
               </p>
             </div>
 
@@ -280,7 +280,7 @@ export default function RegistrationPage({ eventId }: { eventId: string }) {
           </div>
         </div>
 
-        {/* Registration Form */}
+        {/* registeration Form */}
         {selectedEvent && (
           <div className="py-16 bg-gray-50">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -288,7 +288,7 @@ export default function RegistrationPage({ eventId }: { eventId: string }) {
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">
                   Complete Your{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae]">
-                    Registration
+                    registeration
                   </span>
                 </h2>
                 <p className="text-lg text-gray-600">
@@ -520,7 +520,7 @@ export default function RegistrationPage({ eventId }: { eventId: string }) {
                         >
                           Privacy Policy
                         </Link>
-                        . I understand that my registration is subject to
+                        . I understand that my registeration is subject to
                         confirmation and payment.
                       </label>
                     </div>
@@ -532,7 +532,7 @@ export default function RegistrationPage({ eventId }: { eventId: string }) {
                       type="submit"
                       className="flex-1 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white py-4 px-8 rounded-lg font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center"
                     >
-                      Complete Registration
+                      Complete registeration
                       <ArrowRightIcon className="w-5 h-5 ml-2" />
                     </button>
                     <Link

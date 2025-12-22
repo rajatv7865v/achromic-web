@@ -170,7 +170,7 @@ const events = [
   },
 ];
 
-export default function RegistrationPage() {
+export default function registerationPage() {
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -200,8 +200,8 @@ export default function RegistrationPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission
-    console.log("Registration submitted:", formData);
-    alert("Registration submitted successfully! We'll contact you soon.");
+    console.log("registeration submitted:", formData);
+    alert("registeration submitted successfully! We'll contact you soon.");
   };
 
   const getProgressPercentage = (registered: number, seats: string) => {
@@ -270,7 +270,7 @@ export default function RegistrationPage() {
               <div className='mb-6'>
                 <div className='inline-block bg-white/10 backdrop-blur-sm rounded-full px-6 py-2 border border-white/20 mb-4'>
                   <span className='text-white/90 font-medium'>
-                    📝 Registration Portal
+                    📝 registeration Portal
                   </span>
                 </div>
               </div>
@@ -301,7 +301,7 @@ export default function RegistrationPage() {
               </h2>
               <p className='text-lg text-gray-600 max-w-2xl mx-auto'>
                 Select from our upcoming professional development events and
-                secure your registration
+                secure your registeration
               </p>
             </div>
 
@@ -407,7 +407,7 @@ export default function RegistrationPage() {
           </div>
         </div>
 
-        {/* Registration Form */}
+        {/* registeration Form */}
         {selectedEvent && (
           <div className='py-16 bg-gray-50'>
             <div className='max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
@@ -415,7 +415,7 @@ export default function RegistrationPage() {
                 <h2 className='text-3xl font-bold text-gray-900 mb-4'>
                   Complete Your{" "}
                   <span className='text-transparent bg-clip-text bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae]'>
-                    Registration
+                    registeration
                   </span>
                 </h2>
                 <p className='text-lg text-gray-600'>
@@ -647,7 +647,7 @@ export default function RegistrationPage() {
                         >
                           Privacy Policy
                         </Link>
-                        . I understand that my registration is subject to
+                        . I understand that my registeration is subject to
                         confirmation and payment.
                       </label>
                     </div>
@@ -659,7 +659,7 @@ export default function RegistrationPage() {
                       type='submit'
                       className='flex-1 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white py-4 px-8 rounded-lg font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center'
                     >
-                      Complete Registration
+                      Complete registeration
                       <ArrowRightIcon className='w-5 h-5 ml-2' />
                     </button>
                     <Link
@@ -679,11 +679,11 @@ export default function RegistrationPage() {
         <div className='py-16 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae]'>
           <div className='max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
             <h2 className='text-3xl font-bold text-white mb-6'>
-              Need Help with Registration?
+              Need Help with registeration?
             </h2>
             <p className='text-xl text-white/90 mb-8'>
               Our team is here to assist you with any questions about our events
-              or registration process.
+              or registeration process.
             </p>
             <div className='flex flex-col sm:flex-row gap-4 justify-center'>
               <Link

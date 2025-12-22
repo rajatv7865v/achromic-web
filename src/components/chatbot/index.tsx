@@ -54,8 +54,8 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onToggle }) => {
       return "We have amazing speakers from various industries. You can view our speakers page to see all our featured speakers and their profiles.";
     }
 
-    if (message.includes("register") || message.includes("registration")) {
-      return "Registration for our events is easy! You can register through our registration page. Do you need help with the registration process?";
+    if (message.includes("register") || message.includes("registeration")) {
+      return "registeration for our events is easy! You can register through our registeration page. Do you need help with the registeration process?";
     }
 
     if (message.includes("contact") || message.includes("help")) {
