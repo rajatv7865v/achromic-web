@@ -85,6 +85,56 @@ export default function UpcomingEventPage() {
   const [events, setEvents] = useState<any>([]);
   const { data, loading, error, run } = useApi<{ data: any[] }>();
 
+  // Modal state for Brochure download / quick registration
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", phone: "" });
+  const [errors, setErrors] = useState<any>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const BROCHURE_URL = "/brochure.pdf"; // Place your brochure at public/brochure.pdf
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setIsSubmitting(false);
+    setErrors({});
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: undefined });
+  };
+
+  const validateForm = () => {
+    const errs: any = {};
+    if (!form.name.trim()) errs.name = "Name is required";
+    if (!form.email.trim() || !/^\S+@\S+\.\S+$/.test(form.email))
+      errs.email = "Valid email is required";
+    if (!form.phone.trim() || !/^[\d()+\s-]{7,}$/.test(form.phone))
+      errs.phone = "Valid phone is required";
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
+
+  const handleDownload = async () => {
+    if (!validateForm()) return;
+    setIsSubmitting(true);
+    try {
+      // Analytics/submit form to server can be added here
+      // Trigger brochure download
+      const a = document.createElement("a");
+      a.href = BROCHURE_URL;
+      a.download = "brochure.pdf";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      // Optionally close modal after download
+      closeModal();
+    } catch (err) {
+      console.error("Download failed", err);
+      setIsSubmitting(false);
+    }
+  };
+
   useEffect(() => {
     (async () => {
       const [category, events]: any = await Promise.all([
@@ -188,7 +238,16 @@ export default function UpcomingEventPage() {
                 </span>
               </div>
             </div>
-            <h1 className="text-5xl font-bold text-white mb-6 drop-shadow-lg">
+            <h1
+              className="text-5xl font-bold text-white mb-6 drop-shadow-lg cursor-pointer"
+              onClick={openModal}
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") openModal();
+              }}
+              role="button"
+              aria-pressed={isModalOpen}
+            >
               Join Our Next Event
             </h1>
             <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8 drop-shadow-md">
@@ -200,13 +259,89 @@ export default function UpcomingEventPage() {
               <button className="bg-white text-[#2b8ffb] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg">
                 Register Now
               </button>
-              <button className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#2b8ffb] transition-all duration-200">
+              <button onClick={openModal} className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#2b8ffb] transition-all duration-200">
                 Download Brochure
               </button>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Brochure Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={closeModal}
+            aria-hidden
+          />
+          <div className="relative text-gray-600 bg-white rounded-lg shadow-xl w-full max-w-md mx-4 p-6 z-10">
+            <button
+              className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+              onClick={closeModal}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            <h3 className="text-lg font-bold mb-4 text-gray-600">Get Brochure</h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Enter your details to download the event brochure.
+            </p>
+            <div className="space-y-3 mb-4">
+              <label htmlFor="name" className="font-semibold"> Full Name</label>
+              <input
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                className={`w-full px-3 py-2 border text-gray-600 rounded-md focus:outline-none ${
+                  errors.name ? "border-red-500" : "border-gray-200"
+                }`}
+                placeholder="Full name"
+              />
+              {errors.name && <div className="text-red-500 text-sm">{errors.name}</div>}
+               <label htmlFor="email" className="font-semibold"> Email Address</label>
+              <input
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                className={`w-full px-3 py-2 border text-gray-600 rounded-md focus:outline-none ${
+                  errors.email ? "border-red-500" : "border-gray-200"
+                }`}
+                placeholder="Email address"
+              />
+              {errors.email && <div className="text-red-500 text-sm">{errors.email}</div>}
+               <label htmlFor="phone" className="font-semibold"> Phone Number</label>
+              <input
+                name="phone"
+                value={form.phone}
+                onChange={handleChange}
+                className={`w-full px-3 py-2 border text-gray-600 rounded-md focus:outline-none ${
+                  errors.phone ? "border-red-500" : "border-gray-200"
+                }`}
+                placeholder="Phone number"
+              />
+              {errors.phone && <div className="text-red-500 text-sm">{errors.phone}</div>}
+            </div>
+            <div className="flex justify-end gap-3">
+              <button
+                className="px-4 py-2 rounded-md border hover:bg-gray-50"
+                onClick={closeModal}
+              >
+                Cancel
+              </button>
+              <button
+                className={`px-4 py-2 rounded-md text-white bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] font-semibold ${
+                  isSubmitting ? "opacity-60 cursor-not-allowed" : "hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90"
+                }`}
+                onClick={handleDownload}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Downloading..." : "Download Brochure"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Events List Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

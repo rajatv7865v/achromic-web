@@ -14,6 +14,7 @@ import {
   Building2,
   Briefcase,
 } from "lucide-react";
+import { DocumentChartBarIcon } from "@heroicons/react/20/solid";
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -123,7 +124,15 @@ export default function CheckoutModal({
 
       {/* Modal */}
       <div className="absolute inset-0 flex items-center justify-center p-4 pointer-events-none">
-        <div className={`bg-white rounded-3xl shadow-2xl w-full ${currentView === "login" || currentView === "forgot-password" ? "max-w-md min-w-[400px] sm:min-w-[450px]" : currentView === "signup" ? "max-w-2xl" : "max-w-3xl"} max-h-[95vh] overflow-hidden flex flex-col pointer-events-auto transform transition-all animate-slide-in`}>
+        <div
+          className={`bg-white rounded-3xl shadow-2xl w-full ${
+            currentView === "login" || currentView === "forgot-password"
+              ? "max-w-md min-w-[400px] sm:min-w-[450px]"
+              : currentView === "signup"
+              ? "max-w-2xl"
+              : "max-w-3xl"
+          } max-h-[95vh] overflow-hidden flex flex-col pointer-events-auto transform transition-all animate-slide-in`}
+        >
           {/* Header */}
           <div className="bg-gradient-to-r from-[#2b8ffb] via-[#9c408c] to-[#6c7cae] text-white p-6 flex items-center justify-between shadow-lg">
             <div className="flex items-center gap-3">
@@ -694,13 +703,13 @@ export default function CheckoutModal({
                       <MapPin className="w-5 h-5 text-white" />
                     </div>
                     <h3 className="text-lg font-bold text-gray-900">
-                      Billing Address
+                      Billing Address (optional)
                     </h3>
                   </div>
 
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2.5">
-                      Street Address <span className="text-red-500">*</span>
+                      Street Address
                     </label>
                     <div className="relative group">
                       <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
@@ -725,7 +734,7 @@ export default function CheckoutModal({
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-5">
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2.5">
-                        City <span className="text-red-500">*</span>
+                        City
                       </label>
                       <input
                         type="text"
@@ -743,7 +752,7 @@ export default function CheckoutModal({
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2.5">
-                        State <span className="text-red-500">*</span>
+                        State
                       </label>
                       <input
                         type="text"
@@ -761,7 +770,7 @@ export default function CheckoutModal({
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2.5">
-                        Zip Code <span className="text-red-500">*</span>
+                        Zip Code
                       </label>
                       <input
                         type="text"
@@ -781,7 +790,7 @@ export default function CheckoutModal({
 
                   <div className="mt-5">
                     <label className="block text-sm font-semibold text-gray-700 mb-2.5">
-                      Country <span className="text-red-500">*</span>
+                      Country
                     </label>
                     <input
                       type="text"
@@ -796,6 +805,41 @@ export default function CheckoutModal({
                       className="w-full px-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
                       placeholder="Country"
                     />
+                  </div>
+                </div>
+                {/* Billing Address Section */}
+                <div className="bg-gradient-to-r from-[#6c7cae]/5 via-[#9c408c]/5 to-[#2b8ffb]/5 border border-[#6c7cae]/20 rounded-2xl p-6">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="bg-gradient-to-r from-[#6c7cae] to-[#2b8ffb] p-2 rounded-lg">
+                      <MapPin className="w-5 h-5 text-white" />
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900">
+                      Document
+                    </h3>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2.5">
+                      GST
+                    </label>
+                    <div className="relative group">
+                      <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
+                        <DocumentChartBarIcon className="w-5 h-5 text-gray-400 group-focus-within:text-[#2b8ffb] transition-colors" />
+                      </div>
+                      <input
+                        type="text"
+                        required
+                        value={checkoutForm.address}
+                        onChange={(e) =>
+                          setCheckoutForm({
+                            ...checkoutForm,
+                            address: e.target.value,
+                          })
+                        }
+                        className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
+                        placeholder="GST"
+                      />
+                    </div>
                   </div>
                 </div>
 
