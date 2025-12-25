@@ -106,7 +106,7 @@ const upcomingEvents: Event[] = [
     agenda: [
       {
         time: "9:00 AM",
-        session: "registeration & Welcome Coffee",
+        session: "registration & Welcome Coffee",
         speaker: "",
         type: "break",
       },
@@ -220,7 +220,7 @@ const upcomingEvents: Event[] = [
     agenda: [
       {
         time: "9:00 AM",
-        session: "registeration & Welcome",
+        session: "registration & Welcome",
         speaker: "",
         type: "break",
       },
@@ -305,7 +305,7 @@ const upcomingEvents: Event[] = [
     agenda: [
       {
         time: "10:00 AM",
-        session: "registeration & Welcome",
+        session: "registration & Welcome",
         speaker: "",
         type: "break",
       },
@@ -440,7 +440,7 @@ export default function pgae() {
                 "partners",
                 "agenda",
                 "benefits",
-                "registeration",
+                "registration",
               ].map((tab) => (
                 <button
                   key={tab}

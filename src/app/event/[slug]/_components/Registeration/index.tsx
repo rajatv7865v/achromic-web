@@ -201,7 +201,7 @@ export default function registerationPage({ eventId }: { eventId: string }) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission
-    console.log("registeration submitted:", formData);
+
     alert("registeration submitted successfully! We'll contact you soon.");
   };
 

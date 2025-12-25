@@ -156,7 +156,7 @@ export default function CorporateMembershipPage() {
                 </li>
                 <li className='flex items-start gap-3'>
                   <span className='text-green-600 font-bold mt-1'>•</span>
-                  <span>Priority registeration</span>
+                  <span>Priority registration</span>
                 </li>
                 <li className='flex items-start gap-3'>
                   <span className='text-green-600 font-bold mt-1'>•</span>
@@ -191,7 +191,7 @@ export default function CorporateMembershipPage() {
               </div>
               <div className='mt-8'>
                 <a
-                  href='/registeration'
+                  href='/registration'
                   className='inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
                 >
                   Get Started
@@ -399,7 +399,7 @@ export default function CorporateMembershipPage() {
               </div>
               {/* <div className='mt-6'>
                 <a
-                  href='/registeration'
+                  href='/registration'
                   className='inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
                 >
                   Enroll Now
@@ -433,7 +433,7 @@ export default function CorporateMembershipPage() {
                 Copy of Achromic Point Knowledge Forum eMagazine worth INR 1,200 Per Annum will be provided free of charge.
               </li>
               <li>
-                registeration is confirmed upon receipt of completed form and payment. A confirmation email will follow.
+              registration is confirmed upon receipt of completed form and payment. A confirmation email will follow.
               </li>
               <li>Payment must be received before the event date.</li>
             </ul>

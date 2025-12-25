@@ -469,7 +469,7 @@ const faqs = [
   {
     question: "How can I register for an event?",
     answer:
-      "You can register online through our website by selecting the event and completing the registeration form. Confirmation details will be sent via email after successful registeration.",
+      "You can register online through our website by selecting the event and completing the registration form. Confirmation details will be sent via email after successful registration.",
   },
   {
     question: "Are your events held online or in person?",
@@ -477,14 +477,14 @@ const faqs = [
       "We offer in-person and virtual events. The format of each event is clearly stated on the event details page.",
   },
   {
-    question: "What is included in the registeration fee?",
+    question: "What is included in the registration fee?",
     answer:
-      "registeration fees typically include access to event sessions, conference materials, certificates of participation, and refreshments or meals for in-person events. Specific inclusions vary by event.",
+      "registration fees typically include access to event sessions, conference materials, certificates of participation, and refreshments or meals for in-person events. Specific inclusions vary by event.",
   },
   {
     question: "Do you offer group or corporate discounts?",
     answer:
-      "Yes, we offer special rates for group registerations and corporate bookings. Please contact us directly for details and customized packages.",
+      "Yes, we offer special rates for group registrations and corporate bookings. Please contact us directly for details and customized packages.",
   },
 ];
 
