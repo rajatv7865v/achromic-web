@@ -11,8 +11,9 @@ const PastEvent = () => {
 
   useEffect(() => {
     (async () => {
-      const eventsData = await getEvents({eventType:"PAST"});
-      setPastEvent(eventsData?.data.filter((_:any,index:any)=>index<6) || []);
+      const eventsData = await getEvents({eventType:"PAST",page:1,limit:6});
+      console.log("eve",eventsData)
+      setPastEvent(eventsData?.data?.data);
     })();
   }, [run]);
   if (loading) return <p>Loading...</p>;

@@ -139,13 +139,13 @@ export default function UpcomingEventPage() {
     (async () => {
       const [category, events]: any = await Promise.all([
         run(getCategories),
-        (getEvents({eventType:"UPCOMING"})),
+        getEvents({eventType:"UPCOMING",page:1,limit:10}),
       ]);
       setCategories([
         "All",
         ...(category?.data?.map((item: any) => item.name) ?? []),
       ]);
-      const eventsData = events?.data || [];
+      const eventsData = events?.data?.data || [];
       setEvents(eventsData);
       // Set first event as selected by default
       if (eventsData.length > 0 && !selectedEvent) {
