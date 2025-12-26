@@ -1,40 +1,10 @@
 import { useApi } from "@/hooks/useApi";
-import { getEvent } from "@/services/event";
+import { getEvents } from "@/services/event";
 import { ArrowRightIcon, CalendarIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-const upcomingEvents = [
-  {
-    id: 1,
-    title: "Financial Compliance & Risk Management Summit 2025",
-    date: "March 15, 2025",
-    location: "New Delhi",
-    price: 12000,
-    category: "Finance",
-    attendees: "85/200",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Legal Framework & Corporate Governance Conference 2025",
-    date: "April 20, 2025",
-    location: "Mumbai",
-    price: 9500,
-    category: "Legal",
-    attendees: "67/150",
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "Taxation & GST Compliance Workshop 2025",
-    date: "May 10, 2025",
-    location: "Bangalore",
-    price: 6500,
-    category: "Tax",
-    attendees: "45/100",
-    featured: false,
-  },
-];
+
+
 
 const UpcomingEvent = () => {
   const [events, setEvents] = useState<any>([]);
@@ -50,7 +20,7 @@ const UpcomingEvent = () => {
 
   useEffect(() => {
     (async () => {
-      const eventsData = await run(getEvent, "UPCOMING");
+      const eventsData = await (getEvents({eventType:'UPCOMING'}));
       setEvents(eventsData?.data || []);
     })();
   }, [run]);

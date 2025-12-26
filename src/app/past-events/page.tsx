@@ -1,8 +1,9 @@
 "use client";
 
+import Pagination from "@/components/common/Pagination";
 import { useApi } from "@/hooks/useApi";
 import { getCategories } from "@/services/category";
-import { getEvent } from "@/services/event";
+import { getEvents } from "@/services/event/index";
 import { daysDifference, formatCustomDate } from "@/utils/helper";
 import Image from "next/image";
 import Link from "next/link";
@@ -101,138 +102,6 @@ const StarIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-interface PastEvent {
-  id: number;
-  title: string;
-  date: string;
-  location: string;
-  category: string;
-  description: string;
-  image: string;
-  attendees: number;
-  rating: number;
-  featured: boolean;
-  highlights: string[];
-  speakers: string[];
-}
-
-const pastEvents: PastEvent[] = [
-  {
-    id: 1,
-    title: "Financial Compliance & Risk Management Summit 2024",
-    date: "March 15, 2024",
-    location: "New Delhi",
-    category: "Finance",
-    description:
-      "A comprehensive summit covering the latest trends in financial compliance, risk management, and regulatory updates.",
-    image: "/api/placeholder/400/250",
-    attendees: 150,
-    rating: 4.8,
-    featured: true,
-    highlights: [
-      "Keynote by RBI Governor",
-      "Panel on Digital Banking",
-      "Workshop on Risk Assessment",
-    ],
-    speakers: ["Dr. Rajesh Kumar", "Ms. Priya Sharma", "Mr. Amit Patel"],
-  },
-  {
-    id: 2,
-    title: "Legal Framework & Corporate Governance Conference",
-    date: "February 28, 2024",
-    location: "Mumbai",
-    category: "Legal",
-    description:
-      "Exploring the evolving landscape of corporate governance and legal frameworks in the digital age.",
-    image: "/api/placeholder/400/250",
-    attendees: 120,
-    rating: 4.7,
-    featured: true,
-    highlights: [
-      "SEBI Updates Session",
-      "Corporate Ethics Workshop",
-      "Legal Tech Innovations",
-    ],
-    speakers: ["Adv. Sunil Mehta", "Ms. Neha Gupta", "Mr. Rajesh Verma"],
-  },
-  {
-    id: 3,
-    title: "Taxation & GST Compliance Workshop",
-    date: "January 20, 2024",
-    location: "Bangalore",
-    category: "Tax",
-    description:
-      "Hands-on workshop covering GST compliance, tax planning strategies, and recent amendments.",
-    image: "/api/placeholder/400/250",
-    attendees: 80,
-    rating: 4.9,
-    featured: false,
-    highlights: [
-      "GST Return Filing",
-      "Tax Planning Strategies",
-      "Recent Amendments Discussion",
-    ],
-    speakers: ["CA Ravi Kumar", "Ms. Smita Singh", "Mr. Vikash Jain"],
-  },
-  {
-    id: 4,
-    title: "IFRS & Accounting Standards Training",
-    date: "December 10, 2023",
-    location: "Chennai",
-    category: "Accounting",
-    description:
-      "Comprehensive training on IFRS implementation and accounting standards for professionals.",
-    image: "/api/placeholder/400/250",
-    attendees: 95,
-    rating: 4.6,
-    featured: false,
-    highlights: [
-      "IFRS Implementation Guide",
-      "Case Studies Workshop",
-      "Q&A Session with Experts",
-    ],
-    speakers: ["CA Deepak Sharma", "Ms. Anjali Reddy", "Mr. Suresh Kumar"],
-  },
-  {
-    id: 5,
-    title: "Leadership & Soft Skills Development Program",
-    date: "November 25, 2023",
-    location: "Hyderabad",
-    category: "Leadership",
-    description:
-      "Transformational leadership program focusing on soft skills, team building, and effective communication.",
-    image: "/api/placeholder/400/250",
-    attendees: 60,
-    rating: 4.8,
-    featured: false,
-    highlights: [
-      "Team Building Exercises",
-      "Communication Skills Workshop",
-      "Leadership Assessment",
-    ],
-    speakers: ["Dr. Meera Patel", "Mr. Rahul Khanna", "Ms. Kavita Rao"],
-  },
-  {
-    id: 6,
-    title: "Cybersecurity & Digital Forensics Conference",
-    date: "October 18, 2023",
-    location: "Pune",
-    category: "Technology",
-    description:
-      "Advanced conference on cybersecurity threats, digital forensics, and data protection strategies.",
-    image: "/api/placeholder/400/250",
-    attendees: 110,
-    rating: 4.7,
-    featured: false,
-    highlights: [
-      "Cybersecurity Threats Panel",
-      "Digital Forensics Demo",
-      "Data Protection Strategies",
-    ],
-    speakers: ["Mr. Arjun Singh", "Dr. Nisha Agarwal", "Mr. Rohit Gupta"],
-  },
-];
-
 export default function PastEventPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [hoveredEvent, setHoveredEvent] = useState<number | null>(null);
@@ -241,28 +110,30 @@ export default function PastEventPage() {
   const [events, setEvents] = useState<any>([]);
   const { data, loading, error, run } = useApi<{ data: any[] }>();
 
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
   useEffect(() => {
     (async () => {
       const [category, events]: any = await Promise.all([
         run(getCategories),
-        run(getEvent, "PAST"),
+        getEvents({ eventType: "PAST" ,page,limit:9,}),
       ]);
       setCategories([
         "All",
         ...(category?.data?.map((item: any) => item.name) ?? []),
       ]);
-      const eventsData = events?.data || [];
+      setTotalPages(events.data?.meta?.totalPages)
+      const eventsData = events?.data?.data || [];
       setEvents(eventsData);
       // Set first event as selected by default
     })();
-  }, [run]);
-
-  const filteredEvents =
-    selectedCategory === "All"
-      ? pastEvents
-      : pastEvents.filter((event) => event.category === selectedCategory);
-
-  const featuredEvents = pastEvents.filter((event) => event.featured);
+  }, [run,page]);
+  console.log("eve",events)
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -422,7 +293,10 @@ export default function PastEventPage() {
                         View Details
                       </Link>
                     </div>
-                    <Link         href={`/gallery/${event.slug}`} className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+                    <Link
+                      href={`/gallery/${event.slug}`}
+                      className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                    >
                       Gallery
                     </Link>
                   </div>
@@ -554,6 +428,12 @@ export default function PastEventPage() {
         </div>
       </div>
 
+      <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
+
       {/* Statistics Section */}
       <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -565,8 +445,6 @@ export default function PastEventPage() {
               Celebrating our successful journey in professional development
             </p>
           </div>
-
-          
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 import { useApi } from "@/hooks/useApi";
-import { getEvent } from "@/services/event";
+import { getEvents } from "@/services/event";
 import { formatCustomDate } from "@/utils/helper";
 import { ArrowRightIcon, CalendarIcon, StarIcon } from "lucide-react";
 import Link from "next/link";
@@ -11,8 +11,8 @@ const PastEvent = () => {
 
   useEffect(() => {
     (async () => {
-      const eventsData = await run(getEvent, "PAST");
-      setPastEvent(eventsData?.data || []);
+      const eventsData = await getEvents({eventType:'PAST"'});
+      setPastEvent(eventsData?.data.filter((_:any,index:any)=>index<6) || []);
     })();
   }, [run]);
   if (loading) return <p>Loading...</p>;

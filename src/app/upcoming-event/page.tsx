@@ -2,7 +2,7 @@
 
 import { useApi } from "@/hooks/useApi";
 import { getCategories } from "@/services/category";
-import { getEvent } from "@/services/event";
+import { getEvents } from "@/services/event";
 import {
   daysDifference,
   formatCustomDate,
@@ -139,7 +139,7 @@ export default function UpcomingEventPage() {
     (async () => {
       const [category, events]: any = await Promise.all([
         run(getCategories),
-        run(getEvent, "UPCOMING"),
+        (getEvents({eventType:"UPCOMING"})),
       ]);
       setCategories([
         "All",
