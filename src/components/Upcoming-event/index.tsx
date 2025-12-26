@@ -21,7 +21,7 @@ const UpcomingEvent = () => {
   useEffect(() => {
     (async () => {
       const eventsData = await (getEvents({eventType:'UPCOMING',page:1,limit:6}));
-      setEvents(eventsData?.data || []);
+      setEvents(eventsData?.data?.data || []);
     })();
   }, [run]);
   if (loading) return <p>Loading...</p>;
