@@ -11,7 +11,7 @@ const PastEvent = () => {
 
   useEffect(() => {
     (async () => {
-      const eventsData = await getEvents({eventType:'PAST"'});
+      const eventsData = await getEvents({eventType:"PAST"});
       setPastEvent(eventsData?.data.filter((_:any,index:any)=>index<6) || []);
     })();
   }, [run]);
