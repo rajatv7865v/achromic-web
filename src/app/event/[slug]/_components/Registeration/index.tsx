@@ -106,8 +106,6 @@ const ShieldCheckIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-
-
 export default function registerationPage({ eventId }: { eventId: string }) {
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
   const [registrationData, setRegistrationData] = useState<RegistrationEvent[]>(

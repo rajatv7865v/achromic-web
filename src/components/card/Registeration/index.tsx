@@ -13,9 +13,46 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { addToCart, removeFromCart } from "@/store/cartSlice";
 import type { EventItem } from "@/store/cartSlice";
 import { useCart } from "@/components/cart/CartProvider";
+import { useState } from "react";
 
 export default function RegisterCard({ event }: { event: any }) {
-  
+  const [currency, setCurrency] = useState<"INR" | "USD">("INR");
+  const [showModal, setShowModal] = useState(false);
+  const [selectedType, setSelectedType] = useState<"Industry" | "Consulting">(
+    "Industry"
+  );
+  const [modalCurrency, setModalCurrency] = useState<"INR" | "USD">("INR");
+  console.log("eveee", event);
+  // Get price based on selected currency
+  const getPrice = (
+    type: "industry" | "consulting",
+    priceType: "normal" | "strike"
+  ) => {
+    if (currency === "USD") {
+      if (type === "industry") {
+        return priceType === "strike"
+          ? event.industryStrikePriceINR
+          : event.industryPriceINR;
+      } else {
+        return priceType === "strike"
+          ? event.consultingStrikePriceUSD
+          : event.consultingPriceUSD;
+      }
+    } else {
+      if (type === "industry") {
+        return priceType === "strike"
+          ? event.industryStrikePriceINR
+          : event.industryPriceINR;
+      } else {
+        return priceType === "strike"
+          ? event.consultingStrikePriceINR
+          : event.consultingPriceINR;
+      }
+    }
+  };
+
+  const getCurrencySymbol = () => (currency === "INR" ? "₹" : "$");
+
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
   const isInCart = cartItems.some((item) => item.id === event.id);
@@ -26,16 +63,27 @@ export default function RegisterCard({ event }: { event: any }) {
   };
 
   const handleAddToCart = () => {
+    // Open modal instead of directly adding to cart
+    setModalCurrency(currency);
+    setShowModal(true);
+  };
+
+  const confirmAddToCart = () => {
+    const selectedPrice =
+      modalCurrency === "USD"
+        ? selectedType === "Industry"
+          ? event.industryPriceUSD
+          : event.consultingPriceUSD
+        : selectedType === "Industry"
+        ? event.industryPriceINR
+        : event.consultingPriceINR;
+
     const eventItem: EventItem = {
       id: event.id,
       title: event.title,
       date: event.date,
       location: event.location,
-      price: event.price || 0,
-      industryPrice: event.industryPrice,
-      industryStrikePrice: event.industryStrikePrice,
-      consultingPrice: event.consultingPrice,
-      consultingStrikePrice: event.consultingStrikePrice,
+      price: selectedPrice || 0,
       category: event.category,
       duration: event.duration,
       seats: event.seats,
@@ -43,10 +91,12 @@ export default function RegisterCard({ event }: { event: any }) {
       featured: event.featured,
       description: event.description,
       benefits: event.benefits,
-      selectedPrice: event.industryEarlyBird || event.industryPrice || event.price || 0,
-      selectedType: 'Industry',
+      selectedPrice: selectedPrice || 0,
+      selectedCurrency: modalCurrency,
+      selectedType: selectedType,
     };
     dispatch(addToCart(eventItem));
+    setShowModal(false);
     openCart();
   };
 
@@ -102,9 +152,36 @@ export default function RegisterCard({ event }: { event: any }) {
         <p className="text-gray-600 text-sm mb-6 line-clamp-3">
           {event.description}
         </p>
+
+        {/* Currency Switch */}
+        <div className="mb-4 flex justify-end">
+          <div className="inline-flex rounded-lg border border-gray-300 bg-white p-1 shadow-sm">
+            <button
+              onClick={() => setCurrency("INR")}
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                currency === "INR"
+                  ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white shadow-md"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+              }`}
+            >
+              ₹ INR
+            </button>
+            <button
+              onClick={() => setCurrency("USD")}
+              className={`px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                currency === "USD"
+                  ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white shadow-md"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+              }`}
+            >
+              $ USD
+            </button>
+          </div>
+        </div>
+
         <div className="mb-6">
           <h4 className="font-semibold text-gray-900 text-sm mb-3">
-          registration Fees:
+            Registration Fees:
           </h4>
           <div className="space-y-3">
             {/* Industry Price */}
@@ -117,15 +194,12 @@ export default function RegisterCard({ event }: { event: any }) {
               </div>
               <div className="text-right">
                 <div className="text-sm text-gray-500 line-through">
-                  ₹
-                  {event.industryStrikePrice?.toLocaleString()}
+                  {getCurrencySymbol()}
+                  {getPrice("industry", "strike")?.toLocaleString()}
                 </div>
                 <div className="text-xl font-bold text-gray-900">
-                  ₹
-                  {(
-                    
-                    event.industryPrice 
-                  )?.toLocaleString()}
+                  {getCurrencySymbol()}
+                  {getPrice("industry", "normal")?.toLocaleString()}
                 </div>
                 {event.industryEarlyBird && (
                   <div className="text-xs text-green-600 font-medium">
@@ -147,16 +221,12 @@ export default function RegisterCard({ event }: { event: any }) {
               </div>
               <div className="text-right">
                 <div className="text-sm text-gray-500 line-through">
-                  ₹
-                  {event.consultingStrikePrice?.toLocaleString()}
+                  {getCurrencySymbol()}
+                  {getPrice("consulting", "strike")?.toLocaleString()}
                 </div>
                 <div className="text-xl font-bold text-gray-900">
-                  ₹
-                  {(
-                    event.consultingEarlyBird ||
-                    event.consultingPrice ||
-                    event.earlyBirdPrice
-                  )?.toLocaleString()}
+                  {getCurrencySymbol()}
+                  {getPrice("consulting", "normal")?.toLocaleString()}
                 </div>
                 {event.consultingEarlyBird && (
                   <div className="text-xs text-green-600 font-medium">
@@ -194,6 +264,161 @@ export default function RegisterCard({ event }: { event: any }) {
           {isInCart ? "Remove from Cart" : "Add to Cart"}
         </button>
       </div>
+
+      {/* Selection Modal */}
+      {showModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          onClick={() => setShowModal(false)}
+        >
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+
+          <div
+            className="relative z-10 bg-white rounded-2xl shadow-2xl w-[90%] max-w-md mx-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white p-6 rounded-t-2xl">
+              <h3 className="text-2xl font-bold mb-2">
+                Select Registration Option
+              </h3>
+              <p className="text-sm text-white/90">
+                Choose your registration type and currency
+              </p>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-6 space-y-6">
+              {/* Currency Selection */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-3">
+                  Currency:
+                </label>
+                <div className="inline-flex rounded-lg border border-gray-300 bg-gray-50 p-1 w-full">
+                  <button
+                    onClick={() => setModalCurrency("INR")}
+                    className={`flex-1 px-4 py-3 text-sm font-medium rounded-md transition-all duration-200 ${
+                      modalCurrency === "INR"
+                        ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white shadow-md"
+                        : "text-gray-600 hover:bg-gray-100"
+                    }`}
+                  >
+                    ₹ INR
+                  </button>
+                  <button
+                    onClick={() => setModalCurrency("USD")}
+                    className={`flex-1 px-4 py-3 text-sm font-medium rounded-md transition-all duration-200 ${
+                      modalCurrency === "USD"
+                        ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white shadow-md"
+                        : "text-gray-600 hover:bg-gray-100"
+                    }`}
+                  >
+                    $ USD
+                  </button>
+                </div>
+              </div>
+
+              {/* Registration Type Selection */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-800 mb-3">
+                  Registration Type:
+                </label>
+                <div className="space-y-3">
+                  {/* Industry Option */}
+                  <button
+                    onClick={() => setSelectedType("Industry")}
+                    className={`w-full p-4 rounded-xl border-2 transition-all duration-200 text-left ${
+                      selectedType === "Industry"
+                        ? "border-[#2b8ffb] bg-gradient-to-r from-[#2b8ffb]/10 to-[#2b8ffb]/5 shadow-md"
+                        : "border-gray-200 hover:border-[#2b8ffb]/50 hover:bg-gray-50"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="font-semibold text-gray-900 mb-1">
+                          Industry
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          Corporate Delegates
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm text-gray-500 line-through">
+                          {modalCurrency === "INR" ? "₹" : "$"}
+                          {(modalCurrency === "USD"
+                            ? event.industryStrikePriceUSD
+                            : event.industryStrikePriceINR
+                          )?.toLocaleString()}
+                        </div>
+                        <div className="text-xl font-bold text-[#2b8ffb]">
+                          {modalCurrency === "INR" ? "₹" : "$"}
+                          {(modalCurrency === "USD"
+                            ? event.industryPriceUSD
+                            : event.industryPriceINR
+                          )?.toLocaleString()}
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+
+                  {/* Consulting Option */}
+                  <button
+                    onClick={() => setSelectedType("Consulting")}
+                    className={`w-full p-4 rounded-xl border-2 transition-all duration-200 text-left ${
+                      selectedType === "Consulting"
+                        ? "border-[#6c7cae] bg-gradient-to-r from-[#6c7cae]/10 to-[#6c7cae]/5 shadow-md"
+                        : "border-gray-200 hover:border-[#6c7cae]/50 hover:bg-gray-50"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="font-semibold text-gray-900 mb-1">
+                          Consulting
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          Professional Services
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm text-gray-500 line-through">
+                          {modalCurrency === "INR" ? "₹" : "$"}
+                          {(modalCurrency === "USD"
+                            ? event.consultingStrikePriceUSD
+                            : event.consultingStrikePriceINR
+                          )?.toLocaleString()}
+                        </div>
+                        <div className="text-xl font-bold text-[#6c7cae]">
+                          {modalCurrency === "INR" ? "₹" : "$"}
+                          {(modalCurrency === "USD"
+                            ? event.consultingPriceUSD
+                            : event.consultingPriceINR
+                          )?.toLocaleString()}
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-6 bg-gray-50 rounded-b-2xl flex gap-3">
+              <button
+                onClick={() => setShowModal(false)}
+                className="flex-1 px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition-all duration-200"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmAddToCart}
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white rounded-lg font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 shadow-lg hover:shadow-xl transition-all duration-200"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

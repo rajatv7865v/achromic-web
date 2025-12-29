@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   X,
   Mail,
@@ -15,6 +16,8 @@ import {
   Briefcase,
 } from "lucide-react";
 import { DocumentChartBarIcon } from "@heroicons/react/20/solid";
+import { signup, login, SignupData } from "@/services/auth";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -29,10 +32,39 @@ export default function CheckoutModal({
   onClose,
   totalAmount,
 }: CheckoutModalProps) {
+  const { user, token, isLoggedIn, login: authLogin, logout } = useAuth();
   const [currentView, setCurrentView] = useState<ViewType>("login");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showSignupConfirmModal, setShowSignupConfirmModal] = useState(false);
+  const [signupLoading, setSignupLoading] = useState(false);
+  const [signupError, setSignupError] = useState<string | null>(null);
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [signupUserData, setSignupUserData] = useState<any>(null);
+
+  // Set initial view based on login status
+  useEffect(() => {
+    if (isOpen && isLoggedIn && user) {
+      // Auto-fill checkout form if user is logged in
+      setCheckoutForm({
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
+        email: user.email || "",
+        phone: user.phoneNumber || "",
+        address: user.address || "",
+        city: user.city || "",
+        state: user.state || "",
+        zipCode: user.zipCode || "",
+        country: user.country || "",
+        company: user.company || "",
+        designation: user.designation || "",
+      });
+      setCurrentView("checkout");
+    } else if (isOpen && !isLoggedIn) {
+      setCurrentView("login");
+    }
+  }, [isOpen, isLoggedIn, user]);
 
   // Login form state
   const [loginForm, setLoginForm] = useState({
@@ -72,20 +104,131 @@ export default function CheckoutModal({
 
   if (!isOpen) return null;
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement login logic
-    console.log("Login:", loginForm);
-    setIsLoggedIn(true);
-    setCurrentView("checkout");
+    setLoginError(null);
+    setLoginLoading(true);
+
+    try {
+      const response = await login(loginForm.email, loginForm.password);
+      console.log("User data:", response.data.data);
+      if (response.status) {
+        // Store token if provided
+        const authToken = response.data.token;
+        const userData = response.data.data || {
+          firstName: "",
+          lastName: "",
+          email: loginForm.email,
+          phoneNumber: "",
+          address: "",
+          city: "",
+          state: "",
+          zipCode: "",
+          country: "",
+          company: "",
+          designation: "",
+        };
+
+        // Use auth context to login
+        authLogin(userData, authToken);
+
+        // Auto-fill checkout form with user details
+        if (response.data.data) {
+          const user = response.data.data;
+          setCheckoutForm({
+            firstName: user.firstName || "",
+            lastName: user.lastName || "",
+            email: user.email || "",
+            phone: user.phoneNumber || "",
+            address: user.address || "",
+            city: user.city || "",
+            state: user.state || "",
+            zipCode: user.zipCode || "",
+            country: user.country || "",
+            company: user.company || "",
+            designation: user.designation || "",
+          });
+        }
+
+        setCurrentView("checkout");
+
+        // Reset login form
+        setLoginForm({
+          email: "",
+          password: "",
+        });
+      } else {
+        setLoginError(
+          response.message || "Login failed. Please check your credentials."
+        );
+      }
+    } catch (error: any) {
+      console.error("Login error:", error);
+      setLoginError(
+        error.response?.data?.message ||
+          "Invalid email or password. Please try again."
+      );
+    } finally {
+      setLoginLoading(false);
+    }
   };
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement signup logic
-    console.log("Signup:", signupForm);
-    setIsLoggedIn(true);
-    setCurrentView("checkout");
+    setSignupError(null);
+
+    // Validate password match
+    if (signupForm.password !== signupForm.confirmPassword) {
+      setSignupError("Passwords do not match");
+      return;
+    }
+
+    setSignupLoading(true);
+
+    const signupData: SignupData = {
+      firstName: signupForm.firstName,
+      lastName: signupForm.lastName,
+      email: signupForm.email,
+      phoneNumber: signupForm.phone,
+      password: signupForm.password,
+      confirmPassword: signupForm.confirmPassword,
+    };
+
+    try {
+      const response = await signup(signupData);
+
+      if (response.status) {
+        // Store user data for potential auto-fill
+        setSignupUserData({
+          firstName: signupForm.firstName,
+          lastName: signupForm.lastName,
+          email: signupForm.email,
+          phone: signupForm.phone,
+        });
+
+        // Show confirmation modal
+        setShowSignupConfirmModal(true);
+        // Reset form
+        setSignupForm({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          password: "",
+          confirmPassword: "",
+        });
+      } else {
+        setSignupError(response.message || "Signup failed. Please try again.");
+      }
+    } catch (error: any) {
+      console.error("Signup error:", error);
+      setSignupError(
+        error.response?.data?.message ||
+          "An error occurred during signup. Please try again."
+      );
+    } finally {
+      setSignupLoading(false);
+    }
   };
 
   const handleForgotPassword = (e: React.FormEvent) => {
@@ -134,7 +277,7 @@ export default function CheckoutModal({
           } max-h-[95vh] overflow-hidden flex flex-col pointer-events-auto transform transition-all animate-slide-in`}
         >
           {/* Header */}
-          <div className="bg-gradient-to-r from-[#2b8ffb] via-[#9c408c] to-[#6c7cae] text-white p-6 flex items-center justify-between shadow-lg">
+          <div className="bg-[#2b8ffb] text-white p-6 flex items-center justify-between shadow-lg">
             <div className="flex items-center gap-3">
               <div className="bg-white/20 p-2 rounded-xl">
                 {currentView === "login" && <Lock className="w-6 h-6" />}
@@ -185,6 +328,15 @@ export default function CheckoutModal({
                 onSubmit={handleLogin}
                 className="max-w-md w-full mx-auto space-y-6"
               >
+                {/* Error Message */}
+                {loginError && (
+                  <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
+                    <p className="text-sm text-red-800 font-medium">
+                      ❌ {loginError}
+                    </p>
+                  </div>
+                )}
+
                 <div className="space-y-5">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2.5">
@@ -255,9 +407,21 @@ export default function CheckoutModal({
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white py-4 px-6 rounded-xl font-semibold hover:from-[#2b8ffb]/95 hover:to-[#6c7cae]/95 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+                  disabled={loginLoading}
+                  className={`w-full py-4 px-6 rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 ${
+                    loginLoading
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white hover:from-[#2b8ffb]/95 hover:to-[#6c7cae]/95"
+                  }`}
                 >
-                  Sign In
+                  {loginLoading ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <span className="text-white">Signing In...</span>
+                    </>
+                  ) : (
+                    "Sign In"
+                  )}
                 </button>
 
                 <div className="relative my-6">
@@ -292,6 +456,15 @@ export default function CheckoutModal({
                 onSubmit={handleSignup}
                 className="max-w-2xl mx-auto space-y-6"
               >
+                {/* Error Message */}
+                {signupError && (
+                  <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
+                    <p className="text-sm text-red-800 font-medium">
+                      ❌ {signupError}
+                    </p>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2.5">
@@ -458,9 +631,21 @@ export default function CheckoutModal({
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white py-4 px-6 rounded-xl font-semibold hover:from-[#2b8ffb]/95 hover:to-[#6c7cae]/95 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+                  disabled={signupLoading}
+                  className={`w-full py-4 px-6 rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 ${
+                    signupLoading
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white hover:from-[#2b8ffb]/95 hover:to-[#6c7cae]/95"
+                  }`}
                 >
-                  Create Account
+                  {signupLoading ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <span className="text-white">Creating Account...</span>
+                    </>
+                  ) : (
+                    "Create Account"
+                  )}
                 </button>
 
                 <div className="text-center">
@@ -879,6 +1064,88 @@ export default function CheckoutModal({
           </div>
         </div>
       </div>
+
+      {/* Signup Confirmation Modal */}
+      {showSignupConfirmModal && (
+        <div
+          className="fixed inset-0 z-[70] flex items-center justify-center"
+          onClick={() => setShowSignupConfirmModal(false)}
+        >
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+
+          <div
+            className="relative z-10 bg-white rounded-2xl shadow-2xl w-[90%] max-w-md mx-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Success Icon */}
+            <div className="p-8 text-center">
+              <div className="mx-auto mb-6 w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center animate-bounce">
+                <svg
+                  className="w-10 h-10 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={3}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+
+              {/* Success Message */}
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">
+                Account Created Successfully!
+              </h3>
+              <p className="text-gray-600 mb-3 text-lg">
+                Welcome to Achromic Point!
+              </p>
+              <p className="text-gray-500 text-sm mb-8">
+                Your account has been created successfully. You can now sign in
+                to continue with your checkout.
+              </p>
+
+              {/* Info Box */}
+              <div className="bg-gradient-to-r from-[#2b8ffb]/5 to-[#6c7cae]/5 rounded-lg p-4 mb-6">
+                <p className="text-sm text-gray-600">
+                  <span className="font-semibold">Next Step:</span>
+                  <br />
+                  Please sign in with your credentials to complete your
+                  registration.
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={() => {
+                    setShowSignupConfirmModal(false);
+                    setCurrentView("login");
+                    // Pre-fill login email if available
+                    if (signupUserData?.email) {
+                      setLoginForm({
+                        email: signupUserData.email,
+                        password: "",
+                      });
+                    }
+                  }}
+                  className="w-full inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold text-white bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] hover:opacity-95 shadow-lg hover:shadow-xl transition-all duration-200"
+                >
+                  Sign In Now
+                </button>
+                <button
+                  onClick={() => setShowSignupConfirmModal(false)}
+                  className="w-full inline-flex items-center justify-center rounded-lg border-2 border-gray-300 px-6 py-3 font-semibold text-gray-700 hover:bg-gray-50 transition-all duration-200"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

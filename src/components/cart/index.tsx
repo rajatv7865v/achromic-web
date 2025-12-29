@@ -3,7 +3,16 @@
 import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { removeFromCart, clearCart, updateCartItem } from "@/store/cartSlice";
-import { X, ShoppingCart, Trash2, Calendar, MapPin, Clock, Package, DollarSign } from "lucide-react";
+import {
+  X,
+  ShoppingCart,
+  Trash2,
+  Calendar,
+  MapPin,
+  Clock,
+  Package,
+  DollarSign,
+} from "lucide-react";
 import CheckoutModal from "@/components/checkout/CheckoutModal";
 
 interface CartProps {
@@ -11,12 +20,41 @@ interface CartProps {
   onClose?: () => void;
 }
 
-export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}) {
+export default function Cart({
+  isOpen: externalIsOpen,
+  onClose,
+}: CartProps = {}) {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [currency, setCurrency] = useState<"INR" | "USD">("INR");
   const cartItems = useAppSelector((state) => state.cart.items);
   const totalAmount = useAppSelector((state) => state.cart.totalAmount);
   const dispatch = useAppDispatch();
+
+  // Calculate GST only for items that have a price (not free items)
+  const taxableAmount = cartItems.reduce((total, item) => {
+    const itemPrice = item.selectedPrice || item.price || 0;
+    return itemPrice > 0 ? total + itemPrice : total;
+  }, 0);
+
+  const totalWithGst = cartItems[0]?.selectedCurrency === 'INR' ? totalAmount + (taxableAmount * 0.18) : totalAmount;
+  const gstAmount = currency === 'INR' ? taxableAmount * 0.18 : 0;
+
+  const getCurrencySymbol = (selectedCurrency: "INR" | "USD") =>
+    selectedCurrency === "INR" ? "₹" : "$";
+
+  // Get price based on selected currency and type
+  const getPrice = (item: any, type: "industry" | "consulting") => {
+    if (currency === "USD") {
+      return type === "industry"
+        ? item.industryPriceUSD
+        : item.consultingPriceUSD;
+    } else {
+      return type === "industry"
+        ? item.industryPriceINR
+        : item.consultingPriceINR;
+    }
+  };
 
   const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
   const setIsOpen = (value: boolean) => {
@@ -29,23 +67,23 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
 
   useEffect(() => {
     if (externalIsOpen !== undefined && externalIsOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [externalIsOpen]);
 
   useEffect(() => {
     if (isCheckoutOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isCheckoutOpen]);
 
@@ -57,11 +95,17 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
     dispatch(clearCart());
   };
 
-  const handleUpdatePriceType = (id: number, type: 'Industry' | 'Consulting', price: number) => {
+  const handleUpdatePriceType = (
+    id: number,
+    type: "Industry" | "Consulting",
+    price: number
+  ) => {
     dispatch(updateCartItem({ id, selectedType: type, selectedPrice: price }));
   };
 
   const cartCount = cartItems.length;
+
+  console.log("cart page", cartItems);
 
   return (
     <>
@@ -77,23 +121,27 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
           {/* Cart Panel */}
           <div className="absolute right-0 top-0 h-full w-[90vw] sm:w-[480px] lg:w-[520px] bg-white shadow-2xl flex flex-col transform transition-transform animate-slide-in pointer-events-auto">
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#2b8ffb] via-[#9c408c] to-[#6c7cae] text-white p-6 flex items-center justify-between shadow-lg">
-              <div className="flex items-center gap-3">
-                <div className="bg-white/20 p-2 rounded-lg">
-                  <ShoppingCart className="w-6 h-6" />
+            <div className="bg-[#2b8ffb] text-white p-6 shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="bg-white/20 p-2 rounded-lg">
+                    <ShoppingCart className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold">Shopping Cart</h2>
+                    <p className="text-sm text-white/90">
+                      {cartCount} {cartCount === 1 ? "item" : "items"}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-2xl font-bold">Shopping Cart</h2>
-                  <p className="text-sm text-white/90">{cartCount} {cartCount === 1 ? 'item' : 'items'}</p>
-                </div>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="text-white hover:bg-white/20 p-2 rounded-lg transition-colors"
+                  aria-label="Close cart"
+                >
+                  <X className="w-6 h-6" />
+                </button>
               </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-white hover:bg-white/20 p-2 rounded-lg transition-colors"
-                aria-label="Close cart"
-              >
-                <X className="w-6 h-6" />
-              </button>
             </div>
 
             {/* Cart Items */}
@@ -103,8 +151,12 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
                   <div className="bg-gradient-to-br from-gray-100 to-gray-200 p-8 rounded-full mb-6">
                     <Package className="w-20 h-20 opacity-50" />
                   </div>
-                  <p className="text-xl font-semibold text-gray-700 mb-2">Your cart is empty</p>
-                  <p className="text-sm text-gray-500">Add events to get started</p>
+                  <p className="text-xl font-semibold text-gray-700 mb-2">
+                    Your cart is empty
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    Add events to get started
+                  </p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -164,43 +216,27 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
                       {/* Price Type Selection */}
                       <div className="mb-4">
                         <label className="block text-sm font-semibold text-gray-800 mb-3">
-                        registration Type:
+                          Registration Type:
                         </label>
                         <div className="grid grid-cols-2 gap-3">
-                          <button
-                            onClick={() => handleUpdatePriceType(
-                              item.id,
-                              'Industry',
-                              item.industryEarlyBird || item.industryPrice || item.price || 0
-                            )}
+                          <span
                             className={`px-4 py-3 rounded-xl text-sm font-semibold transition-all transform ${
-                              item.selectedType === 'Industry'
-                                ? 'bg-gradient-to-r from-[#2b8ffb] to-[#2b8ffb]/90 text-white shadow-lg scale-105'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-2 border-transparent hover:border-[#2b8ffb]/30'
+                              item.selectedType === "Industry"
+                                ? "bg-gradient-to-r from-[#2b8ffb] to-[#2b8ffb]/90 text-white shadow-lg scale-105"
+                                : "bg-gray-100 text-gray-700 hover:bg-gray-200 border-2 border-transparent hover:border-[#2b8ffb]/30"
                             }`}
                           >
-                            <div className="text-xs opacity-90 mb-1">Industry</div>
-                            <div className="text-lg font-bold">
-                              ${(item.industryEarlyBird || item.industryPrice || item.price || 0).toLocaleString()}
+                            <div className="text-xs opacity-90 mb-1">
+                              {item?.selectedType}
                             </div>
-                          </button>
-                          <button
-                            onClick={() => handleUpdatePriceType(
-                              item.id,
-                              'Consulting',
-                              item.consultingEarlyBird || item.consultingPrice || item.earlyBirdPrice || item.price || 0
-                            )}
-                            className={`px-4 py-3 rounded-xl text-sm font-semibold transition-all transform ${
-                              item.selectedType === 'Consulting'
-                                ? 'bg-gradient-to-r from-[#6c7cae] to-[#6c7cae]/90 text-white shadow-lg scale-105'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-2 border-transparent hover:border-[#6c7cae]/30'
-                            }`}
-                          >
-                            <div className="text-xs opacity-90 mb-1">Consulting</div>
                             <div className="text-lg font-bold">
-                              ${(item.consultingEarlyBird || item.consultingPrice || item.earlyBirdPrice || item.price || 0).toLocaleString()}
+                              {(
+                                item.selectedPrice ||
+                                item?.price ||
+                                0
+                              ).toLocaleString()}
                             </div>
-                          </button>
+                          </span>
                         </div>
                       </div>
 
@@ -211,7 +247,12 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
                           Selected Price:
                         </span>
                         <span className="text-2xl font-bold text-[#2b8ffb]">
-                          ${(item.selectedPrice || item.price || 0).toLocaleString()}
+                          {getCurrencySymbol(item.selectedCurrency || "USD")}
+                          {(
+                            item.selectedPrice ||
+                            item.price ||
+                            0
+                          ).toLocaleString()}
                         </span>
                       </div>
                     </div>
@@ -223,15 +264,21 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
             {/* Footer */}
             {cartItems.length > 0 && (
               <div className="border-t-2 border-gray-200 p-6 bg-gradient-to-br from-white via-gray-50 to-white shadow-2xl">
-                <div className="flex items-center justify-between mb-6 p-4 bg-gradient-to-r from-[#2b8ffb]/10 to-[#6c7cae]/10 rounded-xl border-2 border-[#2b8ffb]/20">
-                  <div>
-                    <span className="text-sm text-gray-600 block">Total Amount</span>
-                    <span className="text-3xl font-bold text-[#2b8ffb]">
-                      ${totalAmount.toLocaleString()}
-                    </span>
+                <div className="mb-6 p-4 bg-gradient-to-r from-[#2b8ffb]/10 to-[#6c7cae]/10 rounded-xl border-2 border-[#2b8ffb]/20">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm text-gray-600">Subtotal ({getCurrencySymbol(cartItems[0].selectedCurrency || "USD")}{totalAmount.toLocaleString()})</span>
                   </div>
-                  <div className="bg-white p-3 rounded-lg shadow-md">
-                    <DollarSign className="w-8 h-8 text-[#2b8ffb]" />
+                  {cartItems[0].selectedCurrency === 'INR' && (
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm text-gray-600">GST (18%) ({getCurrencySymbol('INR')}{gstAmount.toLocaleString()})</span>
+                    </div>
+                  )}
+                  <div className="flex items-center justify-between pt-2 border-t border-gray-300/50">
+                    <span className="text-lg font-semibold text-gray-800">Total Amount</span>
+                    <span className="text-3xl font-bold text-[#2b8ffb]">
+                      {getCurrencySymbol(cartItems[0].selectedCurrency || "USD")}
+                      {totalWithGst.toLocaleString()}
+                    </span>
                   </div>
                 </div>
                 <div className="flex gap-3">
@@ -261,9 +308,8 @@ export default function Cart({ isOpen: externalIsOpen, onClose }: CartProps = {}
       <CheckoutModal
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
-        totalAmount={totalAmount}
+        totalAmount={totalWithGst}
       />
     </>
   );
 }
-

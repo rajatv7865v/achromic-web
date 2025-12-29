@@ -7,6 +7,7 @@ import WhatsAppIcon from "@/components/whatsapp-icon";
 import { ChatbotProvider } from "@/components/chatbot/ChatbotProvider";
 import ReduxProvider from "@/components/providers/ReduxProvider";
 import { CartProvider } from "@/components/cart/CartProvider";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Footer from "@/components/footer";
 
 const poppins = Poppins({
@@ -34,15 +35,17 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${poppins.variable} ${geistMono.variable} antialiased`}>
         <ReduxProvider>
-          <CartProvider>
-            <ChatbotProvider>
-              <HeaderWithCart />
-              {children}
-              <Footer/>
-              <ContactSidebar />
-              <WhatsAppIcon />
-            </ChatbotProvider>
-          </CartProvider>
+          <AuthProvider>
+            <CartProvider>
+              <ChatbotProvider>
+                <HeaderWithCart />
+                {children}
+                <Footer/>
+                <ContactSidebar />
+                <WhatsAppIcon />
+              </ChatbotProvider>
+            </CartProvider>
+          </AuthProvider>
         </ReduxProvider>
       </body>
     </html>
