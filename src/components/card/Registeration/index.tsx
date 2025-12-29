@@ -15,6 +15,7 @@ import type { EventItem } from "@/store/cartSlice";
 import { useCart } from "@/components/cart/CartProvider";
 
 export default function RegisterCard({ event }: { event: any }) {
+  
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
   const isInCart = cartItems.some((item) => item.id === event.id);
@@ -31,11 +32,10 @@ export default function RegisterCard({ event }: { event: any }) {
       date: event.date,
       location: event.location,
       price: event.price || 0,
-      earlyBirdPrice: event.earlyBirdPrice,
       industryPrice: event.industryPrice,
-      industryEarlyBird: event.industryEarlyBird,
+      industryStrikePrice: event.industryStrikePrice,
       consultingPrice: event.consultingPrice,
-      consultingEarlyBird: event.consultingEarlyBird,
+      consultingStrikePrice: event.consultingStrikePrice,
       category: event.category,
       duration: event.duration,
       seats: event.seats,
@@ -118,15 +118,13 @@ export default function RegisterCard({ event }: { event: any }) {
               <div className="text-right">
                 <div className="text-sm text-gray-500 line-through">
                   ₹
-                  {event.industryPrice?.toLocaleString() ||
-                    event.price?.toLocaleString()}
+                  {event.industryStrikePrice?.toLocaleString()}
                 </div>
                 <div className="text-xl font-bold text-gray-900">
                   ₹
                   {(
-                    event.industryEarlyBird ||
-                    event.industryPrice ||
-                    event.price
+                    
+                    event.industryPrice 
                   )?.toLocaleString()}
                 </div>
                 {event.industryEarlyBird && (
@@ -150,8 +148,7 @@ export default function RegisterCard({ event }: { event: any }) {
               <div className="text-right">
                 <div className="text-sm text-gray-500 line-through">
                   ₹
-                  {event.consultingPrice?.toLocaleString() ||
-                    event.earlyBirdPrice?.toLocaleString()}
+                  {event.consultingStrikePrice?.toLocaleString()}
                 </div>
                 <div className="text-xl font-bold text-gray-900">
                   ₹

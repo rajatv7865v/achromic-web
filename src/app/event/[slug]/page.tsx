@@ -440,7 +440,7 @@ export default function pgae() {
                 "partners",
                 "agenda",
                 "benefits",
-                "registration",
+                "registeration",
               ].map((tab) => (
                 <button
                   key={tab}

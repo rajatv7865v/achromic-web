@@ -8,9 +8,9 @@ export interface EventItem {
   price: number;
   earlyBirdPrice?: number;
   industryPrice?: number;
-  industryEarlyBird?: number;
+  industryStrikePrice?: number;
   consultingPrice?: number;
-  consultingEarlyBird?: number;
+  consultingStrikePrice?: number;
   category: string;
   duration: string;
   seats: string;

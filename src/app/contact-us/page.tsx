@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { submitContactForm, ContactFormData } from "@/services/contact";
 
 // Simple SVG Icons
 const PhoneIcon = ({ className }: { className?: string }) => (
@@ -112,6 +114,8 @@ export default function ContactUsPage() {
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -128,24 +132,45 @@ export default function ContactUsPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage(null);
+    setSubmitStatus("idle");
 
-    // Simulate form submission
+    // Prepare contact data
+    const contactData: ContactFormData = {
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject || `Contact from ${formData.name}`,
+      message: formData.message,
+      phone: formData.phone || undefined,
+      company: formData.company || undefined,
+    };
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      setSubmitStatus("success");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        subject: "",
-        message: "",
-      });
+      const response = await submitContactForm(contactData);
+      
+      if (response.status) {
+        setSubmitStatus("success");
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          subject: "",
+          message: "",
+        });
+        // Show confirmation modal
+        setShowConfirmModal(true);
+      } else {
+        setSubmitStatus("error");
+        setErrorMessage(response.message || "Failed to send message");
+      }
     } catch (error) {
+      console.error("Error submitting contact form:", error);
       setSubmitStatus("error");
+      setErrorMessage("Failed to send message. Please try again or contact us directly.");
     } finally {
       setIsSubmitting(false);
-      setTimeout(() => setSubmitStatus("idle"), 5000);
     }
   };
 
@@ -306,8 +331,7 @@ export default function ContactUsPage() {
             {submitStatus === "error" && (
               <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
                 <p className="text-red-800 font-medium">
-                  ❌ Sorry, there was an error sending your message. Please try
-                  again.
+                  ❌ {errorMessage || "Sorry, there was an error sending your message. Please try again."}
                 </p>
               </div>
             )}
@@ -328,7 +352,8 @@ export default function ContactUsPage() {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Your full name"
                   />
                 </div>
@@ -347,7 +372,8 @@ export default function ContactUsPage() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -367,7 +393,8 @@ export default function ContactUsPage() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Your phone number"
                   />
                 </div>
@@ -386,10 +413,31 @@ export default function ContactUsPage() {
                     value={formData.company}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     placeholder="Your company name"
                   />
                 </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="subject"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Subject *
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  required
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  placeholder="What is this regarding?"
+                />
               </div>
 
               <div>
@@ -406,7 +454,8 @@ export default function ContactUsPage() {
                   onChange={handleInputChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200 resize-none"
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200 resize-none disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="Tell us how we can help you..."
                 />
               </div>
@@ -480,6 +529,80 @@ export default function ContactUsPage() {
           </p>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      {showConfirmModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          aria-modal="true"
+          role="dialog"
+        >
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={() => setShowConfirmModal(false)}
+          />
+
+          {/* Confirmation Card */}
+          <div className="relative z-10 mx-4 w-full max-w-md rounded-2xl bg-white border border-gray-200 shadow-2xl">
+            <div className="p-8 text-center">
+              {/* Success Icon with Animation */}
+              <div className="mx-auto mb-6 w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center animate-bounce">
+                <svg
+                  className="w-10 h-10 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={3}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+
+              {/* Success Message */}
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">
+                Message Sent Successfully!
+              </h3>
+              <p className="text-gray-600 mb-3 text-lg">
+                Thank you for contacting us!
+              </p>
+              <p className="text-gray-500 text-sm mb-8">
+                We've received your message and will get back to you within 1-2 business days.
+                Our team is reviewing your inquiry.
+              </p>
+
+              {/* Contact Info */}
+              <div className="bg-gradient-to-r from-[#2b8ffb]/5 to-[#6c7cae]/5 rounded-lg p-4 mb-6">
+                <p className="text-sm text-gray-600">
+                  <span className="font-semibold">Need urgent assistance?</span>
+                  <br />
+                  Call us at <span className="text-[#2b8ffb] font-semibold">+91 11 4601 1835</span>
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={() => setShowConfirmModal(false)}
+                  className="flex-1 inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold text-white bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] hover:opacity-95 shadow-lg hover:shadow-xl transition-all duration-200"
+                >
+                  Close
+                </button>
+                <Link
+                  href="/"
+                  onClick={() => setShowConfirmModal(false)}
+                  className="flex-1 inline-flex items-center justify-center rounded-lg border-2 border-gray-300 px-6 py-3 font-semibold text-gray-700 hover:bg-gray-50 transition-all duration-200"
+                >
+                  Back to Home
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

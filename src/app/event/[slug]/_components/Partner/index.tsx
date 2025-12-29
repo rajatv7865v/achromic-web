@@ -1,10 +1,12 @@
 import Image from "next/image";
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
-import type { Partner } from "@/services/partner";
+import type { Partner, ApiPartner, ApiPartnersResponse } from "@/services/partner";
+import { partnerService } from "@/services/partner";
 import { mockPartners } from "@/data/mockPartners";
 
-type PartnerCategory = 'Gold' | 'Platinum' | 'Silver' | 'Bronze';
+
+type PartnerCategory = "Gold" | "Platinum" | "Silver" | "Bronze"|'Other';
 
 export default function Partner({ eventId }: { eventId: string }) {
   const [partners, setPartners] = useState<Partner[]>([]);
@@ -17,14 +19,65 @@ export default function Partner({ eventId }: { eventId: string }) {
       try {
         setLoading(true);
         setError(null);
-        // For now, use mock data filtered by active partners
-        const eventPartners = mockPartners.filter(
-          (partner) => partner.isActive
+        
+        // Call the new API to get partners
+        const response: ApiPartnersResponse = await partnerService.getPartnersFromApi(
+          eventId,
+          1,      // page
+          50,     // limit - using higher limit to get all partners for event
+          'createdAt',
+          'desc'
         );
-        setPartners(eventPartners);
+        
+        // Convert API response to the format expected by the UI
+        const convertedPartners: Partner[] = response.data.data
+          .filter(partner => partner.isActive) // Only include active partners
+          .filter(partner => partner.eventId.includes(eventId)) // Filter by event ID
+          .map((apiPartner: ApiPartner) => {
+            // Map partnerType to category
+            let category: 'Gold' | 'Platinum' | 'Silver' | 'Bronze' | 'Other'| undefined;
+            switch(apiPartner.partnerType) {
+              case 'GOLD_PARTNER':
+                category = 'Gold';
+                break;
+              case 'PLATINUM_PARTNER':
+                category = 'Platinum';
+                break;
+              case 'SILVER_PARTNER':
+                category = 'Silver';
+                break;
+              case 'BRONZE_PARTNER':
+                category = 'Bronze';
+                break;
+              case 'other':
+                category = 'Other';
+                break;
+              default:
+                category = undefined;
+            }
+            
+            return {
+              logo: apiPartner.imagePath,
+              website: '#', // Default to # since API doesn't provide website
+              isActive: apiPartner.isActive,
+              category: category,
+            };
+          });
+        
+        setPartners(convertedPartners);
       } catch (err) {
         setError("Failed to fetch partners");
         console.error("Error fetching event partners:", err);
+        
+        // Fallback to mock data if API fails
+        try {
+          const eventPartners = mockPartners.filter(
+            (partner) => partner.isActive
+          );
+          setPartners(eventPartners);
+        } catch (fallbackErr) {
+          console.error("Fallback also failed:", fallbackErr);
+        }
       } finally {
         setLoading(false);
       }
@@ -39,7 +92,8 @@ export default function Partner({ eventId }: { eventId: string }) {
       Gold: [],
       Platinum: [],
       Silver: [],
-      Bronze: []
+      Bronze: [],
+      Other: [],
     };
 
     partners.forEach((partner) => {
@@ -57,61 +111,69 @@ export default function Partner({ eventId }: { eventId: string }) {
 
   const getCategoryColor = (category: PartnerCategory) => {
     switch (category) {
-      case 'Gold':
-        return 'from-yellow-400 to-yellow-600';
-      case 'Platinum':
-        return 'from-gray-300 to-gray-500';
-      case 'Silver':
-        return 'from-gray-200 to-gray-400';
-      case 'Bronze':
-        return 'from-amber-600 to-amber-800';
+      case "Gold":
+        return "from-yellow-400 to-yellow-600";
+      case "Platinum":
+        return "from-gray-300 to-gray-500";
+      case "Silver":
+        return "from-gray-200 to-gray-400";
+      case "Bronze":
+        return "from-amber-600 to-amber-800";
+      case "Other":
+        return "from-amber-600 to-amber-800";
       default:
-        return 'from-gray-200 to-gray-400';
+        return "from-gray-200 to-gray-400";
     }
   };
 
   const getCategoryTextColor = (category: PartnerCategory) => {
     switch (category) {
-      case 'Gold':
-        return 'text-yellow-600';
-      case 'Platinum':
-        return 'text-gray-600';
-      case 'Silver':
-        return 'text-gray-500';
-      case 'Bronze':
-        return 'text-amber-700';
+      case "Gold":
+        return "text-yellow-600";
+      case "Platinum":
+        return "text-gray-600";
+      case "Silver":
+        return "text-gray-500";
+      case "Bronze":
+        return "text-amber-700";
+      case "Other":
+        return "text-amber-700";
       default:
-        return 'text-gray-600';
+        return "text-gray-600";
     }
   };
 
   const getCategoryLineColor = (category: PartnerCategory) => {
     switch (category) {
-      case 'Gold':
-        return 'from-transparent via-yellow-300 to-transparent';
-      case 'Platinum':
-        return 'from-transparent via-gray-300 to-transparent';
-      case 'Silver':
-        return 'from-transparent via-gray-200 to-transparent';
-      case 'Bronze':
-        return 'from-transparent via-amber-400 to-transparent';
+      case "Gold":
+        return "from-transparent via-yellow-300 to-transparent";
+      case "Platinum":
+        return "from-transparent via-gray-300 to-transparent";
+      case "Silver":
+        return "from-transparent via-gray-200 to-transparent";
+      case "Bronze":
+        return "from-transparent via-amber-400 to-transparent";
+      case "Other":
+        return "from-transparent via-gray-300 to-transparent"; 
       default:
-        return 'from-transparent via-gray-300 to-transparent';
+        return "from-transparent via-gray-300 to-transparent";
     }
   };
 
   const getCategoryBorderColor = (category: PartnerCategory) => {
     switch (category) {
-      case 'Gold':
-        return 'border-yellow-400';
-      case 'Platinum':
-        return 'border-gray-400';
-      case 'Silver':
-        return 'border-gray-300';
-      case 'Bronze':
-        return 'border-amber-600';
+      case "Gold":
+        return "border-yellow-400";
+      case "Platinum":
+        return "border-gray-400";
+      case "Silver":
+        return "border-gray-300";
+      case "Bronze":
+        return "border-amber-600";
+      case "Other":
+        return "border-gray-300";
       default:
-        return 'border-gray-300';
+        return "border-gray-300";
     }
   };
 
@@ -134,7 +196,13 @@ export default function Partner({ eventId }: { eventId: string }) {
     );
   }
 
-  const categoryOrder: PartnerCategory[] = ['Gold', 'Platinum', 'Silver', 'Bronze'];
+  const categoryOrder: PartnerCategory[] = [
+    "Gold",
+    "Platinum",
+    "Silver",
+    "Bronze",
+    "Other"
+  ];
 
   return (
     <div>
@@ -152,38 +220,64 @@ export default function Partner({ eventId }: { eventId: string }) {
             {/* Category Header */}
             <div className="relative mb-12">
               <div className="flex items-center justify-center gap-4">
-                <div className={`h-px flex-1 bg-gradient-to-r ${getCategoryLineColor(category)} opacity-40`}></div>
+                <div
+                  className={`h-px flex-1 bg-gradient-to-r ${getCategoryLineColor(
+                    category
+                  )} opacity-40`}
+                ></div>
                 <div className="flex items-center gap-4 px-6">
-                  <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${getCategoryColor(category)} shadow-md`}></div>
-                  <h4 className={`text-3xl md:text-4xl font-bold ${getCategoryTextColor(category)} tracking-wide`}>
+                  <div
+                    className={`w-2 h-2 rounded-full bg-gradient-to-r ${getCategoryColor(
+                      category
+                    )} shadow-md`}
+                  ></div>
+                  <h4
+                    className={`text-3xl md:text-4xl font-bold ${getCategoryTextColor(
+                      category
+                    )} tracking-wide`}
+                  >
                     {category} Partners
                   </h4>
-                  <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${getCategoryColor(category)} shadow-md`}></div>
+                  <div
+                    className={`w-2 h-2 rounded-full bg-gradient-to-r ${getCategoryColor(
+                      category
+                    )} shadow-md`}
+                  ></div>
                 </div>
-                <div className={`h-px flex-1 bg-gradient-to-l ${getCategoryLineColor(category)} opacity-40`}></div>
+                <div
+                  className={`h-px flex-1 bg-gradient-to-l ${getCategoryLineColor(
+                    category
+                  )} opacity-40`}
+                ></div>
               </div>
             </div>
 
             {/* Partners Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
               {categoryPartners.map((partner, index) => {
-                const partnerKey = `${category}-${index}-${partner.website}`;
+                const partnerKey = `${category}-${index}-${partner.website || '#'}`;
                 return (
                   <div
                     key={partnerKey}
-                    className={`group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-2xl border-2 ${getCategoryBorderColor(category)} hover:border-[#2b8ffb]/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2`}
+                    className={`group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-2xl border-2 ${getCategoryBorderColor(
+                      category
+                    )} hover:border-[#2b8ffb]/20 transition-all duration-300 transform hover:scale-105 hover:-translate-y-2`}
                   >
                     {/* Decorative background pattern */}
                     <div className="absolute inset-0 bg-gradient-to-br from-[#2b8ffb]/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                     {/* Category Badge */}
-                    <div className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${getCategoryColor(category)} text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
+                    <div
+                      className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${getCategoryColor(
+                        category
+                      )} text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                    >
                       {category}
                     </div>
 
                     {/* Partner logo container */}
                     <Link
-                      href={partner.website || "/"}
+                      href={partner.website || "#"}
                       className="relative block text-center group-hover:scale-110 transition-transform duration-300"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -201,7 +295,9 @@ export default function Partner({ eventId }: { eventId: string }) {
                           />
                         ) : (
                           <div className="h-16 w-16 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center">
-                            <span className="text-gray-600 font-bold text-lg">P</span>
+                            <span className="text-gray-600 font-bold text-lg">
+                              P
+                            </span>
                           </div>
                         )}
                       </div>

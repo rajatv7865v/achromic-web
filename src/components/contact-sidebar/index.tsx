@@ -2,9 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { submitContactForm, ContactFormData } from "@/services/contact";
 
 export default function ContactSidebar() {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   return (
     <>
@@ -67,7 +72,9 @@ export default function ContactSidebar() {
                   <span>📞</span>
                   <div>
                     <p className="text-sm text-gray-500">Call us</p>
-                    <p className="font-semibold text-gray-900">+91 11 4601 1835</p>
+                    <p className="font-semibold text-gray-900">
+                      +91 11 4601 1835
+                    </p>
                   </div>
                 </a>
                 <a
@@ -78,8 +85,8 @@ export default function ContactSidebar() {
                   <div>
                     <p className="text-sm text-gray-500">Email</p>
                     <p className="font-semibold text-gray-900 w-full break-all">
-  contactus@achromicpoint.com
-</p>
+                      contactus@achromicpoint.com
+                    </p>
                   </div>
                 </a>
               </div>
@@ -87,7 +94,7 @@ export default function ContactSidebar() {
               {/* Quick Message */}
               <form
                 className="mt-6 space-y-4"
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
                   const form = e.currentTarget as HTMLFormElement;
                   const formData = new FormData(form);
@@ -95,13 +102,46 @@ export default function ContactSidebar() {
                   const phone = String(formData.get("phone") || "");
                   const email = String(formData.get("email") || "");
                   const message = String(formData.get("message") || "");
-                  const subject = encodeURIComponent(
-                    `Website Contact: ${name}`
-                  );
-                  const body = encodeURIComponent(
-                    `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\n\nMessage:\n${message}`
-                  );
-                  window.location.href = `mailto:contactus@achromicpoint.com?subject=${subject}&body=${body}`;
+                  const company = String(formData.get("company") || "");
+
+                  // Prepare contact data
+                  const contactData: ContactFormData = {
+                    name,
+                    email,
+                    subject: `Website Contact: ${name}`,
+                    message,
+                    phone: phone || undefined,
+                    company: company || undefined,
+                  };
+
+                  try {
+                    setLoading(true);
+                    setError(null);
+                    setSuccess(false);
+
+                    const response = await submitContactForm(contactData);
+                    
+                    if (response.status) {
+                      setSuccess(true);
+                      form.reset();
+                      
+                      // Show confirmation modal
+                      setShowConfirmModal(true);
+                      
+                      // Close the contact form modal
+                      setTimeout(() => {
+                        setOpen(false);
+                        setSuccess(false);
+                      }, 500);
+                    } else {
+                      setError(response.message || "Failed to send message");
+                    }
+                  } catch (err) {
+                    console.error("Error submitting contact form:", err);
+                    setError("Failed to send message. Please try again or email us directly.");
+                  } finally {
+                    setLoading(false);
+                  }
                 }}
               >
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -109,12 +149,14 @@ export default function ContactSidebar() {
                     name="name"
                     required
                     placeholder="Your Name"
-                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2b8ffb]/30 focus:border-[#2b8ffb]"
+                    disabled={loading}
+                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2b8ffb]/30 focus:border-[#2b8ffb] disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                   <input
                     name="phone"
                     placeholder="Phone (optional)"
-                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2b8ffb]/30 focus:border-[#2b8ffb]"
+                    disabled={loading}
+                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2b8ffb]/30 focus:border-[#2b8ffb] disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                 </div>
                 <input
@@ -122,14 +164,45 @@ export default function ContactSidebar() {
                   name="email"
                   required
                   placeholder="Email"
-                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2b8ffb]/30 focus:border-[#2b8ffb]"
+                  disabled={loading}
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2b8ffb]/30 focus:border-[#2b8ffb] disabled:opacity-50 disabled:cursor-not-allowed"
+                />
+                <input
+                  name="company"
+                  placeholder="Company (optional)"
+                  disabled={loading}
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2b8ffb]/30 focus:border-[#2b8ffb] disabled:opacity-50 disabled:cursor-not-allowed"
                 />
                 <textarea
                   name="message"
                   rows={4}
                   placeholder="How can we help you?"
-                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2b8ffb]/30 focus:border-[#2b8ffb]"
+                  disabled={loading}
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2b8ffb]/30 focus:border-[#2b8ffb] disabled:opacity-50 disabled:cursor-not-allowed"
                 />
+                
+                {/* Success Message */}
+                {success && (
+                  <div className="rounded-lg bg-green-50 border border-green-200 p-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-green-600">✓</span>
+                      <p className="text-sm text-green-700 font-medium">
+                        Message sent successfully! We'll get back to you soon.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Error Message */}
+                {error && (
+                  <div className="rounded-lg bg-red-50 border border-red-200 p-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-red-600">✕</span>
+                      <p className="text-sm text-red-700">{error}</p>
+                    </div>
+                  </div>
+                )}
+                
                 <div className="flex items-center justify-between gap-3">
                   <Link
                     href="/contact-us"
@@ -140,12 +213,103 @@ export default function ContactSidebar() {
                   </Link>
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center rounded-lg px-5 py-3 font-semibold text-white bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] hover:opacity-95 shadow"
+                    disabled={loading}
+                    className="inline-flex items-center justify-center rounded-lg px-5 py-3 font-semibold text-white bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] hover:opacity-95 shadow disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Send Email
+                    {loading ? (
+                      <>
+                        <svg
+                          className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : (
+                      "Send Message"
+                    )}
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Confirmation Modal */}
+      {showConfirmModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          aria-modal="true"
+          role="dialog"
+        >
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={() => setShowConfirmModal(false)}
+          />
+
+          {/* Confirmation Card */}
+          <div className="relative z-10 mx-4 w-full max-w-md rounded-2xl bg-white border border-gray-200 shadow-2xl">
+            <div className="p-8 text-center">
+              {/* Success Icon */}
+              <div className="mx-auto mb-6 w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
+                <svg
+                  className="w-8 h-8 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+
+              {/* Success Message */}
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                Thank You!
+              </h3>
+              <p className="text-gray-600 mb-2">
+                Your message has been sent successfully.
+              </p>
+              <p className="text-gray-500 text-sm mb-6">
+                We'll get back to you within 1-2 business days.
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={() => setShowConfirmModal(false)}
+                  className="flex-1 inline-flex items-center justify-center rounded-lg px-6 py-3 font-semibold text-white bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] hover:opacity-95 shadow transition"
+                >
+                  Close
+                </button>
+                <Link
+                  href="/"
+                  onClick={() => setShowConfirmModal(false)}
+                  className="flex-1 inline-flex items-center justify-center rounded-lg border border-gray-300 px-6 py-3 font-semibold text-gray-700 hover:bg-gray-50 transition"
+                >
+                  Back to Home
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -121,19 +121,19 @@ export default function PastEventPage() {
     (async () => {
       const [category, events]: any = await Promise.all([
         run(getCategories),
-        getEvents({ eventType: "PAST" ,page,limit:9,}),
+        getEvents({ eventType: "PAST", page, limit: 9 }),
       ]);
       setCategories([
         "All",
         ...(category?.data?.map((item: any) => item.name) ?? []),
       ]);
-      setTotalPages(events.data?.meta?.totalPages)
+      setTotalPages(events.data?.meta?.totalPages);
       const eventsData = events?.data?.data || [];
       setEvents(eventsData);
       // Set first event as selected by default
     })();
-  }, [run,page]);
-  console.log("eve",events)
+  }, [run, page]);
+  console.log("eve", events);
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (

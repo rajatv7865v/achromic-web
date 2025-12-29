@@ -1,8 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import RegisterCard from "@/components/card/Registeration";
+import {
+  getRegisteration,
+  RegistrationEvent,
+  RegistrationResponse,
+} from "@/services/registeration";
 
 // SVG Icons
 const UserIcon = ({ className }: { className?: string }) => (
@@ -101,78 +106,15 @@ const ShieldCheckIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-// Event data
-const events = [
-  {
-    id: 1,
-    title: "Financial Compliance & Risk Management Summit 2025",
-    date: "March 15, 2025",
-    location: "New Delhi",
-    price: 12000,
-    earlyBirdPrice: 9500,
-    category: "Finance",
-    duration: "2 Days",
-    seats: "200",
-    registered: 85,
-    featured: true,
-    description:
-      "Comprehensive training on financial compliance, risk management frameworks, and regulatory updates.",
-    benefits: [
-      "Industry-recognized certification",
-      "Networking with 200+ professionals",
-      "Practical case studies",
-      "Lunch and refreshments included",
-      "Digital learning materials",
-    ],
-  },
-  {
-    id: 2,
-    title: "Legal Framework & Corporate Governance Conference 2025",
-    date: "April 20, 2025",
-    location: "Mumbai",
-    price: 9500,
-    earlyBirdPrice: 7500,
-    category: "Legal",
-    duration: "2 Days",
-    seats: "150",
-    registered: 67,
-    featured: true,
-    description:
-      "Deep dive into corporate governance, legal frameworks, and compliance best practices.",
-    benefits: [
-      "Expert-led sessions",
-      "Interactive workshops",
-      "Certificate of completion",
-      "Networking dinner",
-      "Resource materials",
-    ],
-  },
-  {
-    id: 3,
-    title: "Taxation & GST Compliance Workshop 2025",
-    date: "May 10, 2025",
-    location: "Bangalore",
-    price: 6500,
-    earlyBirdPrice: 5000,
-    category: "Tax",
-    duration: "1 Day",
-    seats: "100",
-    registered: 45,
-    featured: false,
-    description:
-      "Practical workshop on GST compliance, tax planning strategies, and recent amendments.",
-    benefits: [
-      "Hands-on training",
-      "Latest updates on tax laws",
-      "Workshop materials",
-      "Expert consultation",
-      "Completion certificate",
-    ],
-  },
-];
+
 
 export default function registerationPage({ eventId }: { eventId: string }) {
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
+  const [registrationData, setRegistrationData] = useState<RegistrationEvent[]>(
+    []
+  );
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -185,6 +127,28 @@ export default function registerationPage({ eventId }: { eventId: string }) {
     dietaryRequirements: "",
     specialRequests: "",
   });
+
+  useEffect(() => {
+    const fetchRegistrationData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await getRegisteration(eventId);
+        setRegistrationData(response.data.data);
+      } catch (err) {
+        console.error("Error fetching registration data:", err);
+        setError("Failed to load registration details");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (eventId) {
+      fetchRegistrationData();
+    }
+  }, [eventId]);
+
+  console.log("registrationData", registrationData);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -273,7 +237,7 @@ export default function registerationPage({ eventId }: { eventId: string }) {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-              {events.map((event) => (
+              {registrationData.map((event) => (
                 <RegisterCard event={event} />
               ))}
             </div>

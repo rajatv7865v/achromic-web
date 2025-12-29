@@ -53,7 +53,7 @@ const Partners: React.FC<PartnersProps> = ({
               {limitedPartners.map((partner, index) => (
                 <div key={index} className='flex-shrink-0'>
                   <Link 
-                    href={partner.website} 
+                    href={partner.website || '#'} 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className='group block'

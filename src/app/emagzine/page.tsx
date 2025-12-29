@@ -3,6 +3,7 @@
 import { useApi } from "@/hooks/useApi";
 import { getCategories } from "@/services/category";
 import { getMagzine } from "@/services/magzine";
+import { subscribeNewsletter, SubscribeData } from "@/services/contact";
 import { useEffect, useState } from "react";
 
 // Simple SVG Icons
@@ -93,6 +94,10 @@ interface MagazineIssue {
 export default function EMagazinePage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [hoveredIssue, setHoveredIssue] = useState<number | null>(null);
+  const [email, setEmail] = useState("");
+  const [subscribing, setSubscribing] = useState(false);
+  const [subscribeSuccess, setSubscribeSuccess] = useState(false);
+  const [subscribeError, setSubscribeError] = useState<string | null>(null);
 
   const { data, loading, error, run } = useApi<{ data: any[] }>();
   const [categories, setCategories] = useState<any>([]);
@@ -111,6 +116,45 @@ export default function EMagazinePage() {
       setMagazineIssues(magazines?.data);
     })(); // Pass the function and args
   }, [run]);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email || !email.includes('@')) {
+      setSubscribeError("Please enter a valid email address");
+      return;
+    }
+
+    setSubscribing(true);
+    setSubscribeError(null);
+    setSubscribeSuccess(false);
+
+    const subscribeData: SubscribeData = {
+      email,
+    };
+
+    try {
+      const response:any = await subscribeNewsletter(subscribeData);
+      
+      if (response.status) {
+        setSubscribeSuccess(true);
+        setEmail("");
+        
+        // Reset success message after 5 seconds
+        setTimeout(() => {
+          setSubscribeSuccess(false);
+        }, 5000);
+      } else {
+        setSubscribeError(response.message || "Failed to subscribe");
+      }
+    } catch (error:any) {
+
+      setSubscribeError("Failed to subscribe. Please try again.");
+    } finally {
+      setSubscribing(false);
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   const filteredIssues =
@@ -335,16 +379,51 @@ export default function EMagazinePage() {
             released
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email address"
-              className="flex-1 px-4 py-3 rounded-lg border-0 focus:ring-2 focus:ring-white focus:outline-none"
-            />
-            <button className="bg-white text-[#2b8ffb] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
-              Subscribe
-            </button>
-          </div>
+          <form onSubmit={handleSubscribe} className="max-w-md mx-auto">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email address"
+                disabled={subscribing}
+                required
+                className="flex-1 px-4 py-3 rounded-lg border-0 focus:ring-2 focus:ring-white focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed border-2 border-gray-300"
+              />
+              <button 
+                type="submit"
+                disabled={subscribing}
+                className="bg-white text-[#2b8ffb] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[120px]"
+              >
+                {subscribing ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-[#2b8ffb] border-t-transparent rounded-full animate-spin mr-2"></div>
+                    <span>Subscribing...</span>
+                  </>
+                ) : (
+                  "Subscribe"
+                )}
+              </button>
+            </div>
+            
+            {/* Success Message */}
+            {subscribeSuccess && (
+              <div className="mt-4 p-3 bg-white/20 backdrop-blur-sm rounded-lg border border-white/30">
+                <p className="text-white font-medium">
+                  ✅ Thank you for subscribing! You'll receive updates about new issues.
+                </p>
+              </div>
+            )}
+            
+            {/* Error Message */}
+            {subscribeError && (
+              <div className="mt-4 p-3 bg-red-500/20 backdrop-blur-sm rounded-lg border border-red-300/30">
+                <p className="text-white font-medium">
+                  ❌ {subscribeError}
+                </p>
+              </div>
+            )}
+          </form>
         </div>
       </div>
 
