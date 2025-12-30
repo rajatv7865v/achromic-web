@@ -247,7 +247,7 @@ export default function Cart({
                           Selected Price:
                         </span>
                         <span className="text-2xl font-bold text-[#2b8ffb]">
-                          {getCurrencySymbol(item.selectedCurrency || "USD")}
+                          {getCurrencySymbol(item?.selectedCurrency || "USD")}
                           {(
                             item.selectedPrice ||
                             item.price ||
@@ -266,9 +266,9 @@ export default function Cart({
               <div className="border-t-2 border-gray-200 p-6 bg-gradient-to-br from-white via-gray-50 to-white shadow-2xl">
                 <div className="mb-6 p-4 bg-gradient-to-r from-[#2b8ffb]/10 to-[#6c7cae]/10 rounded-xl border-2 border-[#2b8ffb]/20">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-gray-600">Subtotal ({getCurrencySymbol(cartItems[0].selectedCurrency || "USD")}{totalAmount.toLocaleString()})</span>
+                    <span className="text-sm text-gray-600">Subtotal ({getCurrencySymbol(cartItems[0]?.selectedCurrency || "USD")}{totalAmount.toLocaleString()})</span>
                   </div>
-                  {cartItems[0].selectedCurrency === 'INR' && (
+                  {cartItems[0]?.selectedCurrency === 'INR' && (
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm text-gray-600">GST (18%) ({getCurrencySymbol('INR')}{gstAmount.toLocaleString()})</span>
                     </div>
@@ -276,7 +276,7 @@ export default function Cart({
                   <div className="flex items-center justify-between pt-2 border-t border-gray-300/50">
                     <span className="text-lg font-semibold text-gray-800">Total Amount</span>
                     <span className="text-3xl font-bold text-[#2b8ffb]">
-                      {getCurrencySymbol(cartItems[0].selectedCurrency || "USD")}
+                      {getCurrencySymbol(cartItems[0]?.selectedCurrency || "USD")}
                       {totalWithGst.toLocaleString()}
                     </span>
                   </div>
@@ -309,7 +309,7 @@ export default function Cart({
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
         totalAmount={totalWithGst}
-        currency={cartItems[0].selectedCurrency || "USD"}
+        currency={cartItems[0]?.selectedCurrency || "USD"}
       />
     </>
   );
