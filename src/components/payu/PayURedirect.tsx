@@ -30,7 +30,7 @@ export default function PayURedirect({ gatewayUrl, params }: PayURedirectProps) 
         </p>
 
         <form
-          id="payuForm"
+          ref={formRef}
           method="POST"
           action={gatewayUrl}
           className="hidden"
