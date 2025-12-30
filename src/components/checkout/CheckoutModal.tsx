@@ -18,11 +18,14 @@ import {
 import { DocumentChartBarIcon } from "@heroicons/react/20/solid";
 import { signup, login, SignupData } from "@/services/auth";
 import { useAuth } from "@/contexts/AuthContext";
+import { createOrder, OrderData } from "@/services/order";
 
 interface CheckoutModalProps {
   isOpen: boolean;
   onClose: () => void;
   totalAmount: number;
+  currency: string
+ 
 }
 
 type ViewType = "login" | "signup" | "forgot-password" | "checkout";
@@ -31,6 +34,7 @@ export default function CheckoutModal({
   isOpen,
   onClose,
   totalAmount,
+  currency
 }: CheckoutModalProps) {
   const { user, token, isLoggedIn, login: authLogin, logout } = useAuth();
   const [currentView, setCurrentView] = useState<ViewType>("login");
@@ -42,6 +46,9 @@ export default function CheckoutModal({
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
   const [signupUserData, setSignupUserData] = useState<any>(null);
+  const [paymentLoading, setPaymentLoading] = useState<boolean>(false);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
   // Set initial view based on login status
   useEffect(() => {
@@ -59,6 +66,7 @@ export default function CheckoutModal({
         country: user.country || "",
         company: user.company || "",
         designation: user.designation || "",
+        gst: "",
       });
       setCurrentView("checkout");
     } else if (isOpen && !isLoggedIn) {
@@ -100,6 +108,7 @@ export default function CheckoutModal({
     country: "",
     company: "",
     designation: "",
+    gst: "",
   });
 
   if (!isOpen) return null;
@@ -147,6 +156,7 @@ export default function CheckoutModal({
             country: user.country || "",
             company: user.company || "",
             designation: user.designation || "",
+            gst: "",
           });
         }
 
@@ -243,18 +253,189 @@ export default function CheckoutModal({
     e.preventDefault();
     // TODO: Implement checkout logic
     console.log("Checkout:", checkoutForm);
+
+    // Clear the checkout form after submission
+    setCheckoutForm({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      address: "",
+      city: "",
+      state: "",
+      zipCode: "",
+      country: "",
+      company: "",
+      designation: "",
+      gst: "",
+    });
   };
 
-  const handlePayU = () => {
+  const handlePayU = async () => {
     // TODO: Implement PayU payment
-    console.log("Pay with PayU");
-    alert("Redirecting to PayU...");
+    if (
+      !checkoutForm.address ||
+      !checkoutForm.city ||
+      !checkoutForm.state ||
+      !checkoutForm.zipCode ||
+      !checkoutForm.country
+    ) {
+      setPaymentError("Please fill all the address details");
+      return;
+    }
+    setPaymentError(null);
+    setPaymentLoading(true);
+    setIsProcessing(true);
+
+    try {
+      // Prepare order data
+      const orderData: OrderData = {
+        firstName: checkoutForm.firstName,
+        lastName: checkoutForm.lastName,
+        email: checkoutForm.email,
+        phoneNumber: checkoutForm.phone,
+        company: checkoutForm.company,
+        designation: checkoutForm.designation,
+        billingAddress: {
+          streetAddress: checkoutForm.address,
+          city: checkoutForm.city,
+          state: checkoutForm.state,
+          zipCode: checkoutForm.zipCode,
+          country: checkoutForm.country,
+        },
+        gstIN: checkoutForm.gst,
+        currency: currency || "INR", // Default to INR for PayU
+        paymentMethod: "payu",
+        totalAmount: totalAmount,
+      };
+
+      const response = await createOrder(orderData);
+
+      if (response.status) {
+        // If order creation is successful, redirect to PayU
+        console.log("Order created successfully:", response);
+
+        // Extract approval URL from response
+        const approvalUrl = response.data?.data?.payment?.paymentUrl;
+
+        if (approvalUrl) {
+          // Redirect to PayU approval URL
+          window.open(approvalUrl, "_blank", "noopener,noreferrer");
+
+          // Clear the checkout form after successful payment initiation
+          setCheckoutForm({
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            address: "",
+            city: "",
+            state: "",
+            zipCode: "",
+            country: "",
+            company: "",
+            designation: "",
+            gst: "",
+          });
+        } else {
+          setPaymentError("Approval URL not found in response");
+        }
+      } else {
+        setPaymentError(response.message || "Order creation failed");
+      }
+    } catch (error: any) {
+      console.error("PayU payment error:", error);
+      setPaymentError(
+        error.response?.data?.message ||
+          "An error occurred during payment processing"
+      );
+    } finally {
+      setPaymentLoading(false);
+      setIsProcessing(false);
+    }
   };
 
-  const handlePayPal = () => {
-    // TODO: Implement PayPal payment
-    console.log("Pay with PayPal");
-    alert("Redirecting to PayPal...");
+  const handlePayPal = async () => {
+    if (
+      !checkoutForm.address ||
+      !checkoutForm.city ||
+      !checkoutForm.state ||
+      !checkoutForm.zipCode ||
+      !checkoutForm.country
+    ) {
+      setPaymentError("Please fill all the address details");
+      return;
+    }
+    setPaymentError(null);
+    setPaymentLoading(true);
+    setIsProcessing(true);
+
+    try {
+      // Prepare order data
+      const orderData: OrderData = {
+        firstName: checkoutForm.firstName,
+        lastName: checkoutForm.lastName,
+        email: checkoutForm.email,
+        phoneNumber: checkoutForm.phone,
+        company: checkoutForm.company,
+        designation: checkoutForm.designation,
+        billingAddress: {
+          streetAddress: checkoutForm.address,
+          city: checkoutForm.city,
+          state: checkoutForm.state,
+          zipCode: checkoutForm.zipCode,
+          country: checkoutForm.country,
+        },
+        gstIN: checkoutForm.gst,
+        currency: "USD", // Default to USD for PayPal
+        paymentMethod: "paypal",
+        totalAmount: totalAmount,
+      };
+
+      const response = await createOrder(orderData);
+
+      if (response.status) {
+        // If order creation is successful, redirect to PayPal
+        console.log("Order created successfully:", response);
+
+        // Extract approval URL from response
+        const approvalUrl = response.data?.data?.payment?.approvalUrl;
+
+        if (approvalUrl) {
+          // Redirect to PayPal approval URL
+          window.open(approvalUrl, "_blank", "noopener,noreferrer");
+
+          // Clear the checkout form after successful payment initiation
+          setCheckoutForm({
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            address: "",
+            city: "",
+            state: "",
+            zipCode: "",
+            country: "",
+            company: "",
+            designation: "",
+            gst: "",
+          });
+        } else {
+          setPaymentError("Approval URL not found in response");
+        }
+      } else {
+        setPaymentError(response.message || "Order creation failed");
+      }
+    } catch (error: any) {
+      console.error("PayPal payment error:", error);
+      setPaymentError(
+        error.response?.data?.message ||
+          "An error occurred during payment processing"
+      );
+    } finally {
+      setPaymentLoading(false);
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -298,7 +479,7 @@ export default function CheckoutModal({
                 </h2>
                 {currentView === "checkout" && (
                   <p className="text-sm text-white/90 mt-1 font-medium">
-                    Total Amount: ${totalAmount.toLocaleString()}
+                    Total Amount: {currency == "INR" ? "₹" : "$"}{totalAmount.toLocaleString()}
                   </p>
                 )}
                 {currentView !== "checkout" && (
@@ -888,7 +1069,7 @@ export default function CheckoutModal({
                       <MapPin className="w-5 h-5 text-white" />
                     </div>
                     <h3 className="text-lg font-bold text-gray-900">
-                      Billing Address (optional)
+                      Billing Address
                     </h3>
                   </div>
 
@@ -992,11 +1173,11 @@ export default function CheckoutModal({
                     />
                   </div>
                 </div>
-                {/* Billing Address Section */}
+                {/* Document Section */}
                 <div className="bg-gradient-to-r from-[#6c7cae]/5 via-[#9c408c]/5 to-[#2b8ffb]/5 border border-[#6c7cae]/20 rounded-2xl p-6">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="bg-gradient-to-r from-[#6c7cae] to-[#2b8ffb] p-2 rounded-lg">
-                      <MapPin className="w-5 h-5 text-white" />
+                      <DocumentChartBarIcon className="w-5 h-5 text-white" />
                     </div>
                     <h3 className="text-lg font-bold text-gray-900">
                       Document
@@ -1005,7 +1186,7 @@ export default function CheckoutModal({
 
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2.5">
-                      GST
+                      GST (optional)
                     </label>
                     <div className="relative group">
                       <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
@@ -1013,16 +1194,15 @@ export default function CheckoutModal({
                       </div>
                       <input
                         type="text"
-                        required
-                        value={checkoutForm.address}
+                        value={checkoutForm.gst}
                         onChange={(e) =>
                           setCheckoutForm({
                             ...checkoutForm,
-                            address: e.target.value,
+                            gst: e.target.value,
                           })
                         }
                         className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#2b8ffb]/20 focus:border-[#2b8ffb] transition-all outline-none text-gray-900 placeholder:text-gray-400"
-                        placeholder="GST"
+                        placeholder="GST Number"
                       />
                     </div>
                   </div>
@@ -1038,6 +1218,16 @@ export default function CheckoutModal({
                       Payment Method
                     </h3>
                   </div>
+                  
+                  {/* Payment Error Message */}
+                  {paymentError && (
+                    <div className="p-4 bg-red-50 border border-red-200 rounded-xl mb-6">
+                      <p className="text-sm text-red-800 font-medium">
+                        ❌ {paymentError}
+                      </p>
+                    </div>
+                  )}
+                  
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <button
                       type="button"
@@ -1048,7 +1238,9 @@ export default function CheckoutModal({
                       <CreditCard className="w-6 h-6 relative z-10" />
                       <span className="relative z-10">Pay with PayU</span>
                     </button>
-                    <button
+                    {
+                      currency !== "INR" && (
+                          <button
                       type="button"
                       onClick={handlePayPal}
                       className="group relative bg-gradient-to-r from-[#0070ba] to-[#009cde] text-white py-5 px-6 rounded-xl font-semibold hover:from-[#0070ba]/95 hover:to-[#009cde]/95 transition-all shadow-lg hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 overflow-hidden"
@@ -1057,6 +1249,9 @@ export default function CheckoutModal({
                       <CreditCard className="w-6 h-6 relative z-10" />
                       <span className="relative z-10">Pay with PayPal</span>
                     </button>
+                      )
+                    }
+                  
                   </div>
                 </div>
               </form>
@@ -1064,6 +1259,32 @@ export default function CheckoutModal({
           </div>
         </div>
       </div>
+
+      {/* Processing Modal */}
+      {isProcessing && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+
+          <div className="relative z-10 bg-white rounded-2xl shadow-2xl w-[90%] max-w-md mx-4 p-8 text-center">
+            <div className="flex justify-center mb-6">
+              <div className="w-16 h-16 border-4 border-[#2b8ffb] border-t-transparent rounded-full animate-spin"></div>
+            </div>
+
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">
+              Processing Payment
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Please wait while we process your payment securely.
+            </p>
+
+            <div className="bg-gradient-to-r from-[#2b8ffb]/5 to-[#6c7cae]/5 rounded-lg p-4">
+              <p className="text-sm text-gray-600">
+                Do not close this window or refresh the page.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Signup Confirmation Modal */}
       {showSignupConfirmModal && (

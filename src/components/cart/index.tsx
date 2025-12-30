@@ -309,6 +309,7 @@ export default function Cart({
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
         totalAmount={totalWithGst}
+        currency={cartItems[0].selectedCurrency || "USD"}
       />
     </>
   );

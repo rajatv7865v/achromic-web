@@ -71,6 +71,7 @@ export default function Header({ onCartClick }: { onCartClick?: () => void }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const { user, isLoggedIn, logout } = useAuth();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const cartItems = useAppSelector((state) => state.cart.items);
   const cartCount = cartItems.length;
 
@@ -279,9 +280,23 @@ export default function Header({ onCartClick }: { onCartClick?: () => void }) {
               )}
             </button>
             
-            {isLoggedIn ? (
-              <div className="relative">
-                <button className="flex items-center gap-2 p-2 text-gray-700 hover:text-[#2b8ffb] transition-colors duration-200">
+                      <Link
+              href="/contact-us"
+              className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-6 py-2 rounded-full font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mr-4"
+            >
+              Contact Us
+            </Link>
+            
+            {isLoggedIn && (
+              <div 
+                className="relative"
+                onMouseEnter={() => setIsDropdownOpen(true)}
+                onMouseLeave={() => setIsDropdownOpen(false)}
+              >
+                <button 
+                  className="flex items-center gap-2 p-2 text-gray-700 hover:text-[#2b8ffb] transition-colors duration-200"
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                >
                   <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] flex items-center justify-center text-white font-semibold">
                     {user?.firstName?.charAt(0) || user?.lastName?.charAt(0) || 'U'}
                   </div>
@@ -289,26 +304,21 @@ export default function Header({ onCartClick }: { onCartClick?: () => void }) {
                 </button>
                 
                 {/* User Dropdown */}
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
-                  <div className="px-4 py-2 border-b border-gray-100">
-                    <p className="text-sm font-semibold text-gray-900">{user?.firstName} {user?.lastName}</p>
-                    <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
+                    <div className="px-4 py-2 border-b border-gray-100">
+                      <p className="text-sm font-semibold text-gray-900">{user?.firstName} {user?.lastName}</p>
+                      <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                    </div>
+                    <button
+                      onClick={logout}
+                      className="w-full text-left px-4 py-2 text-gray-700 hover:bg-[#2b8ffb]/10 hover:text-[#2b8ffb] transition-colors duration-200 text-sm"
+                    >
+                      Sign Out
+                    </button>
                   </div>
-                  <button
-                    onClick={logout}
-                    className="w-full text-left px-4 py-2 text-gray-700 hover:bg-[#2b8ffb]/10 hover:text-[#2b8ffb] transition-colors duration-200 text-sm"
-                  >
-                    Sign Out
-                  </button>
-                </div>
+                )}
               </div>
-            ) : (
-              <Link
-                href="/contact-us"
-                className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-6 py-2 rounded-full font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-              >
-                Contact Us
-              </Link>
             )}
           </div>
 
