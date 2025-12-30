@@ -19,13 +19,13 @@ import { DocumentChartBarIcon } from "@heroicons/react/20/solid";
 import { signup, login, SignupData } from "@/services/auth";
 import { useAuth } from "@/contexts/AuthContext";
 import { createOrder, OrderData } from "@/services/order";
+import PayURedirect from "../payu/PayURedirect";
 
 interface CheckoutModalProps {
   isOpen: boolean;
   onClose: () => void;
   totalAmount: number;
-  currency: string
- 
+  currency: string;
 }
 
 type ViewType = "login" | "signup" | "forgot-password" | "checkout";
@@ -34,7 +34,7 @@ export default function CheckoutModal({
   isOpen,
   onClose,
   totalAmount,
-  currency
+  currency,
 }: CheckoutModalProps) {
   const { user, token, isLoggedIn, login: authLogin, logout } = useAuth();
   const [currentView, setCurrentView] = useState<ViewType>("login");
@@ -49,6 +49,8 @@ export default function CheckoutModal({
   const [paymentLoading, setPaymentLoading] = useState<boolean>(false);
   const [paymentError, setPaymentError] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+
+  const [paymentData, setPaymentData] = useState<any>(null);
 
   // Set initial view based on login status
   useEffect(() => {
@@ -315,12 +317,13 @@ export default function CheckoutModal({
         // If order creation is successful, redirect to PayU
         console.log("Order created successfully:", response);
 
+        setPaymentData(response.data.data.payment);
         // Extract approval URL from response
         const approvalUrl = response.data?.data?.payment?.paymentUrl;
 
-        if (approvalUrl) {
-          // Redirect to PayU approval URL
-          window.open(approvalUrl, "_blank", "noopener,noreferrer");
+        // if (approvalUrl) {
+        //   // Redirect to PayU approval URL
+        //   window.open(approvalUrl, "_blank", "noopener,noreferrer");
 
           // Clear the checkout form after successful payment initiation
           setCheckoutForm({
@@ -337,9 +340,9 @@ export default function CheckoutModal({
             designation: "",
             gst: "",
           });
-        } else {
-          setPaymentError("Approval URL not found in response");
-        }
+        // } else {
+        //   setPaymentError("Approval URL not found in response");
+        // }
       } else {
         setPaymentError(response.message || "Order creation failed");
       }
@@ -354,6 +357,18 @@ export default function CheckoutModal({
       setIsProcessing(false);
     }
   };
+
+
+  console.log("paymentData",paymentData)
+  //PAYU redirect
+  if (paymentData) {
+    return (
+      <PayURedirect
+        gatewayUrl={paymentData.paymentUrl}
+        params={paymentData.params}
+      />
+    );
+  }
 
   const handlePayPal = async () => {
     if (
@@ -479,7 +494,8 @@ export default function CheckoutModal({
                 </h2>
                 {currentView === "checkout" && (
                   <p className="text-sm text-white/90 mt-1 font-medium">
-                    Total Amount: {currency == "INR" ? "₹" : "$"}{totalAmount.toLocaleString()}
+                    Total Amount: {currency == "INR" ? "₹" : "$"}
+                    {totalAmount.toLocaleString()}
                   </p>
                 )}
                 {currentView !== "checkout" && (
@@ -1218,7 +1234,7 @@ export default function CheckoutModal({
                       Payment Method
                     </h3>
                   </div>
-                  
+
                   {/* Payment Error Message */}
                   {paymentError && (
                     <div className="p-4 bg-red-50 border border-red-200 rounded-xl mb-6">
@@ -1227,7 +1243,7 @@ export default function CheckoutModal({
                       </p>
                     </div>
                   )}
-                  
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <button
                       type="button"
@@ -1238,20 +1254,17 @@ export default function CheckoutModal({
                       <CreditCard className="w-6 h-6 relative z-10" />
                       <span className="relative z-10">Pay with PayU</span>
                     </button>
-                    {
-                      currency !== "INR" && (
-                          <button
-                      type="button"
-                      onClick={handlePayPal}
-                      className="group relative bg-gradient-to-r from-[#0070ba] to-[#009cde] text-white py-5 px-6 rounded-xl font-semibold hover:from-[#0070ba]/95 hover:to-[#009cde]/95 transition-all shadow-lg hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 overflow-hidden"
-                    >
-                      <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                      <CreditCard className="w-6 h-6 relative z-10" />
-                      <span className="relative z-10">Pay with PayPal</span>
-                    </button>
-                      )
-                    }
-                  
+                    {currency !== "INR" && (
+                      <button
+                        type="button"
+                        onClick={handlePayPal}
+                        className="group relative bg-gradient-to-r from-[#0070ba] to-[#009cde] text-white py-5 px-6 rounded-xl font-semibold hover:from-[#0070ba]/95 hover:to-[#009cde]/95 transition-all shadow-lg hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 overflow-hidden"
+                      >
+                        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <CreditCard className="w-6 h-6 relative z-10" />
+                        <span className="relative z-10">Pay with PayPal</span>
+                      </button>
+                    )}
                   </div>
                 </div>
               </form>
