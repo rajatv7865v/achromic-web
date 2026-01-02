@@ -34,6 +34,7 @@ export default function CorporateMembershipPage() {
       ],
       selectedPrice: price,
       selectedType: category,
+      selectedCurrency: "INR",
     };
     
     dispatch(addToCart(membershipItem));
