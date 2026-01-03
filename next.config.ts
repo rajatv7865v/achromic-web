@@ -10,7 +10,8 @@ const nextConfig: NextConfig = {
       "127.0.0.1",
       "api.test.sharkwaveinfo.com",
       "*.sharkwaveinfo.com",
-      "achromicpoint.com"
+      "achromicpoint.com",
+      "res.cloudinary.com"
     ],
     remotePatterns: [
       {

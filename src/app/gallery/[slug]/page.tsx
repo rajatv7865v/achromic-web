@@ -69,11 +69,7 @@ export default function Gallery() {
           );
         })}
       </div>
-      <Pagination
-        currentPage={page}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+     
       {/* Lightbox */}
       {selectedImg && (
         <div

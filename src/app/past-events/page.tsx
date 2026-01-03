@@ -105,6 +105,8 @@ const StarIcon = ({ className }: { className?: string }) => (
 export default function PastEventPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [hoveredEvent, setHoveredEvent] = useState<number | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
 
   const [categories, setCategories] = useState<any>([]);
   const [events, setEvents] = useState<any>([]);
@@ -117,11 +119,28 @@ export default function PastEventPage() {
     setPage(newPage);
   };
 
+  // Debounce search term
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 1000); // 500ms delay
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchTerm]);
+
   useEffect(() => {
     (async () => {
       const [category, events]: any = await Promise.all([
         run(getCategories),
-        getEvents({ eventType: "PAST", page, limit: 9 }),
+        getEvents({
+          eventType: "PAST",
+          page,
+          limit: 9,
+          search: debouncedSearchTerm,
+          searchFields: "name,location",
+        }),
       ]);
       setCategories([
         "All",
@@ -132,8 +151,7 @@ export default function PastEventPage() {
       setEvents(eventsData);
       // Set first event as selected by default
     })();
-  }, [run, page]);
-  console.log("eve", events);
+  }, [run, page, debouncedSearchTerm]);
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -318,21 +336,42 @@ export default function PastEventPage() {
               conferences
             </p>
 
-            {/* Category Filter */}
-            <div className="flex flex-wrap justify-center gap-3 mb-8">
-              {categories.map((category: string) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-6 py-2 rounded-full font-medium transition-all duration-200 ${
-                    selectedCategory === category
-                      ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white shadow-lg"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
+            {/* Search and Category Filter */}
+            <div className="mb-8">
+            
+
+              {/* Category Filter */}
+              <div className="flex flex-wrap justify-center gap-3">
+                {categories.map((category: string) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-6 py-2 rounded-full font-medium transition-all duration-200 ${
+                      selectedCategory === category
+                        ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white shadow-lg"
+                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+
+                {/* Search Input */}
+              <div className="max-w-2xl mx-auto mt-6">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search events by name..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full px-6 py-4 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent shadow-sm text-lg text-gray-800"
+                  />
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                    🔍
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
