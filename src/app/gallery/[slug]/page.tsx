@@ -1,7 +1,6 @@
 "use client"; // for Next 13+ app directory client component
 
 import Pagination from "@/components/common/Pagination";
-import { useApi } from "@/hooks/useApi";
 import { getGalleryByEvent, getGalleryByEventSlug } from "@/services/gallery";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -9,8 +8,8 @@ import { useEffect, useState } from "react";
 
 export default function Gallery() {
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
-  const { data, loading, error, run } = useApi<{ data: any[] }>();
   const [gallery, setGallery] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(10);
 
@@ -27,11 +26,14 @@ export default function Gallery() {
 
   useEffect(() => {
     const fetchGallery = async () => {
+      setLoading(true);
       try {
-        const gallery = await getGalleryByEventSlug(slug);
-        setGallery(gallery ?? []);
+        const result = await getGalleryByEventSlug(slug);
+        setGallery(result ?? []);
       } catch (error) {
         console.error("Failed to fetch gallery", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchGallery();
@@ -45,9 +47,20 @@ export default function Gallery() {
         Gallery
       </h1>
 
+      {/* Loading Bar */}
+      {loading && (
+        <div className="w-full mb-6">
+          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div className="h-full bg-blue-600 rounded-full animate-progress"></div>
+          </div>
+          <p className="text-center text-gray-600 mt-2">Loading gallery...</p>
+        </div>
+      )}
+
       {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {gallery?.files?.map((item: any, idx: number) => {
+      {!loading && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {gallery?.files?.map((item: any, idx: number) => {
           console.log("it", item);
 
           return (
@@ -68,7 +81,8 @@ export default function Gallery() {
             </div>
           );
         })}
-      </div>
+        </div>
+      )}
      
       {/* Lightbox */}
       {selectedImg && (
