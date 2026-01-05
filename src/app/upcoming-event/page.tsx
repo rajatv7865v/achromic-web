@@ -139,7 +139,7 @@ export default function UpcomingEventPage() {
     (async () => {
       const [category, events]: any = await Promise.all([
         run(getCategories),
-        getEvents({eventType:"UPCOMING",page:1,limit:10}),
+        getEvents({ eventType: "UPCOMING", page: 1, limit: 10 }),
       ]);
       setCategories([
         "All",
@@ -259,7 +259,10 @@ export default function UpcomingEventPage() {
               <button className="bg-white text-[#2b8ffb] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg">
                 Register Now
               </button>
-              <button onClick={openModal} className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#2b8ffb] transition-all duration-200">
+              <button
+                onClick={openModal}
+                className="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#2b8ffb] transition-all duration-200"
+              >
                 Download Brochure
               </button>
             </div>
@@ -283,12 +286,17 @@ export default function UpcomingEventPage() {
             >
               ×
             </button>
-            <h3 className="text-lg font-bold mb-4 text-gray-600">Get Brochure</h3>
+            <h3 className="text-lg font-bold mb-4 text-gray-600">
+              Get Brochure
+            </h3>
             <p className="text-sm text-gray-600 mb-4">
               Enter your details to download the event brochure.
             </p>
             <div className="space-y-3 mb-4">
-              <label htmlFor="name" className="font-semibold"> Full Name</label>
+              <label htmlFor="name" className="font-semibold">
+                {" "}
+                Full Name
+              </label>
               <input
                 name="name"
                 value={form.name}
@@ -298,8 +306,13 @@ export default function UpcomingEventPage() {
                 }`}
                 placeholder="Full name"
               />
-              {errors.name && <div className="text-red-500 text-sm">{errors.name}</div>}
-               <label htmlFor="email" className="font-semibold"> Email Address</label>
+              {errors.name && (
+                <div className="text-red-500 text-sm">{errors.name}</div>
+              )}
+              <label htmlFor="email" className="font-semibold">
+                {" "}
+                Email Address
+              </label>
               <input
                 name="email"
                 value={form.email}
@@ -309,8 +322,13 @@ export default function UpcomingEventPage() {
                 }`}
                 placeholder="Email address"
               />
-              {errors.email && <div className="text-red-500 text-sm">{errors.email}</div>}
-               <label htmlFor="phone" className="font-semibold"> Phone Number</label>
+              {errors.email && (
+                <div className="text-red-500 text-sm">{errors.email}</div>
+              )}
+              <label htmlFor="phone" className="font-semibold">
+                {" "}
+                Phone Number
+              </label>
               <input
                 name="phone"
                 value={form.phone}
@@ -320,7 +338,9 @@ export default function UpcomingEventPage() {
                 }`}
                 placeholder="Phone number"
               />
-              {errors.phone && <div className="text-red-500 text-sm">{errors.phone}</div>}
+              {errors.phone && (
+                <div className="text-red-500 text-sm">{errors.phone}</div>
+              )}
             </div>
             <div className="flex justify-end gap-3">
               <button
@@ -331,7 +351,9 @@ export default function UpcomingEventPage() {
               </button>
               <button
                 className={`px-4 py-2 rounded-md text-white bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] font-semibold ${
-                  isSubmitting ? "opacity-60 cursor-not-allowed" : "hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90"
+                  isSubmitting
+                    ? "opacity-60 cursor-not-allowed"
+                    : "hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90"
                 }`}
                 onClick={handleDownload}
                 disabled={isSubmitting}
@@ -375,14 +397,18 @@ export default function UpcomingEventPage() {
                       <Image
                         alt={event.title || event.name || "Event"}
                         src={
-                          "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80"
+                          event?.bannerUrl !== undefined &&
+                          event?.bannerUrl !== null &&
+                          event?.bannerUrl !== ""
+                            ? event?.bannerUrl
+                            : "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80"
                         }
                         width={600}
                         height={400}
                         className="w-full h-48 object-cover rounded-lg"
                       />
 
-                      <div className="text-center absolute h-full w-full bg-black/40 flex flex-col justify-center text-white items-center">
+                      <div className="text-center absolute h-full w-full bg-black/60 flex flex-col justify-center text-white items-center">
                         <CalendarIcon className="w-16 h-16 text-[#2b8ffb] mx-auto mb-4" />
                         <div className="text-2xl font-bold text-white mb-2">
                           {formatCustomDate(event.dateFrom)}
@@ -524,13 +550,15 @@ export default function UpcomingEventPage() {
                       <Image
                         alt={event.title || event.name || "Event"}
                         src={
-                          "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80"
+                          event?.bannerUrl !==undefined && event?.bannerUrl !==null && event?.bannerUrl !== ""
+                            ? event?.bannerUrl
+                            : "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80"
                         }
                         width={600}
                         height={400}
                         className="w-full h-48 object-cover rounded-lg"
                       />
-                      <div className="text-center absolute h-full w-full bg-black/40 flex flex-col justify-center text-white items-center">
+                      <div className="text-center absolute h-full w-full bg-black/60 flex flex-col justify-center text-white items-center">
                         <CalendarIcon className="w-16 h-16 text-[#2b8ffb] mx-auto mb-4" />
                         <div className="text-2xl font-bold text-white mb-2">
                           {formatCustomDate(event.dateFrom)}
