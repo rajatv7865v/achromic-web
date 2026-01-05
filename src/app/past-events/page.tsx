@@ -9,6 +9,46 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+// Helper function to validate and construct proper image URL
+const getImageUrl = (url: string | null | undefined): string => {
+  const defaultImage = "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80";
+  
+  if (!url || typeof url !== 'string' || url.trim() === '') {
+    return defaultImage;
+  }
+
+  const trimmedUrl = url.trim();
+
+  // If it's already a full URL (starts with http:// or https://), validate and return
+  if (trimmedUrl.startsWith('http://') || trimmedUrl.startsWith('https://')) {
+    try {
+      new URL(trimmedUrl); // Validate URL
+      return trimmedUrl;
+    } catch (e) {
+      console.warn('Invalid URL:', trimmedUrl, e);
+      return defaultImage;
+    }
+  }
+
+  // If it's a relative path, construct full URL
+  // Check if it starts with /, if not, add it
+  const cleanPath = trimmedUrl.startsWith('/') ? trimmedUrl : `/${trimmedUrl}`;
+  
+  // Use environment variable or default to localhost
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001";
+  // Remove /api/v1 if present in base URL
+  const baseUrl = apiBaseUrl.replace(/\/api\/v1$/, '');
+  const imageUrl = `${baseUrl}${cleanPath}`;
+  
+  try {
+    new URL(imageUrl); // Validate constructed URL
+    return imageUrl;
+  } catch (e) {
+    console.warn('Failed to construct URL from:', trimmedUrl, e);
+    return defaultImage;
+  }
+};
+
 // Simple SVG Icons
 const CalendarIcon = ({ className }: { className?: string }) => (
   <svg
@@ -232,7 +272,7 @@ export default function PastEventPage() {
             .filter((_: any, index: number) => index < 2)
             .map((event: any) => (
               <div
-                key={event.id}
+                key={event._id}
                 className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
               >
                 <div className="relative">
@@ -240,12 +280,10 @@ export default function PastEventPage() {
                     <div className="h-full w-full bg-gradient-to-br from-[#2b8ffb]/10 to-[#6c7cae]/10 flex items-center justify-center">
                       <Image
                         alt={event.title || event.name || "Event"}
-                        src={
-                          "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80"
-                        }
+                        src={getImageUrl(event?.bannerUrl)}
                         width={600}
                         height={400}
-                        className="w-full h-48 object-cover rounded-lg"
+                        className="w-full h-48  rounded-lg"
                       />
                       <div className="text-center absolute h-full w-full bg-black/40 flex flex-col justify-center text-white items-center">
                         <CalendarIcon className="w-16 h-16 text-[#2b8ffb] mx-auto mb-4" />
@@ -389,14 +427,12 @@ export default function PastEventPage() {
                     <div className="h-full w-full bg-gradient-to-br from-[#2b8ffb]/10 to-[#6c7cae]/10 flex items-center justify-center">
                       <Image
                         alt={event.title || event.name || "Event"}
-                        src={
-                          "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80"
-                        }
+                        src={getImageUrl(event?.bannerUrl)}
                         width={600}
                         height={400}
-                        className="w-full h-48 object-cover rounded-lg"
+                        className="w-full h-48  rounded-lg"
                       />
-                      <div className="text-center absolute h-full w-full bg-black/40 flex flex-col justify-center text-white items-center">
+                      <div className="text-center absolute h-full w-full bg-black/60 flex flex-col justify-center text-white items-center">
                         <CalendarIcon className="w-14 h-14 text-[#2b8ffb] mx-auto mb-4" />
                         <div className="text-xl font-bold text-white mb-2">
                           {formatCustomDate(event.dateFrom)}
@@ -437,9 +473,9 @@ export default function PastEventPage() {
                       ))}
                     </div>
                     <div className="flex items-center space-x-1">
-                      {renderStars(event.rating)}
+                      {renderStars(4.5)}
                       <span className="text-xs text-gray-500 ml-1">
-                        ({event.rating})
+                        ({4.5})
                       </span>
                     </div>
                   </div>

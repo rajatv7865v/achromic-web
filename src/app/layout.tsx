@@ -33,7 +33,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${poppins.variable} ${geistMono.variable} antialiased`}>
+      <body 
+        className={`${poppins.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
+      >
         <ReduxProvider>
           <AuthProvider>
             <CartProvider>
