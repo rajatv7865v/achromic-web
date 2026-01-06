@@ -5,6 +5,7 @@ import Link from "next/link";
 import Partners from "../components/partners";
 import { mockPartners } from "../data/mockPartners";
 import Testimonials from "@/components/Testimonials";
+import { getAllGalleries } from "@/services/gallery";
 
 import Banner1 from "@/components/assets/banner/banner 1.jpg";
 import Banner2 from "@/components/assets/banner/banner 2.jpg";
@@ -505,9 +506,72 @@ function PartnersSection() {
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [galleries, setGalleries] = useState<any[]>([]);
+  const [galleryLoading, setGalleryLoading] = useState(false);
+  const [galleryPage, setGalleryPage] = useState(1);
+  const [galleryTotalPages, setGalleryTotalPages] = useState(1);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
+  };
+
+  // Fetch galleries on component mount
+  useEffect(() => {
+    const fetchGalleries = async () => {
+      setGalleryLoading(true);
+      try {
+        const result = await getAllGalleries({
+          page: galleryPage,
+          limit: 6,
+          sortBy: "createdAt",
+          sortOrder: "desc",
+        });
+        setGalleries(result.data || []);
+        setGalleryTotalPages(result.meta?.totalPages || 1);
+      } catch (error) {
+        console.error("Failed to fetch galleries:", error);
+        setGalleries([]);
+      } finally {
+        setGalleryLoading(false);
+      }
+    };
+
+    fetchGalleries();
+  }, [galleryPage]);
+
+  // Helper function to get icon based on index
+  const getIconForIndex = (index: number) => {
+    const icons = [
+      UsersIcon,
+      AwardIcon,
+      BookOpenIcon,
+      ChartBarIcon,
+      StarIcon,
+      CheckCircleIcon,
+    ];
+    return icons[index % icons.length];
+  };
+
+  // Helper function to get gradient colors based on index
+  const getGradientColors = (index: number) => {
+    const gradients = [
+      {
+        from: "from-[#2b8ffb]/20",
+        to: "to-[#6c7cae]/20",
+        iconColor: "text-[#2b8ffb]",
+      },
+      {
+        from: "from-[#6c7cae]/20",
+        to: "to-[#9c408c]/20",
+        iconColor: "text-[#6c7cae]",
+      },
+      {
+        from: "from-[#9c408c]/20",
+        to: "to-[#2b8ffb]/20",
+        iconColor: "text-[#9c408c]",
+      },
+    ];
+    return gradients[index % gradients.length];
   };
 
   return (
@@ -908,135 +972,98 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-              {/* Gallery Item 1 */}
-              <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-card-float">
-                <div className="h-64 bg-gradient-to-br from-[#2b8ffb]/20 to-[#6c7cae]/20 flex items-center justify-center">
-                  <div className="text-center">
-                    <UsersIcon className="w-16 h-16 text-[#2b8ffb] mx-auto mb-3" />
-                    <h3 className="text-lg font-semibold text-gray-800">
-                      Financial Summit 2024
-                    </h3>
-                    <p className="text-sm text-gray-600">150+ Professionals</p>
-                  </div>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                  <div className="text-white">
-                    <p className="text-sm font-medium">
-                      Keynote sessions and networking
-                    </p>
-                  </div>
-                </div>
+            {galleryLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                {[...Array(6)].map((_, index) => (
+                  <div
+                    key={index}
+                    className="h-64 bg-gray-200 rounded-xl animate-pulse"
+                  />
+                ))}
               </div>
+            ) : galleries.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                {galleries.map((gallery, index) => {
+                  const IconComponent = getIconForIndex(index);
+                  const gradient = getGradientColors(index);
+                  const galleryName = gallery.title || "Event Gallery";
+                  const galleryImage =
+                    gallery.filePath && gallery.filePath.length > 0
+                      ? gallery.filePath[0]
+                      : null;
+                  // Use event slug if available, otherwise use eventId (gallery page may need to handle eventId)
+                  const galleryLink = gallery.event?.slug
+                    ? `/gallery/${gallery.event.slug}`
+                    : gallery.eventId
+                    ? `/gallery/${gallery.eventId}`
+                    : "#";
 
-              {/* Gallery Item 2 */}
-              <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-card-float">
-                <div className="h-64 bg-gradient-to-br from-[#6c7cae]/20 to-[#9c408c]/20 flex items-center justify-center">
-                  <div className="text-center">
-                    <AwardIcon className="w-16 h-16 text-[#6c7cae] mx-auto mb-3" />
-                    <h3 className="text-lg font-semibold text-gray-800">
-                      Legal Conference 2024
-                    </h3>
-                    <p className="text-sm text-gray-600">120+ Attendees</p>
-                  </div>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                  <div className="text-white">
-                    <p className="text-sm font-medium">
-                      Corporate governance discussions
-                    </p>
-                  </div>
-                </div>
+                  return (
+                    <div
+                      className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-card-float"
+                    >
+                      {galleryImage ? (
+                        <div className="h-64 relative overflow-hidden">
+                          <img
+                            src={galleryImage}
+                            alt={galleryName}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                        </div>
+                      ) : (
+                        <div
+                          className={`h-64 bg-gradient-to-br ${gradient.from} ${gradient.to} flex items-center justify-center`}
+                        >
+                          <div className="text-center">
+                            <IconComponent
+                              className={`w-16 h-16 ${gradient.iconColor} mx-auto mb-3`}
+                            />
+                            <h3 className="text-lg font-semibold text-gray-800">
+                              {galleryName}
+                            </h3>
+                            {gallery.filePath &&
+                              gallery.filePath.length > 0 && (
+                                <p className="text-sm text-gray-600">
+                                  {gallery.filePath.length}{" "}
+                                  {gallery.filePath.length === 1
+                                    ? "Image"
+                                    : "Images"}
+                                </p>
+                              )}
+                          </div>
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <div className="text-white">
+                          <h3 className="text-lg font-semibold mb-1">
+                            {galleryName}
+                          </h3>
+                          {/* {gallery.filePath && gallery.filePath.length > 0 && (
+                            <p className="text-sm font-medium">
+                              {gallery.filePath.length}{" "}
+                              {gallery.filePath.length === 1
+                                ? "Photo"
+                                : "Photos"}
+                            </p>
+                          )} */}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-
-              {/* Gallery Item 3 */}
-              <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="h-64 bg-gradient-to-br from-[#9c408c]/20 to-[#2b8ffb]/20 flex items-center justify-center">
-                  <div className="text-center">
-                    <BookOpenIcon className="w-16 h-16 text-[#9c408c] mx-auto mb-3" />
-                    <h3 className="text-lg font-semibold text-gray-800">
-                      GST Workshop 2024
-                    </h3>
-                    <p className="text-sm text-gray-600">80+ Participants</p>
-                  </div>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                  <div className="text-white">
-                    <p className="text-sm font-medium">
-                      Hands-on training sessions
-                    </p>
-                  </div>
-                </div>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-gray-600">
+                  No galleries available at the moment.
+                </p>
               </div>
-
-              {/* Gallery Item 4 */}
-              <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="h-64 bg-gradient-to-br from-[#2b8ffb]/20 to-[#6c7cae]/20 flex items-center justify-center">
-                  <div className="text-center">
-                    <ChartBarIcon className="w-16 h-16 text-[#2b8ffb] mx-auto mb-3" />
-                    <h3 className="text-lg font-semibold text-gray-800">
-                      Enterprise Training
-                    </h3>
-                    <p className="text-sm text-gray-600">Corporate Programs</p>
-                  </div>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                  <div className="text-white">
-                    <p className="text-sm font-medium">
-                      Custom training solutions
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Gallery Item 5 */}
-              <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="h-64 bg-gradient-to-br from-[#6c7cae]/20 to-[#9c408c]/20 flex items-center justify-center">
-                  <div className="text-center">
-                    <StarIcon className="w-16 h-16 text-[#6c7cae] mx-auto mb-3" />
-                    <h3 className="text-lg font-semibold text-gray-800">
-                      Award Ceremony 2024
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      Excellence Recognition
-                    </p>
-                  </div>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                  <div className="text-white">
-                    <p className="text-sm font-medium">
-                      Celebrating achievements
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Gallery Item 6 */}
-              <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="h-64 bg-gradient-to-br from-[#9c408c]/20 to-[#2b8ffb]/20 flex items-center justify-center">
-                  <div className="text-center">
-                    <CheckCircleIcon className="w-16 h-16 text-[#9c408c] mx-auto mb-3" />
-                    <h3 className="text-lg font-semibold text-gray-800">
-                      Certification Program
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      Professional Development
-                    </p>
-                  </div>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                  <div className="text-white">
-                    <p className="text-sm font-medium">
-                      Industry-recognized certifications
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            )}
 
             <div className="text-center">
               <Link
-                href="/past-event"
+                href="/past-events"
                 className="inline-flex items-center bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-8 py-3 rounded-full font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200 shadow-lg"
               >
                 View All Event Photos
