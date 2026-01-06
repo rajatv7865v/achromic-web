@@ -128,6 +128,19 @@ interface Speaker {
 }
 
 interface Session {
+  eventId: {
+    name: string;
+    description: string;
+    content: string;
+    dateFrom: string;
+    dateTo: string;
+    bannerUrl: string;
+    timeFrom: string;
+    timeTo: string;
+    slug: string;
+    venue: string;
+    location: string;
+  };
   id: string;
   title: string;
   time: string;
@@ -219,7 +232,7 @@ export default function Agenda({ eventId }: AgendaProps) {
 
     fetchAgenda();
   }, [eventId]);
-
+console.log("agendaData", agendaData);
   const toggleSession = (sessionId: string) => {
     setExpandedSessions((prev) =>
       prev.includes(sessionId)
@@ -312,23 +325,23 @@ export default function Agenda({ eventId }: AgendaProps) {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            {agendaData[0]?.title || "Event Agenda"}
+            {agendaData[0]?.eventId?.name || "Event Agenda"}
           </h1>
           <div className="text-xl text-gray-600 font-medium space-y-2">
-            {agendaData[0]?.date && (
+            {agendaData[0]?.eventId?.dateFrom && (
               <p className="flex items-center justify-center space-x-2">
                 <CalendarIcon className="w-5 h-5 text-[#2b8ffb]" />
-                <span>{agendaData[0].date}</span>
+                <span>{agendaData[0]?.eventId?.dateFrom }</span>
               </p>
             )}
-            {agendaData[0]?.venue && (
+            {agendaData[0]?.eventId?.venue && (
               <p className="flex items-center justify-center space-x-2">
                 <MapPinIcon className="w-5 h-5 text-[#2b8ffb]" />
-                <span>{agendaData[0].venue}</span>
+                <span>{agendaData[0]?.eventId?.venue}</span>
               </p>
             )}
-            {(!agendaData[0]?.date && !agendaData[0]?.venue) && (
-              <p>Discover our carefully curated lineup of sessions and speakers</p>
+            { (
+              <p>{agendaData[0]?.eventId?.description}</p>
             )}
           </div>
         </div>

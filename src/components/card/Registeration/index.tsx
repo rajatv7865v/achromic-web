@@ -16,7 +16,13 @@ import { useCart } from "@/components/cart/CartProvider";
 import { useState } from "react";
 
 export default function RegisterCard({ event }: { event: any }) {
-  const [currency, setCurrency] = useState<"INR" | "USD">("INR");
+  // Check if USD prices are available
+  const hasUSDPrices = 
+    event?.consultingPriceUSD > 0 && event?.industryPriceUSD > 0;
+  
+  const [currency, setCurrency] = useState<"INR" | "USD">(
+    hasUSDPrices ? "INR" : "INR"
+  );
   const [showModal, setShowModal] = useState(false);
   const [selectedType, setSelectedType] = useState<"Industry" | "Consulting">(
     "Industry"
@@ -166,16 +172,18 @@ export default function RegisterCard({ event }: { event: any }) {
             >
               ₹ INR
             </button>
-            <button
-              onClick={() => setCurrency("USD")}
-              className={`px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
-                currency === "USD"
-                  ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white shadow-md"
-                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-              }`}
-            >
-              $ USD
-            </button>
+            {event?.consultingPriceUSD > 0 && event?.industryPriceUSD > 0 && (
+              <button
+                onClick={() => setCurrency("USD")}
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                  currency === "USD"
+                    ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white shadow-md"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                }`}
+              >
+                $ USD
+              </button>
+            )}
           </div>
         </div>
 
@@ -305,16 +313,18 @@ export default function RegisterCard({ event }: { event: any }) {
                   >
                     ₹ INR
                   </button>
-                  <button
-                    onClick={() => setModalCurrency("USD")}
-                    className={`flex-1 px-4 py-3 text-sm font-medium rounded-md transition-all duration-200 ${
-                      modalCurrency === "USD"
-                        ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white shadow-md"
-                        : "text-gray-600 hover:bg-gray-100"
-                    }`}
-                  >
-                    $ USD
-                  </button>
+                  {hasUSDPrices && (
+                    <button
+                      onClick={() => setModalCurrency("USD")}
+                      className={`flex-1 px-4 py-3 text-sm font-medium rounded-md transition-all duration-200 ${
+                        modalCurrency === "USD"
+                          ? "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white shadow-md"
+                          : "text-gray-600 hover:bg-gray-100"
+                      }`}
+                    >
+                      $ USD
+                    </button>
+                  )}
                 </div>
               </div>
 
