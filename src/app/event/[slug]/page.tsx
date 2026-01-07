@@ -478,7 +478,7 @@ export default function pgae() {
                 "partners",
                 "agenda",
                 "benefits",
-                "registeration",
+                "registration",
               ].map((tab) => (
                 <button
                   key={tab}
@@ -512,7 +512,7 @@ export default function pgae() {
               )}
               {activeTab === "partners" && <Partner eventId={event._id} />}
               {activeTab === "speakers" && <Speaker eventId={event._id} />}
-              {activeTab === "registeration" && (
+              {activeTab === "registration" && (
                 <RegisterationPage eventId={event._id} />
               )}
               {activeTab === "agenda" && (

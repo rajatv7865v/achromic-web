@@ -9,7 +9,7 @@ interface WhatsAppIconProps {
 
 const WhatsAppIcon: React.FC<WhatsAppIconProps> = ({ 
   phoneNumber = "+918447758768", // Default phone number, replace with your actual number
-  message = "Hello! I'm interested in your services." 
+  message = "Hello! I'm interested in your Event Services." 
 }) => {
   const handleWhatsAppClick = () => {
     const encodedMessage = encodeURIComponent(message);

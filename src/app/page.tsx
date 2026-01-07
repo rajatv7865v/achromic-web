@@ -510,9 +510,121 @@ export default function Home() {
   const [galleryLoading, setGalleryLoading] = useState(false);
   const [galleryPage, setGalleryPage] = useState(1);
   const [galleryTotalPages, setGalleryTotalPages] = useState(1);
+  
+  // Gallery modal state
+  const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
+  const [selectedGallery, setSelectedGallery] = useState<any>(null);
+  const [galleryFormData, setGalleryFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    designation: "",
+  });
+  const [galleryFormErrors, setGalleryFormErrors] = useState<any>({});
+  const [isSubmittingGalleryForm, setIsSubmittingGalleryForm] = useState(false);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
+  };
+
+  // Handle gallery item click
+  const handleGalleryItemClick = (gallery: any) => {
+    setSelectedGallery(gallery);
+    setIsGalleryModalOpen(true);
+    // Reset form
+    setGalleryFormData({
+      name: "",
+      email: "",
+      phone: "",
+      company: "",
+      designation: "",
+    });
+    setGalleryFormErrors({});
+  };
+
+  // Close gallery modal
+  const closeGalleryModal = () => {
+    setIsGalleryModalOpen(false);
+    setSelectedGallery(null);
+    setGalleryFormErrors({});
+    setIsSubmittingGalleryForm(false);
+  };
+
+  // Handle form input change
+  const handleGalleryFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setGalleryFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    // Clear error for this field
+    if (galleryFormErrors[name]) {
+      setGalleryFormErrors((prev: any) => ({
+        ...prev,
+        [name]: undefined,
+      }));
+    }
+  };
+
+  // Validate gallery form
+  const validateGalleryForm = () => {
+    const errors: any = {};
+    if (!galleryFormData.name.trim()) {
+      errors.name = "Name is required";
+    }
+    if (!galleryFormData.email.trim() || !/^\S+@\S+\.\S+$/.test(galleryFormData.email)) {
+      errors.email = "Valid email is required";
+    }
+    if (!galleryFormData.phone.trim() || !/^[\d()+\s-]{7,}$/.test(galleryFormData.phone)) {
+      errors.phone = "Valid phone number is required";
+    }
+    if (!galleryFormData.company.trim()) {
+      errors.company = "Company is required";
+    }
+    if (!galleryFormData.designation.trim()) {
+      errors.designation = "Designation is required";
+    }
+    setGalleryFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Handle gallery form submit
+  const handleGalleryFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateGalleryForm()) return;
+
+    setIsSubmittingGalleryForm(true);
+
+    try {
+      // TODO: Submit form data to API if needed
+      // await submitGalleryForm(galleryFormData);
+
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // Get gallery link
+      const galleryLink = selectedGallery?.event?.slug
+        ? `/gallery/${selectedGallery.event.slug}`
+        : selectedGallery?.eventId
+        ? `/gallery/${selectedGallery.eventId}`
+        : "#";
+
+      // Close modal
+      closeGalleryModal();
+
+      // Redirect to gallery page
+      if (galleryLink !== "#") {
+        window.location.href = galleryLink;
+      }
+    } catch (error) {
+      console.error("Error submitting gallery form:", error);
+      setGalleryFormErrors({
+        submit: "Failed to submit form. Please try again.",
+      });
+    } finally {
+      setIsSubmittingGalleryForm(false);
+    }
   };
 
   // Fetch galleries on component mount
@@ -1000,7 +1112,9 @@ export default function Home() {
 
                   return (
                     <div
-                      className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-card-float"
+                      key={gallery._id || index}
+                      onClick={() => handleGalleryItemClick(gallery)}
+                      className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-card-float cursor-pointer"
                     >
                       {galleryImage ? (
                         <div className="h-64 relative overflow-hidden">
@@ -1199,6 +1313,219 @@ export default function Home() {
         <Testimonials />
 
         {/* Enhanced Testimonial Section */}
+
+        {/* Gallery Form Modal */}
+        {isGalleryModalOpen && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50"
+            onClick={closeGalleryModal}
+          >
+            <div
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] p-6 text-white">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h3 className="text-xl font-bold">
+                      {selectedGallery?.title || "View Gallery"}
+                    </h3>
+                    <p className="text-sm text-white/90 mt-1">
+                      Please fill in your details to continue
+                    </p>
+                  </div>
+                  <button
+                    onClick={closeGalleryModal}
+                    className="text-white hover:text-gray-200 transition-colors"
+                  >
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Modal Form */}
+              <form onSubmit={handleGalleryFormSubmit} className="p-6">
+                {/* Error Message */}
+                {galleryFormErrors.submit && (
+                  <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <p className="text-sm text-red-800">
+                      {galleryFormErrors.submit}
+                    </p>
+                  </div>
+                )}
+
+                <div className="space-y-4">
+                  {/* Name */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={galleryFormData.name}
+                      onChange={handleGalleryFormChange}
+                      required
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-[#2b8ffb] outline-none transition ${
+                        galleryFormErrors.name
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      }`}
+                      placeholder="Enter your name"
+                    />
+                    {galleryFormErrors.name && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {galleryFormErrors.name}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Email <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={galleryFormData.email}
+                      onChange={handleGalleryFormChange}
+                      required
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-[#2b8ffb] outline-none transition ${
+                        galleryFormErrors.email
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      }`}
+                      placeholder="Enter your email"
+                    />
+                    {galleryFormErrors.email && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {galleryFormErrors.email}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Phone */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Phone <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={galleryFormData.phone}
+                      onChange={handleGalleryFormChange}
+                      required
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-[#2b8ffb] outline-none transition ${
+                        galleryFormErrors.phone
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      }`}
+                      placeholder="Enter your phone number"
+                    />
+                    {galleryFormErrors.phone && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {galleryFormErrors.phone}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Company */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Company <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="company"
+                      value={galleryFormData.company}
+                      onChange={handleGalleryFormChange}
+                      required
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-[#2b8ffb] outline-none transition ${
+                        galleryFormErrors.company
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      }`}
+                      placeholder="Enter your company name"
+                    />
+                    {galleryFormErrors.company && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {galleryFormErrors.company}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Designation */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Designation <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="designation"
+                      value={galleryFormData.designation}
+                      onChange={handleGalleryFormChange}
+                      required
+                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-[#2b8ffb] outline-none transition ${
+                        galleryFormErrors.designation
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      }`}
+                      placeholder="Enter your designation"
+                    />
+                    {galleryFormErrors.designation && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {galleryFormErrors.designation}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Submit Button */}
+                <div className="mt-6 flex gap-3">
+                  <button
+                    type="button"
+                    onClick={closeGalleryModal}
+                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmittingGalleryForm}
+                    className={`flex-1 px-4 py-2 rounded-lg font-semibold text-white transition-all ${
+                      isSubmittingGalleryForm
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 shadow-lg"
+                    }`}
+                  >
+                    {isSubmittingGalleryForm ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        Submitting...
+                      </span>
+                    ) : (
+                      "View Gallery"
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

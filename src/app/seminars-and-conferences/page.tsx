@@ -110,58 +110,104 @@ interface CourseCategory {
 
 const courseCategories: CourseCategory[] = [
   {
-    id: "legal-risk",
-    title: "Legal, Risk & Advisory",
-    description: "Comprehensive legal and risk management training programs",
+    id: "compliance",
+    title: "Compliance",
+    description: "Comprehensive compliance training and regulatory programs",
     icon: BookOpenIcon,
     courses: [
-      "White Collar Crime",
-      "Cyber Security",
-      "Compliance",
-      "Commercial Litigation",
-      "Insolvency and Bankruptcy Code",
-      "Arbitration and Dispute Resolution",
-      "Digital Forensics",
-      "Corporate Fraud",
-      "Corporate Governance",
-      "Cyber Crime",
-      "Vendor Risk",
-      "Third Party Risk Management",
+      "Regulatory Compliance",
+      "Corporate Compliance",
+      "Industry Standards",
+      "Legal Compliance",
+      "Ethical Compliance",
     ],
     color: "from-[#2b8ffb] to-[#2b8ffb]/80",
   },
   {
-    id: "taxation",
-    title: "Taxation",
-    description: "Advanced taxation and compliance training solutions",
+    id: "risk",
+    title: "Risk",
+    description: "Risk management and mitigation training programs",
     icon: TargetIcon,
     courses: [
-      "International Tax",
-      "Transfer Pricing",
-      "Income Tax",
-      "Tax Disputes",
-      "Goods and Services Tax (GST)",
-      "Customs",
-      "Foreign Trade Policy (FTP)",
-      "VAT",
+      "Enterprise Risk Management",
+      "Operational Risk",
+      "Financial Risk",
+      "Cyber Risk",
+      "Vendor Risk Management",
+      "Third Party Risk",
     ],
     color: "from-[#6c7cae] to-[#6c7cae]/80",
   },
   {
-    id: "accounting",
-    title: "Accounting",
+    id: "accounts",
+    title: "Accounts",
     description: "Professional accounting standards and practices",
     icon: BookOpenIcon,
-    courses: ["IFRS", "Ind – AS", "Internal Audit"],
+    courses: [
+      "IFRS",
+      "Ind AS",
+      "Internal Audit",
+      "Financial Reporting",
+      "Accounting Standards",
+    ],
     color: "from-[#9c408c] to-[#9c408c]/80",
+  },
+  {
+    id: "finance",
+    title: "Finance",
+    description: "Financial management and analysis training",
+    icon: BriefcaseIcon,
+    courses: [
+      "Corporate Finance",
+      "Financial Analysis",
+      "Investment Management",
+      "Treasury Management",
+      "Financial Planning",
+    ],
+    color: "from-[#2b8ffb] to-[#6c7cae]",
+  },
+  {
+    id: "tax",
+    title: "Tax",
+    description: "Advanced taxation and compliance training solutions",
+    icon: TargetIcon,
+    courses: [
+      "Income Tax",
+      "Goods and Services Tax (GST)",
+      "International Tax",
+      "Transfer Pricing",
+      "Tax Planning",
+      "Customs",
+    ],
+    color: "from-[#6c7cae] to-[#9c408c]",
   },
   {
     id: "leadership",
     title: "Leadership",
     description: "Leadership development and team building programs",
     icon: UsersIcon,
-    courses: ["Breakthrough in effectiveness", "Team building", "Soft Skills"],
-    color: "from-[#2b8ffb] to-[#6c7cae]",
+    courses: [
+      "Leadership Development",
+      "Team Building",
+      "Soft Skills",
+      "Executive Coaching",
+      "Change Management",
+    ],
+    color: "from-[#9c408c] to-[#2b8ffb]",
+  },
+  {
+    id: "it",
+    title: "IT",
+    description: "Information technology and digital transformation",
+    icon: BriefcaseIcon,
+    courses: [
+      "IT Governance",
+      "Cybersecurity",
+      "Digital Transformation",
+      "IT Risk Management",
+      "Data Privacy",
+    ],
+    color: "from-[#2b8ffb] to-[#9c408c]",
   },
 ];
 
@@ -204,13 +250,13 @@ export default function SeminarsAndConferencesPage() {
               </div>
             </div>
             <h1 className='text-5xl font-bold text-white mb-6 drop-shadow-lg'>
-              Enterprise Solutions
+              Achromic Point Events
             </h1>
             <p className='text-xl text-white/90 max-w-4xl mx-auto mb-8 drop-shadow-md'>
-              Achromic Point Consulting is the one stop shop for in-house
-              customised training programs on diversified specialized subjects –
-              Legal, Risk, Taxation, Accounting, IFRS, Soft Skills, Leadership
-              Development and many more!
+              Achromic Point specializes in organizing corporate events – Webinars,
+              Seminars, Conferences, Workshops & Leadership Programs. Achromic Point
+              Events is the support division that plays an active role as the events
+              arm of Achromic Point.
             </p>
             <div className='flex flex-col sm:flex-row gap-4 justify-center'>
               <button className='bg-white text-[#2b8ffb] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg'>
@@ -227,58 +273,87 @@ export default function SeminarsAndConferencesPage() {
       {/* Introduction Section */}
       <div className='py-16 bg-white'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='text-center mb-12'>
-            <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-              Tailored Training Programs for Your Organization
+          <div className='mb-12'>
+            <h2 className='text-3xl font-bold text-gray-900 mb-6 text-center'>
+              Achromic Point Events
             </h2>
-            <p className='text-lg text-gray-600 max-w-3xl mx-auto'>
-              These courses are tailored specifically to your organization's
-              essentials, culture, strategy and core competencies. Having
-              identified your organization's needs, we thoroughly assess the
-              vision and individuals' goals to identify knowledge gaps and
-              behavioural changes necessary to emerge triumphant in the race to
-              success and continual progress.
-            </p>
+            <div className='prose prose-lg max-w-none'>
+              <p className='text-lg text-gray-700 mb-6'>
+                Achromic Point specializes in organizing{" "}
+                <strong>
+                  corporate events – Webinars, Seminars, Conferences, Workshops &
+                  Leadership Programs
+                </strong>
+                ; Achromic Point Events is the support division that plays an
+                active role as the events arm of Achromic Point.
+              </p>
+              <p className='text-lg text-gray-700 mb-6'>
+                We need to be swift and well equipped with knowledge to respond and
+                adapt to the evolving regulatory, government and environmental
+                changes. One not only needs strong marketing and products but also
+                innovative and challenging business norms to survive and stay ahead
+                of the competition.
+              </p>
+              <p className='text-lg text-gray-700 mb-6'>
+                At APC Events we display immaculate potential in keeping our clients
+                updated, ahead & informed with key information through our exhaustive
+                and intensive Virtual Learning Programs, Seminars & Workshops that
+                in turn produce remarkable results for individuals and organizations.
+              </p>
+              <p className='text-lg text-gray-700 mb-6'>
+                We leverage on knowledge and information tools with sound business
+                acumen, critical business information, timely insights and analysis
+                from industry practitioners and academics which in turn empowers
+                organizations with a competitive edge that is both strategic &
+                sustainable.
+              </p>
+              <p className='text-lg text-gray-700'>
+                APC provides opportunities to enterprises, individuals as well as
+                other partners in the ecosystem to come together, share learn and
+                grow healthier through various Webinars, Conferences, Seminars,
+                Workshops, Exhibitions and more.
+              </p>
+            </div>
           </div>
 
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-            <div className='text-center p-6 rounded-xl bg-gradient-to-br from-[#2b8ffb]/5 to-[#2b8ffb]/10 border border-[#2b8ffb]/20'>
-              <div className='w-16 h-16 bg-gradient-to-r from-[#2b8ffb] to-[#2b8ffb]/80 rounded-full flex items-center justify-center mx-auto mb-4'>
-                <TargetIcon className='w-8 h-8 text-white' />
+          <div className='mt-12'>
+            <h3 className='text-2xl font-bold text-gray-900 mb-6 text-center'>
+              APC Events provides an excellent opportunity for you to:
+            </h3>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+              <div className='flex items-start space-x-3 p-4 rounded-lg bg-gradient-to-br from-[#2b8ffb]/5 to-[#2b8ffb]/10 border border-[#2b8ffb]/20'>
+                <CheckCircleIcon className='w-6 h-6 text-[#2b8ffb] flex-shrink-0 mt-1' />
+                <p className='text-gray-700'>
+                  Listen, learn and interact with successful industry experts and
+                  practitioners
+                </p>
               </div>
-              <h3 className='text-xl font-semibold text-gray-900 mb-3'>
-                Customized Approach
-              </h3>
-              <p className='text-gray-600'>
-                Tailored specifically to your organization's essentials,
-                culture, strategy, and core competencies.
-              </p>
-            </div>
-
-            <div className='text-center p-6 rounded-xl bg-gradient-to-br from-[#6c7cae]/5 to-[#6c7cae]/10 border border-[#6c7cae]/20'>
-              <div className='w-16 h-16 bg-gradient-to-r from-[#6c7cae] to-[#6c7cae]/80 rounded-full flex items-center justify-center mx-auto mb-4'>
-                <UsersIcon className='w-8 h-8 text-white' />
+              <div className='flex items-start space-x-3 p-4 rounded-lg bg-gradient-to-br from-[#6c7cae]/5 to-[#6c7cae]/10 border border-[#6c7cae]/20'>
+                <CheckCircleIcon className='w-6 h-6 text-[#6c7cae] flex-shrink-0 mt-1' />
+                <p className='text-gray-700'>
+                  Enhance your knowledge on major country specific and global issues
+                </p>
               </div>
-              <h3 className='text-xl font-semibold text-gray-900 mb-3'>
-                Expert-Led Training
-              </h3>
-              <p className='text-gray-600'>
-                Industry experts deliver comprehensive training programs
-                designed for real-world application.
-              </p>
-            </div>
-
-            <div className='text-center p-6 rounded-xl bg-gradient-to-br from-[#9c408c]/5 to-[#9c408c]/10 border border-[#9c408c]/20'>
-              <div className='w-16 h-16 bg-gradient-to-r from-[#9c408c] to-[#9c408c]/80 rounded-full flex items-center justify-center mx-auto mb-4'>
-                <CheckCircleIcon className='w-8 h-8 text-white' />
+              <div className='flex items-start space-x-3 p-4 rounded-lg bg-gradient-to-br from-[#9c408c]/5 to-[#9c408c]/10 border border-[#9c408c]/20'>
+                <CheckCircleIcon className='w-6 h-6 text-[#9c408c] flex-shrink-0 mt-1' />
+                <p className='text-gray-700'>Enhance and develop ideas</p>
               </div>
-              <h3 className='text-xl font-semibold text-gray-900 mb-3'>
-                Proven Results
-              </h3>
-              <p className='text-gray-600'>
-                Measurable outcomes that drive organizational success and
-                continuous improvement.
-              </p>
+              <div className='flex items-start space-x-3 p-4 rounded-lg bg-gradient-to-br from-[#2b8ffb]/5 to-[#2b8ffb]/10 border border-[#2b8ffb]/20'>
+                <CheckCircleIcon className='w-6 h-6 text-[#2b8ffb] flex-shrink-0 mt-1' />
+                <p className='text-gray-700'>
+                  Discover profitable new business opportunities
+                </p>
+              </div>
+              <div className='flex items-start space-x-3 p-4 rounded-lg bg-gradient-to-br from-[#6c7cae]/5 to-[#6c7cae]/10 border border-[#6c7cae]/20'>
+                <CheckCircleIcon className='w-6 h-6 text-[#6c7cae] flex-shrink-0 mt-1' />
+                <p className='text-gray-700'>
+                  Network with your peers and develop new contacts
+                </p>
+              </div>
+              <div className='flex items-start space-x-3 p-4 rounded-lg bg-gradient-to-br from-[#9c408c]/5 to-[#9c408c]/10 border border-[#9c408c]/20'>
+                <CheckCircleIcon className='w-6 h-6 text-[#9c408c] flex-shrink-0 mt-1' />
+                <p className='text-gray-700'>Relevant and Practical Skills Training</p>
+              </div>
             </div>
           </div>
         </div>
@@ -291,9 +366,12 @@ export default function SeminarsAndConferencesPage() {
             <h2 className='text-3xl font-bold text-gray-900 mb-4'>
               Course Topics
             </h2>
-            <p className='text-lg text-gray-600'>
-              Uncover, discover and explore new options and avenues with APC's
-              services on the dynamic canvas of Enterprise solutions
+            <p className='text-lg text-gray-600 mb-4'>
+              APC events offer a comprehensive menu of seminars, workshops and
+              conferences to cater to all professionals.
+            </p>
+            <p className='text-lg text-gray-700 font-semibold'>
+              These programmes target specific issues in the broad categories of -
             </p>
           </div>
 
@@ -359,85 +437,22 @@ export default function SeminarsAndConferencesPage() {
         </div>
       </div>
 
-      {/* Process Section */}
-      <div className='py-16 bg-white'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='text-center mb-12'>
-            <h2 className='text-3xl font-bold text-gray-900 mb-4'>
-              Our Training Process
-            </h2>
-            <p className='text-lg text-gray-600'>
-              A systematic approach to delivering customized training solutions
-            </p>
-          </div>
-
-          <div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
-            <div className='text-center'>
-              <div className='w-16 h-16 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] rounded-full flex items-center justify-center mx-auto mb-4'>
-                <span className='text-white font-bold text-xl'>1</span>
-              </div>
-              <h3 className='text-lg font-semibold text-gray-900 mb-2'>
-                Assessment
-              </h3>
-              <p className='text-gray-600 text-sm'>
-                Identify your organization's needs and knowledge gaps
-              </p>
-            </div>
-
-            <div className='text-center'>
-              <div className='w-16 h-16 bg-gradient-to-r from-[#6c7cae] to-[#9c408c] rounded-full flex items-center justify-center mx-auto mb-4'>
-                <span className='text-white font-bold text-xl'>2</span>
-              </div>
-              <h3 className='text-lg font-semibold text-gray-900 mb-2'>
-                Customization
-              </h3>
-              <p className='text-gray-600 text-sm'>
-                Tailor programs to your culture and strategy
-              </p>
-            </div>
-
-            <div className='text-center'>
-              <div className='w-16 h-16 bg-gradient-to-r from-[#9c408c] to-[#2b8ffb] rounded-full flex items-center justify-center mx-auto mb-4'>
-                <span className='text-white font-bold text-xl'>3</span>
-              </div>
-              <h3 className='text-lg font-semibold text-gray-900 mb-2'>
-                Delivery
-              </h3>
-              <p className='text-gray-600 text-sm'>
-                Expert-led training with practical applications
-              </p>
-            </div>
-
-            <div className='text-center'>
-              <div className='w-16 h-16 bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] rounded-full flex items-center justify-center mx-auto mb-4'>
-                <span className='text-white font-bold text-xl'>4</span>
-              </div>
-              <h3 className='text-lg font-semibold text-gray-900 mb-2'>
-                Evaluation
-              </h3>
-              <p className='text-gray-600 text-sm'>
-                Measure results and continuous improvement
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* CTA Section */}
       <div className='bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] py-16'>
         <div className='max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center'>
           <h2 className='text-3xl font-bold text-white mb-4'>
-            Ready to Transform Your Organization?
+            Ready to Join Our Events?
           </h2>
           <p className='text-xl text-white/90 mb-8'>
-            Contact us today to discuss your customized training needs and get a
-            tailored proposal for your organization's success.
+            Explore our comprehensive menu of seminars, workshops and conferences
+            designed to enhance your professional knowledge and skills.
           </p>
 
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-            <button className='bg-white text-[#2b8ffb] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg'>
+            <a href="/contact-us" className='bg-white text-[#2b8ffb] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg'>
               Request a Quote
-            </button>
+            </a>
             <button className='border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-[#2b8ffb] transition-all duration-200'>
               Schedule Consultation
             </button>

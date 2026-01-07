@@ -4,6 +4,10 @@ import { useApi } from "@/hooks/useApi";
 import { getCategories } from "@/services/category";
 import { getEvents } from "@/services/event";
 import {
+  submitContactForm,
+  ContactFormData,
+} from "@/services/contact";
+import {
   daysDifference,
   formatCustomDate,
   formatTimeRange,
@@ -92,6 +96,19 @@ export default function UpcomingEventPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const BROCHURE_URL = "/brochure.pdf"; // Place your brochure at public/brochure.pdf
 
+  // Modal state for Event Registration
+  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+  const [selectedEventForModal, setSelectedEventForModal] = useState<any>(null);
+  const [eventFormData, setEventFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    designation: "",
+  });
+  const [eventFormErrors, setEventFormErrors] = useState<any>({});
+  const [isSubmittingEventForm, setIsSubmittingEventForm] = useState(false);
+
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
@@ -132,6 +149,117 @@ export default function UpcomingEventPage() {
     } catch (err) {
       console.error("Download failed", err);
       setIsSubmitting(false);
+    }
+  };
+
+  // Handle event registration modal
+  const handleEventRegistrationClick = (event: any) => {
+    setSelectedEventForModal(event);
+    setIsEventModalOpen(true);
+    // Reset form
+    setEventFormData({
+      name: "",
+      email: "",
+      phone: "",
+      company: "",
+      designation: "",
+    });
+    setEventFormErrors({});
+  };
+
+  const closeEventModal = () => {
+    setIsEventModalOpen(false);
+    setSelectedEventForModal(null);
+    setEventFormErrors({});
+    setIsSubmittingEventForm(false);
+  };
+
+  const handleEventFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setEventFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    // Clear error for this field
+    if (eventFormErrors[name]) {
+      setEventFormErrors((prev: any) => ({
+        ...prev,
+        [name]: undefined,
+      }));
+    }
+  };
+
+  const validateEventForm = () => {
+    const errs: any = {};
+    if (!eventFormData.name.trim()) {
+      errs.name = "Name is required";
+    }
+    if (
+      !eventFormData.email.trim() ||
+      !/^\S+@\S+\.\S+$/.test(eventFormData.email)
+    ) {
+      errs.email = "Valid email is required";
+    }
+    if (
+      !eventFormData.phone.trim() ||
+      !/^[\d()+\s-]{7,}$/.test(eventFormData.phone)
+    ) {
+      errs.phone = "Valid phone number is required";
+    }
+    if (!eventFormData.company.trim()) {
+      errs.company = "Company is required";
+    }
+    if (!eventFormData.designation.trim()) {
+      errs.designation = "Designation is required";
+    }
+    setEventFormErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
+
+  const handleEventFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateEventForm()) return;
+
+    setIsSubmittingEventForm(true);
+
+    try {
+      // Prepare contact form data with auto-generated message
+      const eventName = selectedEventForModal?.title || selectedEventForModal?.name || "Event";
+      const eventSlug = selectedEventForModal?.slug || "";
+      const subject = `Request to View Event: ${eventName}`;
+      const message = `I would like to view the event "${eventName}" with event slug: ${eventSlug}. Please provide me access to the event details.`;
+
+      const contactFormData: ContactFormData = {
+        name: eventFormData.name,
+        email: eventFormData.email,
+        phone: eventFormData.phone,
+        company: eventFormData.company,
+        subject: subject,
+        message: message,
+      };
+
+      // Submit to contact API
+      await submitContactForm(contactFormData);
+
+      // Get event link
+      const eventLink = eventSlug ? `/event/${eventSlug}` : "#";
+
+      // Close modal
+      closeEventModal();
+
+      // Redirect to event page
+      if (eventLink !== "#") {
+        window.location.href = eventLink;
+      }
+    } catch (error: any) {
+      console.error("Error submitting event form:", error);
+      setEventFormErrors({
+        submit:
+          error?.response?.data?.message ||
+          "Failed to submit form. Please try again.",
+      });
+    } finally {
+      setIsSubmittingEventForm(false);
     }
   };
 
@@ -483,12 +611,15 @@ export default function UpcomingEventPage() {
                     </div>
 
                     <div className="w-full">
-                      <Link
-                        href={`/event/${event.slug}`}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleEventRegistrationClick(event);
+                        }}
                         className="w-full items-center justify-center flex bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200"
                       >
                         View Details & Register
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -550,7 +681,9 @@ export default function UpcomingEventPage() {
                       <Image
                         alt={event.title || event.name || "Event"}
                         src={
-                          event?.bannerUrl !==undefined && event?.bannerUrl !==null && event?.bannerUrl !== ""
+                          event?.bannerUrl !== undefined &&
+                          event?.bannerUrl !== null &&
+                          event?.bannerUrl !== ""
                             ? event?.bannerUrl
                             : "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80"
                         }
@@ -647,12 +780,15 @@ export default function UpcomingEventPage() {
                     </div>
 
                     <div className="w-full">
-                      <Link
-                        href={`/event/${event.slug}`}
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleEventRegistrationClick(event);
+                        }}
                         className="w-full items-center justify-center flex bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white px-4 py-2 rounded-lg font-semibold hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 transition-all duration-200"
                       >
                         View Details & Register
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -694,6 +830,221 @@ export default function UpcomingEventPage() {
           </p>
         </div>
       </div>
+
+      {/* Event Registration Modal */}
+      {isEventModalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 "
+          onClick={closeEventModal}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] p-6 text-white">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="text-xl font-bold">
+                    {selectedEventForModal?.title ||
+                      selectedEventForModal?.name ||
+                      "Register for Event"}
+                  </h3>
+                  <p className="text-sm text-white/90 mt-1">
+                    Please fill in your details to continue
+                  </p>
+                </div>
+                <button
+                  onClick={closeEventModal}
+                  className="text-white hover:text-gray-200 transition-colors"
+                >
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Form */}
+            <form onSubmit={handleEventFormSubmit} className="p-6">
+              {/* Error Message */}
+              {eventFormErrors.submit && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-sm text-red-800">
+                    {eventFormErrors.submit}
+                  </p>
+                </div>
+              )}
+
+              <div className="space-y-4">
+                {/* Name */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={eventFormData.name}
+                    onChange={handleEventFormChange}
+                    required
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-[#2b8ffb] outline-none transition ${
+                      eventFormErrors.name
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                    placeholder="Enter your name"
+                  />
+                  {eventFormErrors.name && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {eventFormErrors.name}
+                    </p>
+                  )}
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Email <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={eventFormData.email}
+                    onChange={handleEventFormChange}
+                    required
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-[#2b8ffb] outline-none transition ${
+                      eventFormErrors.email
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                    placeholder="Enter your email"
+                  />
+                  {eventFormErrors.email && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {eventFormErrors.email}
+                    </p>
+                  )}
+                </div>
+
+                {/* Phone */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Phone <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={eventFormData.phone}
+                    onChange={handleEventFormChange}
+                    required
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-[#2b8ffb] outline-none transition ${
+                      eventFormErrors.phone
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                    placeholder="Enter your phone number"
+                  />
+                  {eventFormErrors.phone && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {eventFormErrors.phone}
+                    </p>
+                  )}
+                </div>
+
+                {/* Company */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Company <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="company"
+                    value={eventFormData.company}
+                    onChange={handleEventFormChange}
+                    required
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-[#2b8ffb] outline-none transition ${
+                      eventFormErrors.company
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                    placeholder="Enter your company name"
+                  />
+                  {eventFormErrors.company && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {eventFormErrors.company}
+                    </p>
+                  )}
+                </div>
+
+                {/* Designation */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Designation <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="designation"
+                    value={eventFormData.designation}
+                    onChange={handleEventFormChange}
+                    required
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-[#2b8ffb] outline-none transition ${
+                      eventFormErrors.designation
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
+                    placeholder="Enter your designation"
+                  />
+                  {eventFormErrors.designation && (
+                    <p className="mt-1 text-sm text-red-600">
+                      {eventFormErrors.designation}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <div className="mt-6 flex gap-3">
+                <button
+                  type="button"
+                  onClick={closeEventModal}
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmittingEventForm}
+                  className={`flex-1 px-4 py-2 rounded-lg font-semibold text-white transition-all ${
+                    isSubmittingEventForm
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] hover:from-[#2b8ffb]/90 hover:to-[#6c7cae]/90 shadow-lg"
+                  }`}
+                >
+                  {isSubmittingEventForm ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Submitting...
+                    </span>
+                  ) : (
+                    "Continue to Event"
+                  )}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

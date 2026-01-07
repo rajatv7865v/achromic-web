@@ -174,30 +174,24 @@ export default function CorporateMembershipPage() {
                 <div className='flex items-start gap-3'>
                   <span className='text-[#2b8ffb] font-bold mt-1'>1.</span>
                   <p>
-                    Please confirm the number of events <b>(5 to 10+)</b> and share the <b>event names</b> you wish to opt for.
+                  Please confirm the number of events <b>(3 to 9)</b> and share the event names you wish to opt for.
                   </p>
                 </div>
                 <div className='flex items-start gap-3'>
                   <span className='text-[#2b8ffb] font-bold mt-1'>2.</span>
                   <p>
-                    Select your membership type: <b>Delegate</b> or <b>Combo</b>.
+                  Select your membership type: <b>Bronze</b> | <b>Silver</b> | <b>Gold</b> | <b>Platinum</b>
                   </p>
                 </div>
                 <div className='flex items-start gap-3'>
                   <span className='text-[#2b8ffb] font-bold mt-1'>3.</span>
                   <p>
-                    If convenient, we can <b>schedule a call</b> to discuss the best-fit plan for your organization and address any queries.
+                  If convenient, we can <b>schedule a call</b> to discuss the best-fit plan for your organization and address any queries.
                   </p>
                 </div>
+              
               </div>
-              <div className='mt-8'>
-                <a
-                  href='/registration'
-                  className='inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-[#2b8ffb] to-[#6c7cae] text-white font-semibold hover:opacity-95 transition'
-                >
-                  Get Started
-                </a>
-              </div>
+             
             </div>
           </div>
         </div>
