@@ -1357,7 +1357,7 @@ export default function Home() {
               </div>
 
               {/* Modal Form */}
-              <form onSubmit={handleGalleryFormSubmit} className="p-6">
+              <form onSubmit={handleGalleryFormSubmit} className="p-6 text-black">
                 {/* Error Message */}
                 {galleryFormErrors.submit && (
                   <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">

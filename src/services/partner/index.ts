@@ -14,7 +14,7 @@ export interface ApiPartner {
   _id: string;
   name: string;
   imagePath: string;
-  partnerType: 'GOLD_PARTNER' | 'PLATINUM_PARTNER' | 'SILVER_PARTNER' | 'BRONZE_PARTNER' | 'other';
+  partnerType: 'GOLD_PARTNER' | 'PLATINUM_PARTNER' | 'SILVER_PARTNER' | 'BRONZE_PARTNER' | 'OTHER_PARTNER' | 'other';
   eventId: string[];
   isActive: boolean;
   createdAt: string;

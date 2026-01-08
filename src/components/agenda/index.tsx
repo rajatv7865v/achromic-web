@@ -232,7 +232,6 @@ export default function Agenda({ eventId }: AgendaProps) {
 
     fetchAgenda();
   }, [eventId]);
-console.log("agendaData", agendaData);
   const toggleSession = (sessionId: string) => {
     setExpandedSessions((prev) =>
       prev.includes(sessionId)
@@ -331,7 +330,7 @@ console.log("agendaData", agendaData);
             {agendaData[0]?.eventId?.dateFrom && (
               <p className="flex items-center justify-center space-x-2">
                 <CalendarIcon className="w-5 h-5 text-[#2b8ffb]" />
-                <span>{agendaData[0]?.eventId?.dateFrom }</span>
+                <span>{agendaData[0]?.eventId?.dateFrom}</span>
               </p>
             )}
             {agendaData[0]?.eventId?.venue && (
@@ -340,9 +339,7 @@ console.log("agendaData", agendaData);
                 <span>{agendaData[0]?.eventId?.venue}</span>
               </p>
             )}
-            { (
-              <p>{agendaData[0]?.eventId?.description}</p>
-            )}
+            {<p>{agendaData[0]?.eventId?.description}</p>}
           </div>
         </div>
 
@@ -394,23 +391,14 @@ console.log("agendaData", agendaData);
                                 </span>
                               </div>
 
-                              <p className="text-gray-600 mb-3">
-                                {session.description}
-                              </p>
-                            <div className="text-gray-600 mb-3">
-                            <p dangerouslySetInnerHTML={{ __html: session.content || "" as string }} />
-                            </div>
-
-                              
-
-                              <div className="flex items-center space-x-6 text-sm text-gray-500">
+                              <div className="flex items-center space-x-6 text-sm text-gray-500 pt-5">
                                 <div className="flex items-center space-x-1">
                                   <ClockIcon className="w-4 h-4" />
                                   <span>{session.duration}</span>
                                 </div>
                                 <div className="flex items-center space-x-1">
                                   <MapPinIcon className="w-4 h-4" />
-                                  <span>{session.location}</span>
+                                  <span>{agendaData[0]?.eventId?.venue}</span>
                                 </div>
                                 {session.speakers?.length > 0 && (
                                   <div className="flex items-center space-x-1">
@@ -437,182 +425,194 @@ console.log("agendaData", agendaData);
 
                         {/* Expanded Content */}
                         {expandedSessions.includes(session.id) && (
-                            <div className="border-t border-gray-200 bg-gray-50 p-6">
-                              {/* Session Description/Content */}
-                              {session.description && (
-                                <div className="mb-6">
-                                  <h4 className="text-lg font-semibold text-gray-900 mb-3">
-                                    About This Session
-                                  </h4>
-                                  <p className="text-gray-700 leading-relaxed">
-                                    {session.description}
-                                  </p>
+                          <div className="border-t border-gray-200 bg-gray-50 p-6">
+                            {/* Session Description/Content */}
+
+                            {session.content && (
+                              <div className="mb-6">
+                                <h5 className="text-sm uppercase tracking-wide text-gray-500 mb-2">
+                                  Additional Details
+                                </h5>
+                                <div
+                                  className="prose prose-sm max-w-none text-gray-700
+                                    prose-ul:list-disc prose-ul:pl-6
+                                    prose-ol:list-decimal prose-ol:pl-6"
+                                  dangerouslySetInnerHTML={{
+                                    __html: session.content || "",
+                                  }}
+                                />
+                              </div>
+                            )}
+                            {/* Analytics Snapshot */}
+                            {session.analytics && (
+                              <div className="mb-6">
+                                <h5 className="text-sm uppercase tracking-wide text-gray-500 mb-3">
+                                  Session Analytics
+                                </h5>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                  {session.analytics.attendees !==
+                                    undefined && (
+                                    <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
+                                      <p className="text-xs text-gray-500">
+                                        Attendees
+                                      </p>
+                                      <p className="text-xl font-semibold text-gray-900">
+                                        {session.analytics.attendees}
+                                      </p>
+                                    </div>
+                                  )}
+                                  {session.analytics.views !== undefined && (
+                                    <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
+                                      <p className="text-xs text-gray-500">
+                                        Views
+                                      </p>
+                                      <p className="text-xl font-semibold text-gray-900">
+                                        {session.analytics.views}
+                                      </p>
+                                    </div>
+                                  )}
+                                  {session.analytics.likes !== undefined && (
+                                    <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
+                                      <p className="text-xs text-gray-500">
+                                        Likes
+                                      </p>
+                                      <p className="text-xl font-semibold text-gray-900">
+                                        {session.analytics.likes}
+                                      </p>
+                                    </div>
+                                  )}
+                                  {session.analytics.rating !== undefined && (
+                                    <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
+                                      <p className="text-xs text-gray-500">
+                                        Avg. Rating
+                                      </p>
+                                      <p className="text-xl font-semibold text-gray-900">
+                                        {session.analytics.rating.toFixed(1)}
+                                      </p>
+                                    </div>
+                                  )}
                                 </div>
-                              )}
-                              {session.content && (
-                                <div className="mb-6">
-                                  <h5 className="text-sm uppercase tracking-wide text-gray-500 mb-2">
-                                    Additional Details
-                                  </h5>
-                                  <div
-                                    className="prose prose-sm max-w-none text-gray-700"
-                                    dangerouslySetInnerHTML={{
-                                      __html: session.content || "",
-                                    }}
-                                  />
+                              </div>
+                            )}
+                            {/* Image Gallery */}
+                            {session.images && session.images.length > 0 && (
+                              <div className="mb-6">
+                                <h5 className="text-sm uppercase tracking-wide text-gray-500 mb-3">
+                                  Session Gallery
+                                </h5>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                  {session.images.map((src, idx) => (
+                                    <div
+                                      key={`${session.id}-img-${idx}`}
+                                      className="relative overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
+                                    >
+                                      <img
+                                        src={src}
+                                        alt={`Session media ${idx + 1}`}
+                                        className="w-full h-28 object-cover"
+                                        onError={(e) => {
+                                          (
+                                            e.target as HTMLImageElement
+                                          ).style.display = "none";
+                                        }}
+                                      />
+                                    </div>
+                                  ))}
                                 </div>
-                              )}
-                              {/* Analytics Snapshot */}
-                              {session.analytics && (
-                                <div className="mb-6">
-                                  <h5 className="text-sm uppercase tracking-wide text-gray-500 mb-3">
-                                    Session Analytics
-                                  </h5>
-                                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                                    {session.analytics.attendees !== undefined && (
-                                      <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
-                                        <p className="text-xs text-gray-500">Attendees</p>
-                                        <p className="text-xl font-semibold text-gray-900">
-                                          {session.analytics.attendees}
-                                        </p>
-                                      </div>
-                                    )}
-                                    {session.analytics.views !== undefined && (
-                                      <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
-                                        <p className="text-xs text-gray-500">Views</p>
-                                        <p className="text-xl font-semibold text-gray-900">
-                                          {session.analytics.views}
-                                        </p>
-                                      </div>
-                                    )}
-                                    {session.analytics.likes !== undefined && (
-                                      <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
-                                        <p className="text-xs text-gray-500">Likes</p>
-                                        <p className="text-xl font-semibold text-gray-900">
-                                          {session.analytics.likes}
-                                        </p>
-                                      </div>
-                                    )}
-                                    {session.analytics.rating !== undefined && (
-                                      <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
-                                        <p className="text-xs text-gray-500">Avg. Rating</p>
-                                        <p className="text-xl font-semibold text-gray-900">
-                                          {session.analytics.rating.toFixed(1)}
-                                        </p>
-                                      </div>
-                                    )}
-                                  </div>
-                                </div>
-                              )}
-                              {/* Image Gallery */}
-                              {session.images && session.images.length > 0 && (
-                                <div className="mb-6">
-                                  <h5 className="text-sm uppercase tracking-wide text-gray-500 mb-3">
-                                    Session Gallery
-                                  </h5>
-                                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                    {session.images.map((src, idx) => (
-                                      <div
-                                        key={`${session.id}-img-${idx}`}
-                                        className="relative overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm"
-                                      >
-                                        <img
-                                          src={src}
-                                          alt={`Session media ${idx + 1}`}
-                                          className="w-full h-28 object-cover"
-                                          onError={(e) => {
-                                            (e.target as HTMLImageElement).style.display = "none";
-                                          }}
-                                        />
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-                              
-                              {/* Speakers */}
-                              {session.speakers && session.speakers.length > 0 && (
+                              </div>
+                            )}
+
+                            {/* Speakers */}
+                            {session.speakers &&
+                              session.speakers.length > 0 && (
                                 <>
                                   <h4 className="text-lg font-semibold text-gray-900 mb-4">
                                     Speakers
                                   </h4>
-                              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {session.speakers &&
-                                session.speakers.length > 0 ? (
-                                  session.speakers.map((speaker: Speaker) => (
-                                    <div
-                                      key={speaker.id}
-                                      className="bg-white rounded-lg p-4 shadow-sm border border-gray-100"
-                                    >
-                                      <div className="flex items-start space-x-3">
-                                        <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
-                                          {speaker.avatar ? (
-                                            <img
-                                              src={speaker?.avatar}
-                                              alt={speaker?.avatar}
-                                              className="w-full h-full object-cover"
-                                              onError={(e) => {
-                                                const target =
-                                                  e.target as HTMLImageElement;
-                                                target.style.display = "none";
-                                                target.nextElementSibling?.classList.remove(
-                                                  "hidden"
-                                                );
-                                              }}
-                                            />
-                                          ) : null}
+                                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {session.speakers &&
+                                    session.speakers.length > 0 ? (
+                                      session.speakers.map(
+                                        (speaker: Speaker) => (
                                           <div
-                                            className={`w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center ${
-                                              speaker.avatar ? "hidden" : ""
-                                            }`}
+                                            key={speaker.id}
+                                            className="bg-white rounded-lg p-4 shadow-sm border border-gray-100"
                                           >
-                                            <UserIcon className="w-6 h-6 text-gray-600" />
-                                          </div>
-                                        </div>
-                                        <div className="flex-1 min-w-0">
-                                          <h5 className="font-semibold text-gray-900">
-                                            {speaker.name}
-                                          </h5>
-                                          <p className="text-sm text-[#2b8ffb] font-medium">
-                                            {speaker.designation}
-                                          </p>
-                                          <p className="text-sm text-gray-600">
-                                            {speaker.organization}
-                                          </p>
-                                          <p className="text-xs text-gray-500 mt-2 line-clamp-2">
-                                            {speaker.description}
-                                          </p>
+                                            <div className="flex items-start space-x-3">
+                                              <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                                                {speaker.avatar ? (
+                                                  <img
+                                                    src={speaker?.avatar}
+                                                    alt={speaker?.avatar}
+                                                    className="w-full h-full object-cover"
+                                                    onError={(e) => {
+                                                      const target =
+                                                        e.target as HTMLImageElement;
+                                                      target.style.display =
+                                                        "none";
+                                                      target.nextElementSibling?.classList.remove(
+                                                        "hidden"
+                                                      );
+                                                    }}
+                                                  />
+                                                ) : null}
+                                                <div
+                                                  className={`w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center ${
+                                                    speaker.avatar
+                                                      ? "hidden"
+                                                      : ""
+                                                  }`}
+                                                >
+                                                  <UserIcon className="w-6 h-6 text-gray-600" />
+                                                </div>
+                                              </div>
+                                              <div className="flex-1 min-w-0">
+                                                <h5 className="font-semibold text-gray-900">
+                                                  {speaker.name}
+                                                </h5>
+                                                <p className="text-sm text-[#2b8ffb] font-medium">
+                                                  {speaker.designation}
+                                                </p>
+                                                <p className="text-sm text-gray-600">
+                                                  {speaker.organization}
+                                                </p>
+                                                <p className="text-xs text-gray-500 mt-2 line-clamp-2">
+                                                  {speaker.description}
+                                                </p>
 
-                                          {/* Social Links */}
-                                          <div className="flex space-x-2 mt-3">
-                                            {speaker?.linkedinUrl && (
-                                              <a
-                                                href={speaker?.linkedinUrl}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-[#0077B5] hover:text-[#0077B5]/80 transition-colors duration-200"
-                                                title="LinkedIn Profile"
-                                              >
-                                                <LinkedInIcon className="w-5 h-5" />
-                                              </a>
-                                            )}
+                                                {/* Social Links */}
+                                                <div className="flex space-x-2 mt-3">
+                                                  {speaker?.linkedinUrl && (
+                                                    <a
+                                                      href={
+                                                        speaker?.linkedinUrl
+                                                      }
+                                                      target="_blank"
+                                                      rel="noopener noreferrer"
+                                                      className="text-[#0077B5] hover:text-[#0077B5]/80 transition-colors duration-200"
+                                                      title="LinkedIn Profile"
+                                                    >
+                                                      <LinkedInIcon className="w-5 h-5" />
+                                                    </a>
+                                                  )}
+                                                </div>
+                                              </div>
+                                            </div>
                                           </div>
-                                        </div>
+                                        )
+                                      )
+                                    ) : (
+                                      <div className="col-span-full text-center py-4">
+                                        <p className="text-gray-500 text-sm">
+                                          No speakers assigned to this session
+                                        </p>
                                       </div>
-                                    </div>
-                                  ))
-                                ) : (
-                                  <div className="col-span-full text-center py-4">
-                                    <p className="text-gray-500 text-sm">
-                                      No speakers assigned to this session
-                                    </p>
+                                    )}
                                   </div>
-                                )}
-                              </div>
                                 </>
                               )}
-                            </div>
-                          )}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

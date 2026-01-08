@@ -665,6 +665,7 @@ export default function UpcomingEventPage() {
             )
             .map((event: any) => {
               const transformedEvent = transformEvent(event);
+              const days = daysDifference(event.dateFrom, event.dateTo);
               return (
                 <div
                   key={event._id || event.id || Date.now()}
@@ -703,10 +704,7 @@ export default function UpcomingEventPage() {
                     </div>
 
                     <div className="absolute top-4 right-2 bg-[#2b8ffb] text-white px-2 py-1 rounded-full text-[14px] font-semibold">
-                      {`${daysDifference(
-                        event.dateFrom,
-                        event.dateTo
-                      )} Day's Conference`}
+                      {`${days} ${days == 1 ? 'Day' : 'Days'} Conference`}
                     </div>
 
                     <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">
@@ -876,7 +874,7 @@ export default function UpcomingEventPage() {
             </div>
 
             {/* Modal Form */}
-            <form onSubmit={handleEventFormSubmit} className="p-6">
+            <form onSubmit={handleEventFormSubmit} className="p-6 text-black">
               {/* Error Message */}
               {eventFormErrors.submit && (
                 <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">

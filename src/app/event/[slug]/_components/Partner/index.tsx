@@ -1,12 +1,15 @@
 import Image from "next/image";
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
-import type { Partner, ApiPartner, ApiPartnersResponse } from "@/services/partner";
+import type {
+  Partner,
+  ApiPartner,
+  ApiPartnersResponse,
+} from "@/services/partner";
 import { partnerService } from "@/services/partner";
 import { mockPartners } from "@/data/mockPartners";
 
-
-type PartnerCategory = "Gold" | "Platinum" | "Silver" | "Bronze"|'Other';
+type PartnerCategory = "Gold" | "Platinum" | "Silver" | "Bronze" | "Other";
 
 export default function Partner({ eventId }: { eventId: string }) {
   const [partners, setPartners] = useState<Partner[]>([]);
@@ -19,56 +22,92 @@ export default function Partner({ eventId }: { eventId: string }) {
       try {
         setLoading(true);
         setError(null);
-        
+
         // Call the new API to get partners
-        const response: ApiPartnersResponse = await partnerService.getPartnersFromApi(
-          eventId,
-          1,      // page
-          50,     // limit - using higher limit to get all partners for event
-          'createdAt',
-          'desc'
+        const response: ApiPartnersResponse =
+          await partnerService.getPartnersFromApi(
+            eventId,
+            1, // page
+            50, // limit - using higher limit to get all partners for event
+            "createdAt",
+            "desc"
+          );
+
+        // Debug: Log all partners and their types
+        console.log("All partners from API:", response.data.data);
+        console.log(
+          "OTHER_PARTNER partners:",
+          response.data.data.filter(
+            (p) =>
+              p.partnerType === "OTHER_PARTNER" ||
+              p.partnerType?.toUpperCase() === "OTHER_PARTNER"
+          )
         );
-        
+
         // Convert API response to the format expected by the UI
         const convertedPartners: Partner[] = response.data.data
-          .filter(partner => partner.isActive) // Only include active partners
-          .filter(partner => partner.eventId.includes(eventId)) // Filter by event ID
+          .filter((partner) => partner.isActive) // Only include active partners
+          .filter((partner) => partner.eventId.includes(eventId)) // Filter by event ID
           .map((apiPartner: ApiPartner) => {
             // Map partnerType to category
-            let category: 'Gold' | 'Platinum' | 'Silver' | 'Bronze' | 'Other'| undefined;
-            switch(apiPartner.partnerType) {
-              case 'GOLD_PARTNER':
-                category = 'Gold';
+            let category:
+              | "Gold"
+              | "Platinum"
+              | "Silver"
+              | "Bronze"
+              | "Other"
+              | undefined;
+
+            // Normalize partnerType to handle case variations
+            const normalizedPartnerType = String(apiPartner.partnerType)
+              .toUpperCase()
+              .trim();
+
+            switch (normalizedPartnerType) {
+              case "GOLD_PARTNER":
+                category = "Gold";
                 break;
-              case 'PLATINUM_PARTNER':
-                category = 'Platinum';
+              case "PLATINUM_PARTNER":
+                category = "Platinum";
                 break;
-              case 'SILVER_PARTNER':
-                category = 'Silver';
+              case "SILVER_PARTNER":
+                category = "Silver";
                 break;
-              case 'BRONZE_PARTNER':
-                category = 'Bronze';
+              case "BRONZE_PARTNER":
+                category = "Bronze";
                 break;
-              case 'other':
-                category = 'Other';
+              case "OTHER_PARTNER":
+              case "OTHER":
+                category = "Other";
                 break;
               default:
+                // Log unexpected partnerType for debugging
+                console.warn(
+                  `Unknown partnerType: ${apiPartner.partnerType}, normalized: ${normalizedPartnerType}`
+                );
                 category = undefined;
             }
-            
+
             return {
               logo: apiPartner.imagePath,
-              website: '#', // Default to # since API doesn't provide website
+              website: "#", // Default to # since API doesn't provide website
               isActive: apiPartner.isActive,
               category: category,
             };
           });
-        
+
+        // Debug: Log converted partners by category
+        console.log("Converted partners:", convertedPartners);
+        console.log(
+          "Other category partners:",
+          convertedPartners.filter((p) => p.category === "Other")
+        );
+
         setPartners(convertedPartners);
       } catch (err) {
         setError("Failed to fetch partners");
         console.error("Error fetching event partners:", err);
-        
+
         // Fallback to mock data if API fails
         try {
           const eventPartners = mockPartners.filter(
@@ -99,8 +138,15 @@ export default function Partner({ eventId }: { eventId: string }) {
     partners.forEach((partner) => {
       if (partner.category && grouped[partner.category]) {
         grouped[partner.category].push(partner);
+      } else if (partner.category === "Other") {
+        // Debug: Log if Other category partners are not being grouped
+        console.warn("Partner with Other category not grouped:", partner);
       }
     });
+
+    // Debug: Log grouped partners
+    console.log("Partners by category:", grouped);
+    console.log("Other category count:", grouped.Other.length);
 
     return grouped;
   }, [partners]);
@@ -154,7 +200,7 @@ export default function Partner({ eventId }: { eventId: string }) {
       case "Bronze":
         return "from-transparent via-amber-400 to-transparent";
       case "Other":
-        return "from-transparent via-gray-300 to-transparent"; 
+        return "from-transparent via-gray-300 to-transparent";
       default:
         return "from-transparent via-gray-300 to-transparent";
     }
@@ -171,9 +217,9 @@ export default function Partner({ eventId }: { eventId: string }) {
       case "Bronze":
         return "border-amber-600";
       case "Other":
-        return "border-gray-300";
+        return "border-blue-300";
       default:
-        return "border-gray-300";
+        return "border-red-300";
     }
   };
 
@@ -201,7 +247,7 @@ export default function Partner({ eventId }: { eventId: string }) {
     "Platinum",
     "Silver",
     "Bronze",
-    "Other"
+    "Other",
   ];
 
   return (
@@ -255,7 +301,9 @@ export default function Partner({ eventId }: { eventId: string }) {
             {/* Partners Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
               {categoryPartners.map((partner, index) => {
-                const partnerKey = `${category}-${index}-${partner.website || '#'}`;
+                const partnerKey = `${category}-${index}-${
+                  partner.website || "#"
+                }`;
                 return (
                   <div
                     key={partnerKey}

@@ -45,3 +45,14 @@ body {
   width: 25%;
   animation: progress 1.5s ease-in-out infinite;
 }
+
+
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.prose ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+}
