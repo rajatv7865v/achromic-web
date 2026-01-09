@@ -156,7 +156,7 @@ interface Session {
     attendees?: number;
     rating?: number;
   };
-  type: "keynote" | "panel" | "workshop" | "break" | "networking";
+  type: "keynote" | "panel" | "award" | "break" | "networking";
   description: string;
   sessions: Session[];
   speakers: Speaker[];
@@ -256,7 +256,7 @@ export default function Agenda({ eventId }: AgendaProps) {
         return "bg-[#2b8ffb]/10 text-[#2b8ffb] border-[#2b8ffb]/20";
       case "panel":
         return "bg-[#6c7cae]/10 text-[#6c7cae] border-[#6c7cae]/20";
-      case "workshop":
+      case "award":
         return "bg-[#9c408c]/10 text-[#9c408c] border-[#9c408c]/20";
       case "break":
         return "bg-orange-100 text-orange-800 border-orange-200";
@@ -273,7 +273,7 @@ export default function Agenda({ eventId }: AgendaProps) {
         return "🎤";
       case "panel":
         return "👥";
-      case "workshop":
+      case "award":
         return "🛠️";
       case "break":
         return "☕";

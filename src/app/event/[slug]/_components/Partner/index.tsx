@@ -90,7 +90,7 @@ export default function Partner({ eventId }: { eventId: string }) {
 
             return {
               logo: apiPartner.imagePath,
-              website: "#", // Default to # since API doesn't provide website
+              companyUrl: apiPartner.companyUrl || "#",
               isActive: apiPartner.isActive,
               category: category,
             };
@@ -144,9 +144,7 @@ export default function Partner({ eventId }: { eventId: string }) {
       }
     });
 
-    // Debug: Log grouped partners
-    console.log("Partners by category:", grouped);
-    console.log("Other category count:", grouped.Other.length);
+
 
     return grouped;
   }, [partners]);
@@ -282,7 +280,7 @@ export default function Partner({ eventId }: { eventId: string }) {
                       category
                     )} tracking-wide`}
                   >
-                    {category} Partners
+                    {category} {categoryPartners.length==1 ? "Partner" : "Partners"}
                   </h4>
                   <div
                     className={`w-2 h-2 rounded-full bg-gradient-to-r ${getCategoryColor(
@@ -302,7 +300,7 @@ export default function Partner({ eventId }: { eventId: string }) {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
               {categoryPartners.map((partner, index) => {
                 const partnerKey = `${category}-${index}-${
-                  partner.website || "#"
+                  partner.companyUrl || "#"
                 }`;
                 return (
                   <div
@@ -325,7 +323,7 @@ export default function Partner({ eventId }: { eventId: string }) {
 
                     {/* Partner logo container */}
                     <Link
-                      href={partner.website || "#"}
+                      href={partner?.companyUrl || "#"}
                       className="relative block text-center group-hover:scale-110 transition-transform duration-300"
                       target="_blank"
                       rel="noopener noreferrer"
