@@ -44,6 +44,7 @@ export interface OrderDetails {
   _id: string;
   firstName: string;
   lastName: string;
+  currency: string;
   email: string;
   phoneNumber: string;
   company: string;

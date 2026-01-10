@@ -1245,15 +1245,19 @@ export default function CheckoutModal({
                   )}
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <button
-                      type="button"
-                      onClick={handlePayU}
-                      className="group relative bg-gradient-to-r from-[#2b8ffb] to-[#2b8ffb]/90 text-white py-5 px-6 rounded-xl font-semibold hover:from-[#2b8ffb]/95 hover:to-[#2b8ffb]/85 transition-all shadow-lg hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 overflow-hidden"
-                    >
-                      <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                      <CreditCard className="w-6 h-6 relative z-10" />
-                      <span className="relative z-10">Pay with PayU</span>
-                    </button>
+                  {
+                    currency !== "USD" && (
+                      <button
+                        type="button"
+                        onClick={handlePayU}
+                        className="group relative bg-gradient-to-r from-[#2b8ffb] to-[#2b8ffb]/90 text-white py-5 px-6 rounded-xl font-semibold hover:from-[#2b8ffb]/95 hover:to-[#2b8ffb]/85 transition-all shadow-lg hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 overflow-hidden"
+                      >
+                        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <CreditCard className="w-6 h-6 relative z-10" />
+                        <span className="relative z-10">Pay with PayU</span>
+                      </button>
+                    )
+                  }
                     {currency !== "INR" && (
                       <button
                         type="button"

@@ -169,10 +169,10 @@ export default function PaymentSuccessPage() {
     addText("PAYMENT DETAILS", margin, yPosition, pageWidth - 2 * margin, 14, true);
     yPosition += 10;
 
-    addText(`Total Amount: ${currency} ${orderDetails.totalAmount?.toFixed(2)}`, margin, yPosition, pageWidth - 2 * margin, 12, true);
+    addText(`Total Amount: ${orderDetails.currency} ${orderDetails.totalAmount?.toFixed(2)}`, margin, yPosition, pageWidth - 2 * margin, 12, true);
     yPosition += 8;
     if (payuResponse?.net_amount_debit) {
-      addText(`Net Amount: ${currency} ${payuResponse.net_amount_debit}`, margin, yPosition, pageWidth - 2 * margin);
+      addText(`Net Amount: ${orderDetails.currency} ${payuResponse.net_amount_debit}`, margin, yPosition, pageWidth - 2 * margin);
       yPosition += 7;
     }
     if (orderDetails.paymentTransactionId) {
@@ -419,13 +419,13 @@ export default function PaymentSuccessPage() {
                 <div className="flex justify-between">
                   <span className="text-gray-500">Total Amount:</span>
                   <span className="font-bold text-lg text-green-600">
-                    ₹ {orderDetails.totalAmount?.toFixed(2)}
+                    {(orderDetails.currency)} {orderDetails.totalAmount?.toFixed(2)}
                   </span>
                 </div>
                 {payuResponse?.net_amount_debit && (
                   <div className="flex justify-between">
                     <span className="text-gray-500">Net Amount:</span>
-                    <span className="font-medium">₹ {payuResponse.net_amount_debit}</span>
+                    <span className="font-medium">{payuResponse.currency} {payuResponse.net_amount_debit}</span>
                   </div>
                 )}
                 {orderDetails.paymentTransactionId && (
