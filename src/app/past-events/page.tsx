@@ -334,8 +334,8 @@ export default function PastEventPage() {
 
                   <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
                     <div className="flex items-center space-x-1">
-                      <UsersIcon className="w-4 h-4" />
-                      <span>{event.attendees || 250}+ attendees</span>
+                      {/* <UsersIcon className="w-4 h-4" /> */}
+                      {/* <span>{event.attendees || 250}+ attendees</span> */}
                     </div>
                     <div className="flex items-center space-x-1">
                       <MapPinIcon className="w-4 h-4" />
