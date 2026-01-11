@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import Partners from "../components/partners";
 import { mockPartners } from "../data/mockPartners";
 import Testimonials from "@/components/Testimonials";
 import { getAllGalleries } from "@/services/gallery";
+import { getActiveBanners, Banner } from "@/services/banner";
 
 import Banner1 from "@/components/assets/banner/banner 1.jpg";
 import Banner2 from "@/components/assets/banner/banner 2.jpg";
@@ -235,62 +236,76 @@ const stats = [
   { label: "Global Events Delivered", value: "2,000+", icon: CalendarIcon },
 ];
 
-// Carousel slides data
-const heroSlides = [
-  {
-    id: 1,
-    type: "image",
-    image: "/image/banner 1.jpg",
-    title: "Empowering Professionals Through Excellence in Training",
-    subtitle: "Join India's premier platform for professional development",
-  },
-  {
-    id: 2,
-    type: "image",
-    image: "/image/banner 2.jpg",
-    title: "Empowering Professionals Through Excellence in Training",
-    subtitle: "Join India's premier platform for professional development",
-  },
-  {
-    id: 3,
-    type: "image",
-    image: "/image/banner 3.jpg",
-    title: "Empowering Professionals Through Excellence in Training",
-    subtitle: "Join India's premier platform for professional development",
-  },
-  {
-    id: 4,
-    type: "image",
-    image: "/image/banner 4.jpg",
-    title: "Empowering Professionals Through Excellence in Training",
-    subtitle: "Join India's premier platform for professional development",
-  },
-
-  {
-    id: 7,
-    type: "video",
-    video: "/video/video1.mp4",
-    title: "Watch Our Success Story",
-    subtitle: "See how we've transformed careers and organizations",
-  },
-  {
-    id: 8,
-    type: "video",
-    video: "/video/video2.mp4",
-    title: "Watch Our Success Story",
-    subtitle: "See how we've transformed careers and organizations",
-  },
-];
+// Static banner for loading state
+const staticBanner = {
+  id: "loading",
+  type: "image" as const,
+  image: "/image/banner 1.jpg",
+  title: "Empowering Professionals Through Excellence in Training",
+  subtitle: "Join India's premier platform for professional development",
+};
 
 // Hero Carousel Component
 function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [banners, setBanners] = useState<Banner[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
+  // Fetch banners from API
   useEffect(() => {
-    if (isPlaying) {
+    const fetchBanners = async () => {
+      try {
+        setIsLoading(true);
+        const activeBanners = await getActiveBanners();
+        setBanners(activeBanners);
+      } catch (error) {
+        console.error("Failed to fetch banners:", error);
+        // Keep empty array on error, will show static banner
+        setBanners([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBanners();
+  }, []);
+
+  // Use banners from API or fallback to static banner
+  // Sort so videos come first, then images
+  const heroSlides = useMemo(() => {
+    if (banners.length === 0) {
+      return [staticBanner];
+    }
+    
+    // Sort banners: videos first, then images
+    const sortedBanners = [...banners].sort((a, b) => {
+      if (a.type === "video" && b.type === "image") return -1;
+      if (a.type === "image" && b.type === "video") return 1;
+      return 0;
+    });
+    
+    return sortedBanners.map((banner) => ({
+      id: banner._id,
+      type: banner.type,
+      image: banner.image,
+      video: banner.video,
+      title: banner.title,
+      subtitle: banner.subtitle,
+    }));
+  }, [banners]);
+
+  // Reset current slide when banners change
+  useEffect(() => {
+    if (currentSlide >= heroSlides.length) {
+      setCurrentSlide(0);
+    }
+  }, [heroSlides.length, currentSlide]);
+
+  useEffect(() => {
+    if (isPlaying && heroSlides.length > 0) {
       intervalRef.current = setInterval(() => {
         setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
       }, 5000); // Change slide every 5 seconds
@@ -301,12 +316,12 @@ function HeroCarousel() {
         clearInterval(intervalRef.current);
       }
     };
-  }, [isPlaying]);
+  }, [isPlaying, heroSlides.length]);
 
   // Handle video playback
   useEffect(() => {
     const currentSlideData = heroSlides[currentSlide];
-    if (videoRef.current) {
+    if (videoRef.current && currentSlideData) {
       if (currentSlideData.type === "video") {
         videoRef.current.play().catch(() => {
           // Handle autoplay restrictions
@@ -315,7 +330,7 @@ function HeroCarousel() {
         videoRef.current.pause();
       }
     }
-  }, [currentSlide]);
+  }, [currentSlide, heroSlides]);
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
@@ -349,7 +364,7 @@ function HeroCarousel() {
             }`}
           >
             {/* Slide Content */}
-            {slide.type === "video" ? (
+            {slide.type === "video" && slide.video ? (
               <div className="absolute inset-0 z-0">
                 <video
                   ref={index === currentSlide ? videoRef : null}
@@ -365,9 +380,9 @@ function HeroCarousel() {
             ) : (
               slide.image && (
                 <img
-                  src={slide.image.replace(/ /g, "%20")}
+                  src={slide.image}
                   alt={slide.title}
-                  className="w-full h-full "
+                  className="w-full h-full object-cover"
                   loading={index === 0 ? "eager" : "lazy"}
                 />
               )
@@ -510,7 +525,7 @@ export default function Home() {
   const [galleryLoading, setGalleryLoading] = useState(false);
   const [galleryPage, setGalleryPage] = useState(1);
   const [galleryTotalPages, setGalleryTotalPages] = useState(1);
-  
+
   // Gallery modal state
   const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
   const [selectedGallery, setSelectedGallery] = useState<any>(null);
@@ -573,10 +588,16 @@ export default function Home() {
     if (!galleryFormData.name.trim()) {
       errors.name = "Name is required";
     }
-    if (!galleryFormData.email.trim() || !/^\S+@\S+\.\S+$/.test(galleryFormData.email)) {
+    if (
+      !galleryFormData.email.trim() ||
+      !/^\S+@\S+\.\S+$/.test(galleryFormData.email)
+    ) {
       errors.email = "Valid email is required";
     }
-    if (!galleryFormData.phone.trim() || !/^[\d()+\s-]{7,}$/.test(galleryFormData.phone)) {
+    if (
+      !galleryFormData.phone.trim() ||
+      !/^[\d()+\s-]{7,}$/.test(galleryFormData.phone)
+    ) {
       errors.phone = "Valid phone number is required";
     }
     if (!galleryFormData.company.trim()) {
@@ -1357,7 +1378,10 @@ export default function Home() {
               </div>
 
               {/* Modal Form */}
-              <form onSubmit={handleGalleryFormSubmit} className="p-6 text-black">
+              <form
+                onSubmit={handleGalleryFormSubmit}
+                className="p-6 text-black"
+              >
                 {/* Error Message */}
                 {galleryFormErrors.submit && (
                   <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">

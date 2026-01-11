@@ -5,9 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     domains: [
       "images.unsplash.com", 
- 
       "source.unsplash.com",
-  
       "127.0.0.1",
       "api.test.sharkwaveinfo.com",
       "*.sharkwaveinfo.com",
