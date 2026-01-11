@@ -6,7 +6,8 @@ import {
 } from "@/services/contact";
 import { ArrowRightIcon, CalendarIcon } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import GoogleReCaptcha, { GoogleReCaptchaHandle } from "@/components/common/GoogleReCaptcha";
 
 
 
@@ -26,6 +27,8 @@ const UpcomingEvent = () => {
   });
   const [eventFormErrors, setEventFormErrors] = useState<any>({});
   const [isSubmittingEventForm, setIsSubmittingEventForm] = useState(false);
+  const [eventRecaptchaToken, setEventRecaptchaToken] = useState<string | null>(null);
+  const eventRecaptchaRef = useRef<GoogleReCaptchaHandle>(null);
 
   const getDaysUntilEvent = (dateString: string) => {
     const eventDate = new Date(dateString);
@@ -48,6 +51,8 @@ const UpcomingEvent = () => {
       designation: "",
     });
     setEventFormErrors({});
+    setEventRecaptchaToken(null);
+    eventRecaptchaRef.current?.reset();
   };
 
   const closeEventModal = () => {
@@ -55,6 +60,8 @@ const UpcomingEvent = () => {
     setSelectedEventForModal(null);
     setEventFormErrors({});
     setIsSubmittingEventForm(false);
+    setEventRecaptchaToken(null);
+    eventRecaptchaRef.current?.reset();
   };
 
   const handleEventFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,6 +101,9 @@ const UpcomingEvent = () => {
     }
     if (!eventFormData.designation.trim()) {
       errs.designation = "Designation is required";
+    }
+    if (!eventRecaptchaToken) {
+      errs.recaptcha = "Please complete the reCAPTCHA verification";
     }
     setEventFormErrors(errs);
     return Object.keys(errs).length === 0;
@@ -422,6 +432,21 @@ const UpcomingEvent = () => {
                   {eventFormErrors.designation && (
                     <p className="mt-1 text-sm text-red-600">
                       {eventFormErrors.designation}
+                    </p>
+                  )}
+                </div>
+
+                {/* reCAPTCHA */}
+                <div>
+                  <GoogleReCaptcha
+                    ref={eventRecaptchaRef}
+                    onChange={setEventRecaptchaToken}
+                    onExpired={() => setEventRecaptchaToken(null)}
+                    onError={() => setEventRecaptchaToken(null)}
+                  />
+                  {eventFormErrors.recaptcha && (
+                    <p className="mt-2 text-sm text-red-600">
+                      {eventFormErrors.recaptcha}
                     </p>
                   )}
                 </div>

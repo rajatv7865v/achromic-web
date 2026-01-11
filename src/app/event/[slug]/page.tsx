@@ -9,11 +9,12 @@ import {
   X,
 } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Speaker from "./_components/Speaker";
 import Agenda from "@/components/agenda";
 import Partner from "./_components/Partner";
 import RegisterationPage from "./_components/Registeration";
+import GoogleReCaptcha, { GoogleReCaptchaHandle } from "@/components/common/GoogleReCaptcha";
 
 interface Event {
   id: number;
@@ -360,6 +361,8 @@ export default function pgae() {
     phone: "",
     company: "",
   });
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<GoogleReCaptchaHandle>(null);
   const { data, loading, error, run } = useApi<{ data: any[] }>();
 
   useEffect(() => {
@@ -383,6 +386,8 @@ export default function pgae() {
       phone: "",
       company: "",
     });
+    setRecaptchaToken(null);
+    recaptchaRef.current?.reset();
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -395,6 +400,10 @@ export default function pgae() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!recaptchaToken) {
+      alert("Please complete the reCAPTCHA verification");
+      return;
+    }
     console.log("Form submitted:", formData);
     // TODO: Implement actual form submission logic
     handleCloseModal();
@@ -613,6 +622,16 @@ export default function pgae() {
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-[#2b8ffb] outline-none transition"
                     placeholder="Enter your company name"
+                  />
+                </div>
+
+                {/* reCAPTCHA */}
+                <div>
+                  <GoogleReCaptcha
+                    ref={recaptchaRef}
+                    onChange={setRecaptchaToken}
+                    onExpired={() => setRecaptchaToken(null)}
+                    onError={() => setRecaptchaToken(null)}
                   />
                 </div>
               </div>

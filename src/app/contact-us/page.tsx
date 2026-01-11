@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import { submitContactForm, ContactFormData } from "@/services/contact";
+import GoogleReCaptcha, { GoogleReCaptchaHandle } from "@/components/common/GoogleReCaptcha";
 
 // Simple SVG Icons
 const PhoneIcon = ({ className }: { className?: string }) => (
@@ -116,6 +117,8 @@ export default function ContactUsPage() {
   >("idle");
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<GoogleReCaptchaHandle>(null);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -131,6 +134,14 @@ export default function ContactUsPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate reCAPTCHA
+    if (!recaptchaToken) {
+      setErrorMessage("Please complete the reCAPTCHA verification");
+      setSubmitStatus("error");
+      return;
+    }
+
     setIsSubmitting(true);
     setErrorMessage(null);
     setSubmitStatus("idle");
@@ -159,6 +170,8 @@ export default function ContactUsPage() {
           subject: "",
           message: "",
         });
+        setRecaptchaToken(null);
+        recaptchaRef.current?.reset();
         // Show confirmation modal
         setShowConfirmModal(true);
       } else {
@@ -457,6 +470,16 @@ export default function ContactUsPage() {
                   disabled={isSubmitting}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2b8ffb] focus:border-transparent transition-colors duration-200 resize-none disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="Tell us how we can help you..."
+                />
+              </div>
+
+              {/* reCAPTCHA */}
+              <div>
+                <GoogleReCaptcha
+                  ref={recaptchaRef}
+                  onChange={setRecaptchaToken}
+                  onExpired={() => setRecaptchaToken(null)}
+                  onError={() => setRecaptchaToken(null)}
                 />
               </div>
 

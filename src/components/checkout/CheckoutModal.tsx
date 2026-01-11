@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   X,
@@ -20,6 +20,7 @@ import { signup, login, SignupData } from "@/services/auth";
 import { useAuth } from "@/contexts/AuthContext";
 import { createOrder, OrderData } from "@/services/order";
 import PayURedirect from "../payu/PayURedirect";
+import GoogleReCaptcha, { GoogleReCaptchaHandle } from "@/components/common/GoogleReCaptcha";
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -51,6 +52,8 @@ export default function CheckoutModal({
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
   const [paymentData, setPaymentData] = useState<any>(null);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<GoogleReCaptchaHandle>(null);
 
   // Set initial view based on login status
   useEffect(() => {
@@ -75,6 +78,12 @@ export default function CheckoutModal({
       setCurrentView("login");
     }
   }, [isOpen, isLoggedIn, user]);
+
+  // Reset reCAPTCHA when view changes
+  useEffect(() => {
+    setRecaptchaToken(null);
+    recaptchaRef.current?.reset();
+  }, [currentView]);
 
   // Login form state
   const [loginForm, setLoginForm] = useState({
@@ -169,6 +178,8 @@ export default function CheckoutModal({
           email: "",
           password: "",
         });
+        setRecaptchaToken(null);
+        recaptchaRef.current?.reset();
       } else {
         setLoginError(
           response.message || "Login failed. Please check your credentials."
@@ -192,6 +203,11 @@ export default function CheckoutModal({
     // Validate password match
     if (signupForm.password !== signupForm.confirmPassword) {
       setSignupError("Passwords do not match");
+      return;
+    }
+
+    if (!recaptchaToken) {
+      setSignupError("Please complete the reCAPTCHA verification");
       return;
     }
 
@@ -229,6 +245,8 @@ export default function CheckoutModal({
           password: "",
           confirmPassword: "",
         });
+        setRecaptchaToken(null);
+        recaptchaRef.current?.reset();
       } else {
         setSignupError(response.message || "Signup failed. Please try again.");
       }
@@ -245,14 +263,24 @@ export default function CheckoutModal({
 
   const handleForgotPassword = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!recaptchaToken) {
+      alert("Please complete the reCAPTCHA verification");
+      return;
+    }
     // TODO: Implement forgot password logic
     console.log("Forgot Password:", forgotPasswordForm);
     alert("Password reset link has been sent to your email!");
+    setRecaptchaToken(null);
+    recaptchaRef.current?.reset();
     setCurrentView("login");
   };
 
   const handleCheckout = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!recaptchaToken) {
+      alert("Please complete the reCAPTCHA verification");
+      return;
+    }
     // TODO: Implement checkout logic
     console.log("Checkout:", checkoutForm);
 
@@ -283,6 +311,10 @@ export default function CheckoutModal({
       !checkoutForm.country
     ) {
       setPaymentError("Please fill all the address details");
+      return;
+    }
+    if (!recaptchaToken) {
+      setPaymentError("Please complete the reCAPTCHA verification");
       return;
     }
     setPaymentError(null);
@@ -379,6 +411,10 @@ export default function CheckoutModal({
       !checkoutForm.country
     ) {
       setPaymentError("Please fill all the address details");
+      return;
+    }
+    if (!recaptchaToken) {
+      setPaymentError("Please complete the reCAPTCHA verification");
       return;
     }
     setPaymentError(null);
@@ -600,6 +636,15 @@ export default function CheckoutModal({
                   >
                     Forgot Password?
                   </button>
+                </div>
+
+                <div className="flex justify-center">
+                  <GoogleReCaptcha
+                    ref={recaptchaRef}
+                    onChange={setRecaptchaToken}
+                    onExpired={() => setRecaptchaToken(null)}
+                    onError={() => setRecaptchaToken(null)}
+                  />
                 </div>
 
                 <button
@@ -826,6 +871,15 @@ export default function CheckoutModal({
                   </div>
                 </div>
 
+                <div className="flex justify-center">
+                  <GoogleReCaptcha
+                    ref={recaptchaRef}
+                    onChange={setRecaptchaToken}
+                    onExpired={() => setRecaptchaToken(null)}
+                    onError={() => setRecaptchaToken(null)}
+                  />
+                </div>
+
                 <button
                   type="submit"
                   disabled={signupLoading}
@@ -894,6 +948,15 @@ export default function CheckoutModal({
                       placeholder="Enter your email"
                     />
                   </div>
+                </div>
+
+                <div className="flex justify-center">
+                  <GoogleReCaptcha
+                    ref={recaptchaRef}
+                    onChange={setRecaptchaToken}
+                    onExpired={() => setRecaptchaToken(null)}
+                    onError={() => setRecaptchaToken(null)}
+                  />
                 </div>
 
                 <button
@@ -1243,6 +1306,15 @@ export default function CheckoutModal({
                       </p>
                     </div>
                   )}
+
+                  <div className="flex justify-center">
+                    <GoogleReCaptcha
+                      ref={recaptchaRef}
+                      onChange={setRecaptchaToken}
+                      onExpired={() => setRecaptchaToken(null)}
+                      onError={() => setRecaptchaToken(null)}
+                    />
+                  </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {

@@ -7,6 +7,7 @@ import { mockPartners } from "../data/mockPartners";
 import Testimonials from "@/components/Testimonials";
 import { getAllGalleries } from "@/services/gallery";
 import { getActiveBanners, Banner } from "@/services/banner";
+import GoogleReCaptcha, { GoogleReCaptchaHandle } from "@/components/common/GoogleReCaptcha";
 
 import Banner1 from "@/components/assets/banner/banner 1.jpg";
 import Banner2 from "@/components/assets/banner/banner 2.jpg";
@@ -279,14 +280,14 @@ function HeroCarousel() {
     if (banners.length === 0) {
       return [staticBanner];
     }
-    
+
     // Sort banners: videos first, then images
     const sortedBanners = [...banners].sort((a, b) => {
       if (a.type === "video" && b.type === "image") return -1;
       if (a.type === "image" && b.type === "video") return 1;
       return 0;
     });
-    
+
     return sortedBanners.map((banner) => ({
       id: banner._id,
       type: banner.type,
@@ -538,6 +539,8 @@ export default function Home() {
   });
   const [galleryFormErrors, setGalleryFormErrors] = useState<any>({});
   const [isSubmittingGalleryForm, setIsSubmittingGalleryForm] = useState(false);
+  const [galleryRecaptchaToken, setGalleryRecaptchaToken] = useState<string | null>(null);
+  const galleryRecaptchaRef = useRef<GoogleReCaptchaHandle>(null);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -564,6 +567,8 @@ export default function Home() {
     setSelectedGallery(null);
     setGalleryFormErrors({});
     setIsSubmittingGalleryForm(false);
+    setGalleryRecaptchaToken(null);
+    galleryRecaptchaRef.current?.reset();
   };
 
   // Handle form input change
@@ -605,6 +610,9 @@ export default function Home() {
     }
     if (!galleryFormData.designation.trim()) {
       errors.designation = "Designation is required";
+    }
+    if (!galleryRecaptchaToken) {
+      errors.recaptcha = "Please complete the reCAPTCHA verification";
     }
     setGalleryFormErrors(errors);
     return Object.keys(errors).length === 0;
@@ -1513,6 +1521,21 @@ export default function Home() {
                     {galleryFormErrors.designation && (
                       <p className="mt-1 text-sm text-red-600">
                         {galleryFormErrors.designation}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* reCAPTCHA */}
+                  <div>
+                    <GoogleReCaptcha
+                      ref={galleryRecaptchaRef}
+                      onChange={setGalleryRecaptchaToken}
+                      onExpired={() => setGalleryRecaptchaToken(null)}
+                      onError={() => setGalleryRecaptchaToken(null)}
+                    />
+                    {galleryFormErrors.recaptcha && (
+                      <p className="mt-2 text-sm text-red-600">
+                        {galleryFormErrors.recaptcha}
                       </p>
                     )}
                   </div>

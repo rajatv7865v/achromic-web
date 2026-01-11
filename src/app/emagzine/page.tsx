@@ -4,7 +4,8 @@ import { useApi } from "@/hooks/useApi";
 import { getCategories } from "@/services/category";
 import { getMagzine } from "@/services/magzine";
 import { subscribeNewsletter, SubscribeData } from "@/services/contact";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import GoogleReCaptcha, { GoogleReCaptchaHandle } from "@/components/common/GoogleReCaptcha";
 
 // Simple SVG Icons
 const DownloadIcon = ({ className }: { className?: string }) => (
@@ -98,6 +99,8 @@ export default function EMagazinePage() {
   const [subscribing, setSubscribing] = useState(false);
   const [subscribeSuccess, setSubscribeSuccess] = useState(false);
   const [subscribeError, setSubscribeError] = useState<string | null>(null);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<GoogleReCaptchaHandle>(null);
 
   const { data, loading, error, run } = useApi<{ data: any[] }>();
   const [categories, setCategories] = useState<any>([]);
@@ -125,6 +128,11 @@ export default function EMagazinePage() {
       return;
     }
 
+    if (!recaptchaToken) {
+      setSubscribeError("Please complete the reCAPTCHA verification");
+      return;
+    }
+
     setSubscribing(true);
     setSubscribeError(null);
     setSubscribeSuccess(false);
@@ -139,6 +147,8 @@ export default function EMagazinePage() {
       if (response.status) {
         setSubscribeSuccess(true);
         setEmail("");
+        setRecaptchaToken(null);
+        recaptchaRef.current?.reset();
         
         // Reset success message after 5 seconds
         setTimeout(() => {
@@ -404,6 +414,14 @@ export default function EMagazinePage() {
                   "Subscribe"
                 )}
               </button>
+            </div>
+            <div className="mt-4 flex justify-center">
+              <GoogleReCaptcha
+                ref={recaptchaRef}
+                onChange={setRecaptchaToken}
+                onExpired={() => setRecaptchaToken(null)}
+                onError={() => setRecaptchaToken(null)}
+              />
             </div>
             
             {/* Success Message */}

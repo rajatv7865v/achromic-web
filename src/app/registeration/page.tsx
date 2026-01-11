@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
+import GoogleReCaptcha, { GoogleReCaptchaHandle } from "@/components/common/GoogleReCaptcha";
 
 // SVG Icons
 const UserIcon = ({ className }: { className?: string }) => (
@@ -184,6 +185,8 @@ export default function registerationPage() {
     dietaryRequirements: "",
     specialRequests: "",
   });
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<GoogleReCaptchaHandle>(null);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -199,9 +202,15 @@ export default function registerationPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!recaptchaToken) {
+      alert("Please complete the reCAPTCHA verification");
+      return;
+    }
     // Handle form submission
     console.log("registeration submitted:", formData);
     alert("registeration submitted successfully! We'll contact you soon.");
+    setRecaptchaToken(null);
+    recaptchaRef.current?.reset();
   };
 
   const getProgressPercentage = (registered: number, seats: string) => {
@@ -651,6 +660,16 @@ export default function registerationPage() {
                         confirmation and payment.
                       </label>
                     </div>
+                  </div>
+
+                  {/* reCAPTCHA */}
+                  <div>
+                    <GoogleReCaptcha
+                      ref={recaptchaRef}
+                      onChange={setRecaptchaToken}
+                      onExpired={() => setRecaptchaToken(null)}
+                      onError={() => setRecaptchaToken(null)}
+                    />
                   </div>
 
                   {/* Submit Button */}

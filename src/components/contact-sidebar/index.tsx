@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import { submitContactForm, ContactFormData } from "@/services/contact";
+import GoogleReCaptcha, { GoogleReCaptchaHandle } from "@/components/common/GoogleReCaptcha";
 
 export default function ContactSidebar() {
   const [open, setOpen] = useState(false);
@@ -10,6 +11,8 @@ export default function ContactSidebar() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<GoogleReCaptchaHandle>(null);
 
   return (
     <>
@@ -40,7 +43,11 @@ export default function ContactSidebar() {
         >
           <div
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={() => setOpen(false)}
+            onClick={() => {
+              setOpen(false);
+              setRecaptchaToken(null);
+              recaptchaRef.current?.reset();
+            }}
           />
 
           {/* Modal Card */}
@@ -58,7 +65,11 @@ export default function ContactSidebar() {
                 <button
                   aria-label="Close Contact Modal"
                   className="text-gray-400 hover:text-gray-600 transition"
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    setOpen(false);
+                    setRecaptchaToken(null);
+                    recaptchaRef.current?.reset();
+                  }}
                 >
                   ✕
                 </button>
@@ -96,6 +107,13 @@ export default function ContactSidebar() {
                 className="mt-6 space-y-4"
                 onSubmit={async (e) => {
                   e.preventDefault();
+                  
+                  // Validate reCAPTCHA
+                  if (!recaptchaToken) {
+                    setError("Please complete the reCAPTCHA verification");
+                    return;
+                  }
+
                   const form = e.currentTarget as HTMLFormElement;
                   const formData = new FormData(form);
                   const name = String(formData.get("name") || "");
@@ -124,6 +142,8 @@ export default function ContactSidebar() {
                     if (response.status) {
                       setSuccess(true);
                       form.reset();
+                      setRecaptchaToken(null);
+                      recaptchaRef.current?.reset();
                       
                       // Show confirmation modal
                       setShowConfirmModal(true);
@@ -202,6 +222,16 @@ export default function ContactSidebar() {
                     </div>
                   </div>
                 )}
+
+                {/* reCAPTCHA */}
+                <div>
+                  <GoogleReCaptcha
+                    ref={recaptchaRef}
+                    onChange={setRecaptchaToken}
+                    onExpired={() => setRecaptchaToken(null)}
+                    onError={() => setRecaptchaToken(null)}
+                  />
+                </div>
                 
                 <div className="flex items-center justify-between gap-3">
                   <Link

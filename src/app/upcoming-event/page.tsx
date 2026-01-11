@@ -14,7 +14,8 @@ import {
 } from "@/utils/helper";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import GoogleReCaptcha, { GoogleReCaptchaHandle } from "@/components/common/GoogleReCaptcha";
 
 // Simple SVG Icons
 const CalendarIcon = ({ className }: { className?: string }) => (
@@ -94,6 +95,8 @@ export default function UpcomingEventPage() {
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
   const [errors, setErrors] = useState<any>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [brochureRecaptchaToken, setBrochureRecaptchaToken] = useState<string | null>(null);
+  const brochureRecaptchaRef = useRef<GoogleReCaptchaHandle>(null);
   const BROCHURE_URL = "/brochure.pdf"; // Place your brochure at public/brochure.pdf
 
   // Modal state for Event Registration
@@ -108,12 +111,16 @@ export default function UpcomingEventPage() {
   });
   const [eventFormErrors, setEventFormErrors] = useState<any>({});
   const [isSubmittingEventForm, setIsSubmittingEventForm] = useState(false);
+  const [eventRecaptchaToken, setEventRecaptchaToken] = useState<string | null>(null);
+  const eventRecaptchaRef = useRef<GoogleReCaptchaHandle>(null);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
     setIsSubmitting(false);
     setErrors({});
+    setBrochureRecaptchaToken(null);
+    brochureRecaptchaRef.current?.reset();
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,6 +135,9 @@ export default function UpcomingEventPage() {
       errs.email = "Valid email is required";
     if (!form.phone.trim() || !/^[\d()+\s-]{7,}$/.test(form.phone))
       errs.phone = "Valid phone is required";
+    if (!brochureRecaptchaToken) {
+      errs.recaptcha = "Please complete the reCAPTCHA verification";
+    }
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -172,6 +182,8 @@ export default function UpcomingEventPage() {
     setSelectedEventForModal(null);
     setEventFormErrors({});
     setIsSubmittingEventForm(false);
+    setEventRecaptchaToken(null);
+    eventRecaptchaRef.current?.reset();
   };
 
   const handleEventFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -211,6 +223,9 @@ export default function UpcomingEventPage() {
     }
     if (!eventFormData.designation.trim()) {
       errs.designation = "Designation is required";
+    }
+    if (!eventRecaptchaToken) {
+      errs.recaptcha = "Please complete the reCAPTCHA verification";
     }
     setEventFormErrors(errs);
     return Object.keys(errs).length === 0;
@@ -468,6 +483,17 @@ export default function UpcomingEventPage() {
               />
               {errors.phone && (
                 <div className="text-red-500 text-sm">{errors.phone}</div>
+              )}
+            </div>
+            <div className="mt-4">
+              <GoogleReCaptcha
+                ref={brochureRecaptchaRef}
+                onChange={setBrochureRecaptchaToken}
+                onExpired={() => setBrochureRecaptchaToken(null)}
+                onError={() => setBrochureRecaptchaToken(null)}
+              />
+              {errors.recaptcha && (
+                <p className="mt-2 text-sm text-red-600">{errors.recaptcha}</p>
               )}
             </div>
             <div className="flex justify-end gap-3">
@@ -1006,6 +1032,21 @@ export default function UpcomingEventPage() {
                   {eventFormErrors.designation && (
                     <p className="mt-1 text-sm text-red-600">
                       {eventFormErrors.designation}
+                    </p>
+                  )}
+                </div>
+
+                {/* reCAPTCHA */}
+                <div>
+                  <GoogleReCaptcha
+                    ref={eventRecaptchaRef}
+                    onChange={setEventRecaptchaToken}
+                    onExpired={() => setEventRecaptchaToken(null)}
+                    onError={() => setEventRecaptchaToken(null)}
+                  />
+                  {eventFormErrors.recaptcha && (
+                    <p className="mt-2 text-sm text-red-600">
+                      {eventFormErrors.recaptcha}
                     </p>
                   )}
                 </div>
