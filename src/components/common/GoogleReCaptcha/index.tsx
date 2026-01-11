@@ -20,7 +20,7 @@ const GoogleReCaptcha = forwardRef<GoogleReCaptchaHandle, GoogleReCaptchaProps>(
     const recaptchaRef = useRef<ReCAPTCHA>(null);
 
     // Get site key from environment variable
-    const siteKey = "a5c29d06-2d02-4ea0-a70c-5a96e17865f0";
+    const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
 
     useImperativeHandle(ref, () => ({
       reset: () => {
